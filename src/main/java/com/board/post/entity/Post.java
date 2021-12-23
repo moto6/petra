@@ -30,6 +30,8 @@ public class Post extends BaseEntity {
 
     String author;
 
+    Long viewCount;
+
     /*
     LocalDateTime validFrom;
 
