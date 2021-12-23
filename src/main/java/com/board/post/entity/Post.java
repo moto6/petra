@@ -45,4 +45,13 @@ public class Post extends BaseEntity {
         this.author = author;
         this.viewCount = 0L;
     }
+
+    public Post update(Post post) {
+        this.title = post.title;
+        this.contents = post.contents;
+        this.author = post.author;
+        this.validUntil = post.validUntil;
+        this.validFrom = post.validFrom;
+        return this;
+    }
 }
