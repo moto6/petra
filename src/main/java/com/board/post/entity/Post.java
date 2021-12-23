@@ -32,7 +32,6 @@ public class Post extends BaseEntity {
 
     Long viewCount;
 
-    /*
     LocalDateTime validFrom;
 
     LocalDateTime validUntil;
@@ -41,6 +40,5 @@ public class Post extends BaseEntity {
         LocalDateTime standardTime = LocalDateTime.now();
         return validFrom.isAfter(standardTime) && validUntil.isBefore(standardTime);
     }
- */
 
 }
