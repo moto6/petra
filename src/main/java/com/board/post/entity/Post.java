@@ -1,5 +1,6 @@
 package com.board.post.entity;
 
+import com.board.common.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,7 +18,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Post {
+public class Post extends BaseEntity {
 
     @Id
     @GeneratedValue
