@@ -41,4 +41,8 @@ public class Post extends BaseEntity {
         return validFrom.isAfter(standardTime) && validUntil.isBefore(standardTime);
     }
 
+    public void config(String author) {
+        this.author = author;
+        this.viewCount = 0L;
+    }
 }
