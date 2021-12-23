@@ -28,8 +28,9 @@ public class PostController {
     }
 
     @PutMapping("/{postId}")
-    public ResponseEntity<?> update(@PathVariable Long postId) {
-        return ResponseEntity.ok("update");
+    public ResponseEntity<?> update(@PathVariable Long postId, @RequestBody PostDtoRequest request) {
+        Long id = postService.update(postId, request);
+        return ResponseEntity.ok(id);
     }
 
     @DeleteMapping("/{postId}")
