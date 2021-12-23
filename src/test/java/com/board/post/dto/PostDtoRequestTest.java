@@ -12,4 +12,14 @@ public class PostDtoRequestTest {
             .validFrom(LocalDateTime.now())
             .validUntil(LocalDateTime.MAX)
             .build();
+
+    public static final PostDtoRequest request2 = PostDtoRequest
+            .builder()
+            .title("해리포터 혼혈왕자")
+            .contents("스네이프교수님")
+            .validFrom(LocalDateTime.MIN)
+            .validUntil(LocalDateTime.now())
+            .build();
+
+
 }
