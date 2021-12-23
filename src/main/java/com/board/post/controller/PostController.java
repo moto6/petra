@@ -14,7 +14,11 @@ public class PostController {
 
     @GetMapping()
     public Post hi () {
-        return new Post(11L,"hello world");
+        return Post.builder()
+                .id(11L)
+                .title("hello world")
+                .build();
     }
+
 
 }
