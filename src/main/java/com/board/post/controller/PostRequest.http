@@ -1,2 +1,15 @@
-### 기본동작테스트
-GET http://localhost:8080
+
+### 생성
+POST http://localhost:8080/api/v1/post
+
+### 단건조회
+GET http://localhost:8080/api/v1/post/1
+
+### 페이지 조회
+GET http://localhost:8080/api/v1/post
+
+### 삭제요청
+DELETE http://localhost:8080/api/v1/post/1
+
+### 업데이트
+PUT http://localhost:8080/api/v1/post/1
