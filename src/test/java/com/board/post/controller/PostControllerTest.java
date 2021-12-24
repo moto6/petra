@@ -23,12 +23,15 @@ import javax.persistence.PersistenceContext;
 
 import static com.board.post.dto.PostDtoRequestTest.request1;
 import static com.board.post.dto.PostDtoRequestTest.request2;
+import static com.board.post.dto.PostDtoRequestTest.request3;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -151,5 +154,46 @@ class PostControllerTest {
         }
 
         assertThat(count).isZero();
+    }
+
+    @Test
+    @DisplayName("Post 단건조회")
+    public void readPost() throws Exception{
+        //given
+        Post savedPost1 = postRepository.save(modelMapper.map(request2, Post.class));
+        Post savedPost2 = postRepository.save(modelMapper.map(request1, Post.class));
+        Post savedPost3 = postRepository.save(modelMapper.map(request3, Post.class));
+
+        //when
+        //then
+        mockMvc.perform(get(PREFIX + SLASH + savedPost1.getId())
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().string(savedPost1.getAuthor()))
+                .andExpect(content().string(savedPost1.getTitle()));
+
+
+        mockMvc.perform(get(PREFIX + SLASH + savedPost2.getId())
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().string(savedPost2.getAuthor()))
+                .andExpect(content().string(savedPost2.getTitle()));
+
+
+        mockMvc.perform(get(PREFIX + SLASH + savedPost3.getId())
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().string(savedPost3.getAuthor()))
+                .andExpect(content().string(savedPost3.getTitle()));
+
     }
 }
