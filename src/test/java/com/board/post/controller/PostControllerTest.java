@@ -4,6 +4,7 @@ import com.board.post.entity.Post;
 import com.board.post.repository.PostRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.catalina.session.PersistentManager;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
@@ -30,6 +31,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 class PostControllerTest {
 
+    private static final String PREFIX = "/api/v1/post";
+    private static final String SLASH = "/";
+
     @Autowired
     MockMvc mockMvc;
 
@@ -45,7 +49,11 @@ class PostControllerTest {
     @PersistenceContext
     EntityManager em;
 
-    private static final String PREFIX = "/api/v1/post";
+    @BeforeEach
+    public void setup() {
+        postRepository.deleteAll();
+    }
+
 
     @Test
     @DisplayName("글이 작성된다")
@@ -62,22 +70,22 @@ class PostControllerTest {
                 )
                 .andDo(print())
                 .andExpect(status().isOk());     // 4
-        //.andExpect(content().string( "칩의 블로그입니다. chip"));
+        //.andExpect(content().string( "바디내용을 검증해야함"));
     }
 
     @Test
+    @Transactional
     @DisplayName("글이 수정된다")
     public void update() throws Exception {
         //given
         String requestBody = objectMapper.writeValueAsString(request2);
 
         //when
-        Post post = modelMapper.map(request1, Post.class);
         Post savedPost = postRepository.save(modelMapper.map(request1, Post.class));
 
 
         //then
-        mockMvc.perform(put(PREFIX + "/" + savedPost.getId())
+        mockMvc.perform(put(PREFIX + SLASH + savedPost.getId())
                                 .content(requestBody)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .accept(MediaType.APPLICATION_JSON)
@@ -85,8 +93,8 @@ class PostControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk());
 
-        //em.flush();
-        //em.clear();
+        em.flush();
+        em.clear();
         Post afterUpdate = postRepository.findById(savedPost.getId()).orElseThrow(EntityNotFoundException::new);
         assertThat(afterUpdate.getContents()).isEqualTo(request2.getContents());
         assertThat(afterUpdate.getValidUntil()).isEqualTo(request2.getValidUntil());
