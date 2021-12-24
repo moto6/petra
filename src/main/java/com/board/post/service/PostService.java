@@ -44,10 +44,20 @@ public class PostService {
 
     @Transactional(readOnly = true)
     public Post read(Long postId) {
-        Post post = postRepository.findById(postId).orElseThrow(EntityNotFoundException::new);
+
+        Post post = postRepository
+                .findById(postId)
+                .orElseThrow(EntityNotFoundException::new);
+
         if (!post.isValidPeriod(LocalDateTime.now())) {
             throw new OutOfDateException();
         }
         return post;
+    }
+
+    public Post readAny(Long postId) {
+        return postRepository
+                .findById(postId)
+                .orElseThrow(EntityNotFoundException::new);
     }
 }
