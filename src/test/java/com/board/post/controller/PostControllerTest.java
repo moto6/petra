@@ -208,7 +208,7 @@ class PostControllerTest {
     }
 
     @Test
-    @DisplayName("Post 유효기간 지나고 조회시 405 리턴")
+    @DisplayName("Post 유효기간 지나고 조회시 405/MethodNotAllowed")
     public void readExpired() throws Exception {
         //given
         Post post = (modelMapper.map(request2, Post.class));
