@@ -28,4 +28,12 @@ public class PostDtoRequestTest {
             .validUntil(null)
             .build();
 
+    public static final PostDtoRequest request4 = PostDtoRequest
+            .builder()
+            .title("JPA DDD AOC")
+            .contents("JPA-JPA-JPA-JPA-JPA-JPA-JPA-JPA-")
+            .validFrom(null)
+            .validUntil(LocalDateTime.now())
+            .build();
+
 }
