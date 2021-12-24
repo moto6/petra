@@ -224,4 +224,23 @@ class PostControllerTest {
                 .andDo(print())
                 .andExpect(status().isMethodNotAllowed());
     }
+
+
+    @Test
+    @DisplayName("Post 유효기간을 무시하는 조회")
+    public void readAny() throws Exception {
+        //given
+        Post post = (modelMapper.map(request2, Post.class));
+        post.config("rolling");
+        Post savedPost = postRepository.save(post);
+
+        //when
+        //then
+        mockMvc.perform(get(PREFIX + SLASH + "any/" + savedPost.getId())
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
 }
