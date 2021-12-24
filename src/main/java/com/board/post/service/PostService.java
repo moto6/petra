@@ -18,6 +18,7 @@ public class PostService {
 
     private final ModelMapper modelMapper;
 
+    @Transactional
     public Long save(PostDtoRequest request) {
         Post post = request.toPost();
         //@todo : author는 추후 account정보에서 자동으로 읽어오기, DTO에서 안받고 임시로 상수값으로 넣어줌
@@ -32,5 +33,10 @@ public class PostService {
                 .orElseThrow(EntityNotFoundException::new);
 
         return postRepository.save(savedPost.update(request.toPost())).getId();
+    }
+
+    @Transactional
+    public void delete(Long postId) {
+        postRepository.deleteById(postId);
     }
 }
