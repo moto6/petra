@@ -23,9 +23,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 import static com.board.post.dto.PostDtoRequestTest.request1;
 import static com.board.post.dto.PostDtoRequestTest.request2;
 import static com.board.post.dto.PostDtoRequestTest.request3;
+import static com.board.post.dto.PostDtoRequestTest.request4;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -243,4 +247,36 @@ class PostControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk());
     }
+
+    @Test
+    @DisplayName("Post 페이지단위 조회")
+    public void readPage() throws Exception {
+        //given
+        Post postA = modelMapper.map(request1, Post.class);
+        Post postB = modelMapper.map(request2, Post.class);
+        Post postC = modelMapper.map(request3, Post.class);
+        Post postD = modelMapper.map(request4, Post.class);
+
+        //when
+        Post savedPost1 = postRepository.save(postA);
+        Post savedPost2 = postRepository.save(postB);
+        Post savedPost3 = postRepository.save(postC);
+        Post savedPost4 = postRepository.save(postD);
+        List<Post> savePostList = List.of(savedPost1, savedPost2, savedPost3, savedPost4);
+        long validPostCount = savePostList.stream().filter(post -> post.isValidPeriod(LocalDateTime.now())).count();
+
+        //then
+        mockMvc.perform(get(PREFIX)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(status().isOk());
+
+        //.andExpect(content().string(savedPost1.getTitle()));
+        //assertThat()
+        log.info( "count : {}",validPostCount);
+
+    }
+
 }
