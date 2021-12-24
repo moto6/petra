@@ -5,7 +5,6 @@ import com.board.post.dto.PostDtoRequest;
 import com.board.post.entity.Post;
 import com.board.post.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -64,6 +63,13 @@ public class PostService {
 
     @Transactional(readOnly = true)
     public List<Post> readAll(Pageable pageable) {
+        return postRepository
+                .findAllValid(LocalDateTime.now(), pageable)
+                .toList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<Post> readAnyAll(Pageable pageable) {
         return postRepository
                 .findAll(pageable)
                 .toList();
