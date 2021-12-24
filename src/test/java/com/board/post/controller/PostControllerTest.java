@@ -2,6 +2,7 @@ package com.board.post.controller;
 
 import com.board.post.entity.Post;
 import com.board.post.repository.PostRepository;
+import com.board.post.service.PostService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -12,6 +13,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -22,7 +26,6 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -56,6 +59,9 @@ class PostControllerTest {
 
     @Autowired
     private PostRepository postRepository;
+
+    @Autowired
+    private PostService postService;
 
     @PersistenceContext
     EntityManager em;
@@ -235,7 +241,7 @@ class PostControllerTest {
 
 
     @Test
-    @DisplayName("Post 유효기간을 무시하는 조회")
+    @DisplayName("Post 단건조회 & 유효기간 무시")
     public void readAny() throws Exception {
         //given
         Post post = (modelMapper.map(request2, Post.class));
@@ -257,9 +263,9 @@ class PostControllerTest {
     public void readPage() throws Exception {
         //given
         Post postA = request1.toPost();
-        Post postB = request2.toPost();;
-        Post postC = request3.toPost();;
-        Post postD = request4.toPost();;
+        Post postB = request2.toPost();
+        Post postC = request3.toPost();
+        Post postD = request4.toPost();
 
         //when
         Post savedPost1 = postRepository.save(postA);
@@ -277,9 +283,44 @@ class PostControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk());
 
+        Pageable pageable = PageRequest.of(0, 5, Sort.Direction.DESC, "id");
+
+        List<?> postValidList = postService.readAll(pageable);
+        List<?> postAllList = postService.readAnyAll(pageable);
+        assertThat(postValidList.size()).isEqualTo(validPostCount);
+        assertThat(postValidList.size()).isNotEqualTo(postAllList.size());
+        log.info("\n validPostCount : {}\n postValidListSize : {}\n postAllListSize : {}\n",
+                 validPostCount, postValidList.size(), postAllList.size());
+    }
+
+    @Test
+    @DisplayName("Post 페이지단위 조회 & 유효기간 무시")
+    public void readPageAny() throws Exception {
+        //given
+        Post postA = request1.toPost();
+        Post postB = request2.toPost();
+        Post postC = request3.toPost();
+        Post postD = request4.toPost();
+
+        //when
+        Post savedPost1 = postRepository.save(postA);
+        Post savedPost2 = postRepository.save(postB);
+        Post savedPost3 = postRepository.save(postC);
+        Post savedPost4 = postRepository.save(postD);
+        List<Post> savePostList = List.of(savedPost1, savedPost2, savedPost3, savedPost4);
+        long validPostCount = savePostList.stream().filter(post -> post.isValidPeriod(LocalDateTime.now())).count();
+
+        //then
+        mockMvc.perform(get(PREFIX + "/any")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(status().isOk());
+
         //.andExpect(content().string(savedPost1.getTitle()));
         //assertThat()
-        log.info( "count : {}",validPostCount);
+        log.info("count : {}", validPostCount);
 
     }
 
