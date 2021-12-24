@@ -36,8 +36,7 @@ public class Post extends BaseEntity {
 
     LocalDateTime validUntil;
 
-    public boolean isValidPeriod() {
-        LocalDateTime standardTime = LocalDateTime.now();
+    public boolean isValidPeriod(LocalDateTime standardTime) {
         return validFrom.isAfter(standardTime) && validUntil.isBefore(standardTime);
     }
 
