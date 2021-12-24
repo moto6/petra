@@ -1,5 +1,6 @@
 package com.board.post.service;
 
+import com.board.exception.OutOfDateException;
 import com.board.post.dto.PostDtoRequest;
 import com.board.post.entity.Post;
 import com.board.post.repository.PostRepository;
