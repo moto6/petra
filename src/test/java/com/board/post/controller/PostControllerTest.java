@@ -8,6 +8,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,8 +24,10 @@ import javax.persistence.PersistenceContext;
 import static com.board.post.dto.PostDtoRequestTest.request1;
 import static com.board.post.dto.PostDtoRequestTest.request2;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -49,6 +53,8 @@ class PostControllerTest {
     @PersistenceContext
     EntityManager em;
 
+    Logger log = LoggerFactory.getLogger(getClass());
+
     @BeforeEach
     public void setup() {
         postRepository.deleteAll();
@@ -56,8 +62,8 @@ class PostControllerTest {
 
 
     @Test
-    @DisplayName("글이 작성된다")
-    public void posting() throws Exception {
+    @DisplayName("Post 생성된다")
+    public void postingPost() throws Exception {
         //given
         String requestBody = objectMapper.writeValueAsString(request1);
 
@@ -75,8 +81,8 @@ class PostControllerTest {
 
     @Test
     @Transactional
-    @DisplayName("글이 수정된다")
-    public void update() throws Exception {
+    @DisplayName("Post 수정된다")
+    public void updatePost() throws Exception {
         //given
         String requestBody = objectMapper.writeValueAsString(request2);
 
@@ -98,6 +104,52 @@ class PostControllerTest {
         Post afterUpdate = postRepository.findById(savedPost.getId()).orElseThrow(EntityNotFoundException::new);
         assertThat(afterUpdate.getContents()).isEqualTo(request2.getContents());
         assertThat(afterUpdate.getValidUntil()).isEqualTo(request2.getValidUntil());
+    }
 
+
+    @Test
+    @Transactional
+    @DisplayName("Post 삭제된다")
+    public void deletePost() throws Exception{
+
+        //given
+        int count = 2;
+        Post savedPost1 = postRepository.save(modelMapper.map(request2, Post.class));
+        Post savedPost2 = postRepository.save(modelMapper.map(request1, Post.class));
+
+        //when
+        mockMvc.perform(delete(PREFIX + SLASH + savedPost1.getId())
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(status().isOk());
+
+        mockMvc.perform(delete(PREFIX + SLASH + savedPost2.getId())
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(status().isOk());
+
+        //then
+        em.flush();
+        em.clear();
+
+        try {
+            postRepository.findById(savedPost1.getId()).orElseThrow(EntityNotFoundException::new);
+        }catch (EntityNotFoundException e) {
+            log.info("savedPost1 삭제 성공");
+            count--;
+        }
+
+        try {
+            postRepository.findById(savedPost2.getId()).orElseThrow(EntityNotFoundException::new);
+        }catch (EntityNotFoundException e) {
+            log.info("savedPost1 삭제 성공");
+            count--;
+        }
+
+        assertThat(count).isZero();
     }
 }
