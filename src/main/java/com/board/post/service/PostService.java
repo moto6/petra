@@ -57,12 +57,14 @@ public class PostService {
         return post;
     }
 
+    @Transactional(readOnly = true)
     public Post readAny(Long postId) {
         return postRepository
                 .findById(postId)
                 .orElseThrow(EntityNotFoundException::new);
     }
 
+    @Transactional(readOnly = true)
     public List<Post> readAll(Pageable pageable) {
         return postRepository
                 .findAll(pageable)
