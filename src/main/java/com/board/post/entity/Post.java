@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,6 +23,7 @@ import java.time.LocalDateTime;
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Post extends BaseEntity {
+
 
     @Id
     @GeneratedValue
@@ -42,9 +44,11 @@ public class Post extends BaseEntity {
     private long viewCount = 0;
 
     @Column(name = "valid_from", nullable = false)
+    @DateTimeFormat(pattern = DATETIME_FORMAT)
     private LocalDateTime validFrom;
 
     @Column(name = "valid_until", nullable = false)
+    @DateTimeFormat(pattern = DATETIME_FORMAT)
     private LocalDateTime validUntil;
 
     //@Todo : 첨부파일 추가필요
