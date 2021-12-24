@@ -160,11 +160,16 @@ class PostControllerTest {
     @DisplayName("Post 단건조회")
     public void readPost() throws Exception{
         //given
-        Post savedPost1 = postRepository.save(modelMapper.map(request1, Post.class));
-        Post savedPost2 = postRepository.save(modelMapper.map(request2, Post.class));
-        Post savedPost3 = postRepository.save(modelMapper.map(request3, Post.class));
+        Post postA = modelMapper.map(request1.validExtension(), Post.class);
+        Post postB =  modelMapper.map(request2.validExtension(), Post.class);
+        Post postC = modelMapper.map(request3.validExtension(), Post.class);
+
 
         //when
+        Post savedPost1 = postRepository.save(postA);
+        Post savedPost2 = postRepository.save(postB);
+        Post savedPost3 = postRepository.save(postC);
+
         //then
         mockMvc.perform(get(PREFIX + SLASH + savedPost1.getId())
                                 .contentType(MediaType.APPLICATION_JSON)
