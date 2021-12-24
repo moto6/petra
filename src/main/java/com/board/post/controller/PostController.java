@@ -68,8 +68,8 @@ public class PostController {
 
 
     @GetMapping
-    public ResponseEntity<?> readPage(@PageableDefault(direction = Sort.Direction.ASC) Pageable pageable) {
-        pageable = PageRequest.of(pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() - 1, pageable.getPageSize());
+    public ResponseEntity<?> readPage(
+            @PageableDefault(direction = Sort.Direction.ASC) Pageable pageable) {
 
         List<Post> postList = postService.readAll(pageable);
         List<PostDtoResponse> dtoList = postList
