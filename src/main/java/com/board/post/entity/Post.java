@@ -30,14 +30,14 @@ public class Post extends BaseEntity {
 
     String author;
 
-    Long viewCount;
+    long viewCount;
 
     LocalDateTime validFrom;
 
     LocalDateTime validUntil;
 
     public boolean isValidPeriod(LocalDateTime standardTime) {
-        return validFrom.isAfter(standardTime) && validUntil.isBefore(standardTime);
+        return (validFrom.isBefore(standardTime) || validUntil.isAfter(standardTime));
     }
 
     public void config(String author) {
@@ -52,5 +52,9 @@ public class Post extends BaseEntity {
         this.validUntil = post.validUntil;
         this.validFrom = post.validFrom;
         return this;
+    }
+
+    public void increaseViews() {
+        this.viewCount++;
     }
 }
