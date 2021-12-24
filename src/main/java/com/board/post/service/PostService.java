@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
@@ -38,5 +39,14 @@ public class PostService {
     @Transactional
     public void delete(Long postId) {
         postRepository.deleteById(postId);
+    }
+
+    @Transactional(readOnly = true)
+    public Post read(Long postId) {
+        Post post = postRepository.findById(postId).orElseThrow(EntityNotFoundException::new);
+        if (!post.isValidPeriod(LocalDateTime.now())) {
+            throw new OutOfDateException();
+        }
+        return post;
     }
 }
