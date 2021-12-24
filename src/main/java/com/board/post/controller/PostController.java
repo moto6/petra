@@ -2,8 +2,10 @@ package com.board.post.controller;
 
 import com.board.post.dto.PostDtoRequest;
 import com.board.post.dto.PostDtoResponse;
+import com.board.post.entity.Post;
 import com.board.post.service.PostService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class PostController {
 
     private final PostService postService;
+    private final ModelMapper modelMapper;
 
     @PostMapping
     public ResponseEntity<?> create(@RequestBody PostDtoRequest request) {
@@ -40,8 +43,10 @@ public class PostController {
     }
 
     @GetMapping("/{postId}")
-    public ResponseEntity<?> read(@PathVariable Long postId) {
-        return ResponseEntity.ok(new PostDtoResponse());
+    public ResponseEntity<?> readSingle(@PathVariable Long postId) {
+        Post post = postService.read(postId);
+        PostDtoResponse response = modelMapper.map(post, PostDtoResponse.class);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping
