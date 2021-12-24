@@ -168,9 +168,9 @@ class PostControllerTest {
     @DisplayName("Post 단건조회")
     public void readPost() throws Exception {
         //given
-        Post postA = modelMapper.map(request1.validExtension(), Post.class);
-        Post postB = modelMapper.map(request2.validExtension(), Post.class);
-        Post postC = modelMapper.map(request3.validExtension(), Post.class);
+        Post postA = modelMapper.map(request1.deepCopy().validExtension(), Post.class);
+        Post postB = modelMapper.map(request2.deepCopy().validExtension(), Post.class);
+        Post postC = modelMapper.map(request3.deepCopy().validExtension(), Post.class);
 
 
         //when

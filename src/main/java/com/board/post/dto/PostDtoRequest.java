@@ -47,4 +47,14 @@ public class PostDtoRequest {
         this.validUntil = LocalDateTime.now().plusYears(100);
         return this;
     }
+
+    public PostDtoRequest deepCopy() {
+        return PostDtoRequest
+                .builder()
+                .title(this.title)
+                .contents(this.contents)
+                .validFrom(this.validFrom)
+                .validUntil(this.validUntil)
+                .build();
+    }
 }
