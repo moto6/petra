@@ -1,12 +1,10 @@
 package com.board.post.dto;
 
 import com.board.post.entity.Post;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.modelmapper.ModelMapper;
 
 import java.time.LocalDateTime;
 
@@ -23,20 +21,25 @@ public class PostDtoRequest {
         this.validUntil = validUntil;
     }
 
-    String title;
+    private String title;
 
-    String contents;
+    private String contents;
 
-    LocalDateTime validFrom;
+    private LocalDateTime validFrom;
 
-    LocalDateTime validUntil;
+    private LocalDateTime validUntil;
 
-    @JsonIgnore
-    private ModelMapper mapper = new ModelMapper();
+    //@todo : 첨부파일 여러개를 담는 필드 필요
 
+    //주의 : spring bean 객체가 아니라 DI 받을수가 없어 modelMapper사용이 불가능함. 고로 필드가 추가되면 수동업데이트 필요함
     public Post toPost() {
-        return mapper.map(this, Post.class);
+        return Post
+                .builder()
+                .title(this.title)
+                .contents(this.contents)
+                .validFrom(this.validFrom)
+                .validUntil(this.validUntil)
+                .build();
     }
 
-    //@todo : 첨부파일 여러개 필요
 }

@@ -16,7 +16,7 @@ public class PostService {
 
     private final PostRepository postRepository;
 
-    private final ModelMapper mapper;
+    private final ModelMapper modelMapper;
 
     public Long save(PostDtoRequest request) {
         Post post = request.toPost();
