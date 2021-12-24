@@ -3,7 +3,6 @@ package com.board.post.controller;
 import com.board.post.entity.Post;
 import com.board.post.repository.PostRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.catalina.session.PersistentManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,7 +14,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.filter.CharacterEncodingFilter;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
@@ -25,13 +27,11 @@ import static com.board.post.dto.PostDtoRequestTest.request1;
 import static com.board.post.dto.PostDtoRequestTest.request2;
 import static com.board.post.dto.PostDtoRequestTest.request3;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -56,13 +56,21 @@ class PostControllerTest {
     @PersistenceContext
     EntityManager em;
 
+    @Autowired
+    private WebApplicationContext ctx;
+
     Logger log = LoggerFactory.getLogger(getClass());
+
 
     @BeforeEach
     public void setup() {
         postRepository.deleteAll();
-    }
 
+        this.mockMvc = MockMvcBuilders.webAppContextSetup(ctx)
+                .addFilters(new CharacterEncodingFilter("UTF-8", true))  // 필터 추가
+                .alwaysDo(print())
+                .build();
+    }
 
     @Test
     @DisplayName("Post 생성된다")
@@ -113,7 +121,7 @@ class PostControllerTest {
     @Test
     @Transactional
     @DisplayName("Post 삭제된다")
-    public void deletePost() throws Exception{
+    public void deletePost() throws Exception {
 
         //given
         int count = 2;
@@ -141,14 +149,14 @@ class PostControllerTest {
 
         try {
             postRepository.findById(savedPost1.getId()).orElseThrow(EntityNotFoundException::new);
-        }catch (EntityNotFoundException e) {
+        } catch (EntityNotFoundException e) {
             log.info("savedPost1 삭제 성공");
             count--;
         }
 
         try {
             postRepository.findById(savedPost2.getId()).orElseThrow(EntityNotFoundException::new);
-        }catch (EntityNotFoundException e) {
+        } catch (EntityNotFoundException e) {
             log.info("savedPost1 삭제 성공");
             count--;
         }
@@ -199,5 +207,23 @@ class PostControllerTest {
 
     }
 
+    @Test
+    @DisplayName("Post 유효기간 지나고 조회시 405 리턴")
+    public void readExpired() throws Exception {
+        //given
+        Post post = (modelMapper.map(request1, Post.class));
+        post.config("rolling");
+        Post savedPost = postRepository.save(post);
+
+        //when
+        //then
+        mockMvc.perform(get(PREFIX + SLASH + savedPost.getId())
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(status().isOk());
+        //.andExpect(content().jsonPath("{'author' : 'savedPost.getAuthor()'}"));
+        //.andExpect(content().string(savedPost.getTitle()));
     }
 }
