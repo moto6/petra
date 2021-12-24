@@ -20,8 +20,6 @@ public class PostService {
 
     private final PostRepository postRepository;
 
-    private final ModelMapper modelMapper;
-
     @Transactional
     public Long save(PostDtoRequest request) {
         Post post = request.toPost();
