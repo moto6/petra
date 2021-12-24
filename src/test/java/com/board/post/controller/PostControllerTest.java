@@ -117,8 +117,12 @@ class PostControllerTest {
         em.flush();
         em.clear();
         Post afterUpdate = postRepository.findById(savedPost.getId()).orElseThrow(EntityNotFoundException::new);
+        log.info("Contents 와 Title 은 그대로 반영된다");
         assertThat(afterUpdate.getContents()).isEqualTo(request2.getContents());
-        assertThat(afterUpdate.getValidUntil()).isEqualTo(request2.getValidUntil());
+        assertThat(afterUpdate.getTitle()).isEqualTo(request2.getTitle());
+        log.info("유효기간은 null 인 경우 서버에서 검증된다");
+        assertThat(afterUpdate.getValidUntil()).isEqualTo(savedPost.getValidUntil());
+        assertThat(afterUpdate.getValidFrom()).isEqualTo(savedPost.getValidFrom());
     }
 
 
