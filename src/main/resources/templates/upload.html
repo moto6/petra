@@ -2,10 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8" />
-    <title>Title</title>
+    <title>File Upload Example</title>
 </head>
 <body>
-<h1>File Upload Example</h1>
+<h1>File Upload page</h1>
 <form method="post" th:action="@{/api/v1/file}" enctype="multipart/form-data">
     <input type="file" name="file" />
     <input type="submit" value="submit" />
