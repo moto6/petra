@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -22,19 +23,28 @@ public class Post extends BaseEntity {
 
     @Id
     @GeneratedValue
-    Long id;
+    @Column(name = "post_id")
+    private Long id;
 
-    String title;
+    @Column(name = "title")
+    private String title;
 
-    String contents;
+    @Column(name = "contents")
+    private String contents;
 
-    String author;
+    @Column(name = "author")
+    private String author;
 
-    long viewCount;
+    @Column(name = "viewCount")
+    private long viewCount = 0;
 
-    LocalDateTime validFrom;
+    @Column(name = "valid_from")
+    private LocalDateTime validFrom;
 
-    LocalDateTime validUntil;
+    @Column(name = "valid_until")
+    private LocalDateTime validUntil;
+
+    //@Todo : 첨부파일 추가필요
 
     public boolean isValidPeriod(LocalDateTime standardTime) {
         return (validFrom.isBefore(standardTime) && validUntil.isAfter(standardTime));
