@@ -42,4 +42,9 @@ public class PostDtoRequest {
                 .build();
     }
 
+    public PostDtoRequest validExtension() {
+        this.validFrom = LocalDateTime.now().minusYears(100);
+        this.validUntil = LocalDateTime.now().plusYears(100);
+        return this;
+    }
 }
