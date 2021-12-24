@@ -32,14 +32,17 @@ public class PostDtoRequest {
     //@todo : 첨부파일 여러개를 담는 필드 필요
 
     //주의 : spring bean 객체가 아니라 DI 받을수가 없어 modelMapper사용이 불가능함. 고로 필드가 추가되면 수동업데이트 필요함
+
     public Post toPost() {
+
         return Post
                 .builder()
                 .title(this.title)
                 .contents(this.contents)
-                .validFrom(this.validFrom)
-                .validUntil(this.validUntil)
+                .validFrom(this.validFrom == null ? LocalDateTime.now() : this.validFrom)
+                .validUntil(this.validUntil == null ? LocalDateTime.now().plusYears(100) : this.validUntil)
                 .build();
+        //날짜를 입력하지 않았을 경우 기본 정책을 따름
     }
 
     public PostDtoRequest validExtension() {
