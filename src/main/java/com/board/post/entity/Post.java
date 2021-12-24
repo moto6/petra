@@ -11,8 +11,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
 
+@Table(name = "post")
 @Entity
 @Getter
 @NoArgsConstructor
@@ -26,22 +28,23 @@ public class Post extends BaseEntity {
     @Column(name = "post_id")
     private Long id;
 
-    @Column(name = "title")
+    @Column(name = "title", nullable = false, length = 50)
     private String title;
 
-    @Column(name = "contents")
+    @Column(name = "contents", nullable = false, length = 500)
     private String contents;
 
-    @Column(name = "author")
+    @Column(name = "author", length = 15)
     private String author;
 
-    @Column(name = "viewCount")
+    @Builder.Default
+    @Column(name = "view_count", nullable = false)
     private long viewCount = 0;
 
-    @Column(name = "valid_from")
+    @Column(name = "valid_from", nullable = false)
     private LocalDateTime validFrom;
 
-    @Column(name = "valid_until")
+    @Column(name = "valid_until", nullable = false)
     private LocalDateTime validUntil;
 
     //@Todo : 첨부파일 추가필요
