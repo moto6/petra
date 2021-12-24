@@ -45,6 +45,7 @@ public class PostController {
     @GetMapping("/{postId}")
     public ResponseEntity<?> readSingle(@PathVariable Long postId) {
         Post post = postService.read(postId);
+        post.increaseViews();//@ todo : 조회수 카운트는 병목지점이므로 나중에 batch/다른 처리를 위해서 service에 포함되지 않고, 컨트롤러에서 처리
         PostDtoResponse response = modelMapper.map(post, PostDtoResponse.class);
         return ResponseEntity.ok(response);
     }
