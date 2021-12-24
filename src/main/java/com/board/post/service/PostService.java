@@ -6,11 +6,13 @@ import com.board.post.entity.Post;
 import com.board.post.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -59,5 +61,11 @@ public class PostService {
         return postRepository
                 .findById(postId)
                 .orElseThrow(EntityNotFoundException::new);
+    }
+
+    public List<Post> readAll(Pageable pageable) {
+        return postRepository
+                .findAll(pageable)
+                .toList();
     }
 }

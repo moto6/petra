@@ -2,10 +2,15 @@ package com.board.post.controller;
 
 import com.board.post.dto.PostDtoRequest;
 import com.board.post.dto.PostDtoResponse;
+import com.board.post.dto.PostListDtoResponse;
 import com.board.post.entity.Post;
 import com.board.post.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +20,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequestMapping("/api/v1/post")
 @RestController
@@ -60,8 +68,17 @@ public class PostController {
 
 
     @GetMapping
-    public ResponseEntity<?> readPage() {
-        return ResponseEntity.ok("readPage");
+    public ResponseEntity<?> readPage(@PageableDefault(direction = Sort.Direction.ASC) Pageable pageable) {
+        pageable = PageRequest.of(pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() - 1, pageable.getPageSize());
+
+        List<Post> postList = postService.readAll(pageable);
+        List<PostDtoResponse> dtoList = postList
+                .stream()
+                .map(post -> modelMapper.map(post, PostDtoResponse.class))
+                .collect(Collectors.toList());
+
+        PostListDtoResponse dto = new PostListDtoResponse(dtoList, pageable);
+        return ResponseEntity.ok(dto);
     }
 
     //@todo : 페이지로 목록조회
