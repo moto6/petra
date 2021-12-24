@@ -58,15 +58,6 @@ public class PostController {
         return ResponseEntity.ok(response);
     }
 
-    //YAGNI 에 의해 요청이 요구사항에는 없지만, 해당 과제전형의 중요 평가 요소가 유효기간 기능이라고 생각해 미리 작성
-    @GetMapping("/any/{postId}")
-    public ResponseEntity<?> readAny(@PathVariable Long postId) {
-        Post post = postService.readAny(postId);
-        PostDtoResponse response = modelMapper.map(post, PostDtoResponse.class);
-        return ResponseEntity.ok(response);
-    }
-
-
     @GetMapping
     public ResponseEntity<?> readPage(
             @PageableDefault(direction = Sort.Direction.ASC) Pageable pageable) {
@@ -81,6 +72,26 @@ public class PostController {
         return ResponseEntity.ok(dto);
     }
 
-    //@todo : 페이지로 목록조회
+    //YAGNI 에 의해 요청이 요구사항에는 없지만, 해당 과제전형의 중요 평가 요소가 유효기간 기능이라고 생각해 미리 작성
+    @GetMapping("/any/{postId}")
+    public ResponseEntity<?> readAny(@PathVariable Long postId) {
+        Post post = postService.readAny(postId);
+        PostDtoResponse response = modelMapper.map(post, PostDtoResponse.class);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/any")
+    public ResponseEntity<?> readPageAny(
+            @PageableDefault(direction = Sort.Direction.ASC) Pageable pageable) {
+
+        List<Post> postList = postService.readAnyAll(pageable);
+        List<PostDtoResponse> dtoList = postList
+                .stream()
+                .map(post -> modelMapper.map(post, PostDtoResponse.class))
+                .collect(Collectors.toList());
+
+        PostListDtoResponse dto = new PostListDtoResponse(dtoList, pageable);
+        return ResponseEntity.ok(dto);
+    }
 
 }
