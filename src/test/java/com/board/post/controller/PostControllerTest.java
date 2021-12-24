@@ -211,7 +211,7 @@ class PostControllerTest {
     @DisplayName("Post 유효기간 지나고 조회시 405 리턴")
     public void readExpired() throws Exception {
         //given
-        Post post = (modelMapper.map(request1, Post.class));
+        Post post = (modelMapper.map(request2, Post.class));
         post.config("rolling");
         Post savedPost = postRepository.save(post);
 
@@ -222,8 +222,6 @@ class PostControllerTest {
                                 .accept(MediaType.APPLICATION_JSON)
                 )
                 .andDo(print())
-                .andExpect(status().isOk());
-        //.andExpect(content().jsonPath("{'author' : 'savedPost.getAuthor()'}"));
-        //.andExpect(content().string(savedPost.getTitle()));
+                .andExpect(status().isMethodNotAllowed());
     }
 }
