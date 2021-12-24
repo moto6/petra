@@ -117,8 +117,8 @@ class PostControllerTest {
 
         //given
         int count = 2;
-        Post savedPost1 = postRepository.save(modelMapper.map(request2, Post.class));
-        Post savedPost2 = postRepository.save(modelMapper.map(request1, Post.class));
+        Post savedPost1 = postRepository.save(modelMapper.map(request1, Post.class));
+        Post savedPost2 = postRepository.save(modelMapper.map(request2, Post.class));
 
         //when
         mockMvc.perform(delete(PREFIX + SLASH + savedPost1.getId())
@@ -160,8 +160,8 @@ class PostControllerTest {
     @DisplayName("Post 단건조회")
     public void readPost() throws Exception{
         //given
-        Post savedPost1 = postRepository.save(modelMapper.map(request2, Post.class));
-        Post savedPost2 = postRepository.save(modelMapper.map(request1, Post.class));
+        Post savedPost1 = postRepository.save(modelMapper.map(request1, Post.class));
+        Post savedPost2 = postRepository.save(modelMapper.map(request2, Post.class));
         Post savedPost3 = postRepository.save(modelMapper.map(request3, Post.class));
 
         //when
