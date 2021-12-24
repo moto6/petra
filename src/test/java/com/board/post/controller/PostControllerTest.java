@@ -172,9 +172,9 @@ class PostControllerTest {
     @DisplayName("Post 단건조회")
     public void readPost() throws Exception {
         //given
-        Post postA = modelMapper.map(request1.deepCopy().validExtension(), Post.class);
-        Post postB = modelMapper.map(request2.deepCopy().validExtension(), Post.class);
-        Post postC = modelMapper.map(request3.deepCopy().validExtension(), Post.class);
+        Post postA = request1.deepCopy().validExtension().toPost();
+        Post postB = request2.deepCopy().validExtension().toPost();
+        Post postC = request3.deepCopy().validExtension().toPost();
 
 
         //when
@@ -252,10 +252,10 @@ class PostControllerTest {
     @DisplayName("Post 페이지단위 조회")
     public void readPage() throws Exception {
         //given
-        Post postA = modelMapper.map(request1, Post.class);
-        Post postB = modelMapper.map(request2, Post.class);
-        Post postC = modelMapper.map(request3, Post.class);
-        Post postD = modelMapper.map(request4, Post.class);
+        Post postA = request1.toPost();
+        Post postB = request2.toPost();;
+        Post postC = request3.toPost();;
+        Post postD = request4.toPost();;
 
         //when
         Post savedPost1 = postRepository.save(postA);
