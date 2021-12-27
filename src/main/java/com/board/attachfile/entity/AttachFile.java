@@ -1,4 +1,4 @@
-package com.board.attachfile;
+package com.board.attachfile.entity;
 
 import com.board.post.entity.Post;
 import lombok.Getter;
@@ -17,7 +17,7 @@ import javax.persistence.Table;
 @Getter
 @Entity
 @NoArgsConstructor
-public class attachFile {
+public class AttachFile {
 
     @Id
     @GeneratedValue

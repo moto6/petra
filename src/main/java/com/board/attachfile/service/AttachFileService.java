@@ -1,5 +1,6 @@
-package com.board.file;
+package com.board.attachfile.service;
 
+import com.board.exception.AttachFileStorageException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,7 +16,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 @Service
-public class FileService {
+public class AttachFileService {
 
     Logger log = LoggerFactory.getLogger(getClass());
 
@@ -35,7 +36,7 @@ public class FileService {
             log.error("fail to store file : name={}, exception={}",
                       multipartFile.getOriginalFilename(),
                       e.getMessage());
-            throw new FileStorageException("fail to store file");
+            throw new AttachFileStorageException("fail to store file");
         }
     }
 
