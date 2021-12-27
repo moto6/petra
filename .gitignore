@@ -250,4 +250,6 @@ gradle-app.setting
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
 
+bin/**
+
 # End of https://www.toptal.com/developers/gitignore/api/macos,visualstudiocode,intellij,java,gradle,windows,linux
