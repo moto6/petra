@@ -19,3 +19,10 @@
 - REST API >> Spring HEATOAS 적용 (우선순위 낮음)
 - 스웨거로 문서화
 - 테스트전송 샘플
+
+
+## Redis 를 위한 도커 config 
+```
+$ docker-compose -f ./asset/redis_standalone.yml up -d
+```
+
