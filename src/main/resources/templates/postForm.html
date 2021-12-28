@@ -1,10 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title th:글작성 페이지>페이지 타이틀</title>
 </head>
 <body>
+<h1 th:text="새글쓰기" >페이지 헤드라인</h1>
+
+
+
+<div>
+    <form role="form"  th:object="${postDtoRequest}" method="post" enctype="multipart/form-data">
+
+
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">제목</span>
+            </div>
+            <label>
+                <input type="text" th:field="*{title}" class="form-control" placeholder="글제목">
+            </label>
+        </div>
+
+
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">본문</span>
+           </div>
+            <label>
+                <textarea aria-label="With textarea" th:field="*{contents}" class="form-control" placeholder="본문">
+                </textarea>
+            </label>
+
+        </div>
+
+
+
+        <!--- --->
+        <div class="input-group">
+            <input type="datetime-local" th:field="*{validFrom}" class="form-control" placeholder="글제목">
+        </div>
+
+        <div class="input-group">
+            <input type="datetime-local" th:field="*{validUntil}" class="form-control" placeholder="글제목">
+        </div>
+        <!--- --->
+
+
+        <div class="form-group" th:each="num: ${#numbers.sequence(1,5)}">
+            <div class="custom-file img-div">
+                <input type="file" class="custom-file-input" name="attachFiles">
+                <label class="custom-file-label" th:text="첨부파일 + ${num}"></label>
+            </div>
+        </div>
+
+        <div>
+            <button th:formaction="@{'/post/new'}" type="submit" class="btn btn-primary">저장</button>
+        </div>
+
+    </form>
+
+
+
+</div>
 
 </body>
 </html>
