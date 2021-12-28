@@ -26,3 +26,8 @@
 $ docker-compose -f ./asset/redis_standalone.yml up -d
 ```
 
+
+
+## 메타데이터 작성
+- https://docs.spring.io/spring-boot/docs/current/reference/html/configuration-metadata.html
+- 프로퍼티 커스텀 디파인 정의
