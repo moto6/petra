@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "attachFileLocation",
+      "type": "java.lang.String",
+      "description": "attachFile will be saved in this Location."
+    }
+  ] }
