@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <title th:글작성 페이지>페이지 타이틀</title>
+    <script th:inline="javascript">
+
+    </script>
 </head>
 <body>
 <h1 th:text="새글쓰기" >페이지 헤드라인</h1>
@@ -11,7 +14,9 @@
 
 
 <div>
-    <form role="form"  th:object="${postDtoRequest}" method="post" enctype="multipart/form-data">
+    <!--- @todo 전송하기 동작 안됨--->
+    <!--- enctype="multipart/form-data" --->
+    <form role="form" th:action="@{/post/new}" th:object="${postDtoRequest}" th:name="postDtoRequest" method="post" >
 
 
         <div class="input-group">
@@ -19,7 +24,7 @@
                 <span class="input-group-text">제목</span>
             </div>
             <label>
-                <input type="text" th:field="*{title}" class="form-control" placeholder="글제목">
+                <input type="text" th:field="${postDtoRequest.title}" th:text="${postDtoRequest.title}" class="form-control" placeholder="글제목">
             </label>
         </div>
 
@@ -29,7 +34,7 @@
                 <span class="input-group-text">본문</span>
            </div>
             <label>
-                <textarea aria-label="With textarea" th:field="*{contents}" class="form-control" placeholder="본문">
+                <textarea aria-label="With textarea" th:field="${postDtoRequest.contents}" th:text="${postDtoRequest.contents}" class="form-control" placeholder="본문">
                 </textarea>
             </label>
 
@@ -39,11 +44,15 @@
 
         <!--- --->
         <div class="input-group">
-            <input type="datetime-local" th:field="*{validFrom}" class="form-control" placeholder="글제목">
+            <label>
+                <input type="datetime-local" th:field="*{validFrom}" class="form-control" placeholder="올라가는시간" th:value="null">
+            </label>
         </div>
 
         <div class="input-group">
-            <input type="datetime-local" th:field="*{validUntil}" class="form-control" placeholder="글제목">
+            <label>
+                <input type="datetime-local" th:field="*{validUntil}" class="form-control" placeholder="내려가는시간" th:value="null">
+            </label>
         </div>
         <!--- --->
 
@@ -55,8 +64,9 @@
             </div>
         </div>
 
+
         <div>
-            <button th:formaction="@{'/post/new'}" type="submit" class="btn btn-primary">저장</button>
+            <button type="submit"  class="btn btn-primary">전송</button>
         </div>
 
     </form>
