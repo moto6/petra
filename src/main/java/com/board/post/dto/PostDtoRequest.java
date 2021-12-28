@@ -1,6 +1,7 @@
 package com.board.post.dto;
 
 import com.board.post.entity.Post;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,14 +26,14 @@ public class PostDtoRequest {
     }
 
 
-    //@NotNull(message = "제목은 필수입니다")
-    //@Max(value = 50, message = "최대 길이는 50자 입니다")
-    //@Min(value=1, message = "최소길이는 1자 입니다")
+    @NotNull(message = "제목은 필수입니다")
+    @Max(value = 50, message = "최대 길이는 50자 입니다")
+    @Min(value = 1, message = "최소길이는 1자 입니다")
     private String title;
 
-    //@NotNull(message = "본문은 필수입니다")
-    //@Max(value = 500, message = "최대 길이는 500자 입니다")
-    //@Min(value=1, message = "최소길이는 1자 입니다")
+    @NotNull(message = "본문은 필수입니다")
+    @Max(value = 500, message = "최대 길이는 500자 입니다")
+    @Min(value = 1, message = "최소길이는 1자 입니다")
     private String contents;
 
     private LocalDateTime validFrom;
