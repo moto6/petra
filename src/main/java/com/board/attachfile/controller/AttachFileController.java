@@ -2,6 +2,8 @@ package com.board.attachfile.controller;
 
 import com.board.attachfile.service.AttachFileService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,7 +28,13 @@ public class AttachFileController {
 
     @PostMapping("/api/v1/file")
     public String uploadFile(@RequestParam("file") MultipartFile file) {
-        fileService.fileUpload(file);
+        fileService.simpleFileUpload(file);
         return "redirect:/success";
+    }
+
+    @PostMapping(path = "/upload")
+    public ResponseEntity<String> uploadFileHandler(@RequestParam("file") MultipartFile file) {
+        return file.isEmpty() ?
+                new ResponseEntity<String>(HttpStatus.NOT_FOUND) : new ResponseEntity<String>(HttpStatus.OK);
     }
 }
