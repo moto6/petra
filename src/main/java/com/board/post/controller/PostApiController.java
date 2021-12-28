@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/v1/post")
 @RestController
 @RequiredArgsConstructor
-public class PostController {
+public class PostApiController {
 
     private final PostService postService;
     private final ModelMapper modelMapper;
