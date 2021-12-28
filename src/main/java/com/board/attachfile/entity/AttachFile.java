@@ -36,7 +36,6 @@ public class AttachFile {
 
     @ManyToOne(fetch = FetchType.LAZY) //N-1 단방향 관계로 맵핑
     @JoinColumn(name = "post_id")
-    @Column(name = "post_id")
     private Post post;
 
     public String getImgUrl() {
