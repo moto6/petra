@@ -29,7 +29,8 @@ public class PostMvcController {
     private final ModelMapper modelMapper;
 
     @GetMapping
-    public String create() {
+    public String form(Model model) {
+        model.addAttribute("postDtoRequest", new PostDtoRequest());
         return "postForm";
     }
 
@@ -43,11 +44,11 @@ public class PostMvcController {
 
 
 
-    @PostMapping
-    public String itemNew(@Valid PostDtoRequest postDtoRequest,
-                          @RequestParam("attachFiles") List<MultipartFile> attachFiles) {
+    @PostMapping("/new")
+    public PostDtoRequest postSave(@Valid PostDtoRequest postDtoRequest,
+                          @RequestParam(value = "attachFiles", required = false) List<MultipartFile> attachFiles) {
         postService.saveWithAttach(postDtoRequest,attachFiles);
 
-        return "redirect:/";
+        return postDtoRequest;
     }
 }
