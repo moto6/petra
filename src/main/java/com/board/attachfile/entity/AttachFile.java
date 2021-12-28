@@ -9,11 +9,15 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
-@Table(name = "attach_file")
+@Table(name = "attach_file", indexes = {
+        @Index(name = "", columnList = "post_id", unique = false)
+})
 @Getter
 @Entity
 @NoArgsConstructor
@@ -28,10 +32,11 @@ public class AttachFile {
     private String originalFileName;
 
     @Column(name = "verified_file_name")
-    private String VerifiedFileName;
+    private String verifiedFileName;
 
     @ManyToOne(fetch = FetchType.LAZY) //N-1 단방향 관계로 맵핑
     @JoinColumn(name = "post_id")
+    @Column(name = "post_id")
     private Post post;
 
     public String getImgUrl() {
@@ -39,4 +44,8 @@ public class AttachFile {
         //스프링설정에서 읽어온 url에서 스테틱 제공
     }
 
+    public void updateAttachFile(String originalFileName, String verifiedFileName) {
+        this.originalFileName = originalFileName;
+        this.verifiedFileName = verifiedFileName;
+    }
 }
