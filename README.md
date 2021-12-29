@@ -2,9 +2,14 @@
 
 ## 목차
 - 0] 개발환경 && 사용기술
-- 1] 대용량 트래픽 고려 [Link]()
-- 2] 첨부파일 기능 [Link]()
-- 3] 실행방법 [Link]()
+- 1] 대용량 트래픽 고려 [Link](https://github.com/d-h-k/bulletin-board#1-%EB%8C%80%EC%9A%A9%EB%9F%89-%ED%8A%B8%EB%9E%98%ED%94%BD-%EA%B3%A0%EB%A0%A4)
+- 2] 첨부파일 기능 [Link](https://github.com/d-h-k/bulletin-board#2-%EC%B2%A8%EB%B6%80%ED%8C%8C%EC%9D%BC-%EA%B8%B0%EB%8A%A5)
+- 3] 실행방법 [Link](https://github.com/d-h-k/bulletin-board#3-%EC%8B%A4%ED%96%89%EB%B0%A9%EB%B2%95)
+
+<br>
+<br>
+<br>
+<br>
 
 ## 0) 개발환경 && 사용기술
 - IDE : IntelliJ
@@ -13,6 +18,10 @@
   - DB Access : JPA (Hibernate)
 - DB : H2 (in-memory)
 
+<br>
+<br>
+<br>
+<br>
 
 ## 1) 대용량 트래픽 고려
 - 대용량 트래픽이라는 요구사항을 듣고 `서버 보틀넥 제거`, `스케일 아웃` 두가지가 방식이 떠올랐는데, 여기서는 `RDB 에서의 보틀넥인 조회수 증가` 를 해결했습니다
@@ -37,6 +46,7 @@
 <br>
 <br>
 <br>
+
 
 ## 2) 첨부파일 기능
 
