@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
-class PostTest {
+public class PostTest {
 
     public static final Post post1 = Post
             .builder()
