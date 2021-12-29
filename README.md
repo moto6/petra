@@ -10,10 +10,13 @@
     - DB Insert 횟수가 줄어들고 (RDB의 삽입동작 시간복잡도는 log-N 이기 때문에) 
   - `@readOnly` 사용으로 트랜잭션 종료시 flush 를 사용하지 않고, 더티체킹을 위한 스냅샷 비교를 하지 않아 성능이 개선됩니다
 
-## 구현하기까지 사용한 기술
+## 구현하기까지의 과정
 - 처음에는 Redis를 사용해서 위 기능을 구현하려 하였으나, 구현에 실패했습니다
 - 이를 대체하기위해 collection framework 중에서 HashMap을 사용해 해당 기능을 구현하였습니다
-
+- Key-Value 구조를 사용해 성능 최적화하기 위한 구조는 아래 그림과 같습니다
+- ![설명](https://user-images.githubusercontent.com/31065684/147671915-9f4846bc-b545-47dd-99c3-47a1fe273734.png)
+- 위 버퍼에서 1초동안 조회횟수를 count 하고, 1초 이후 카운트에 반영해서 아무리 많이 요청되도 조회수 증가에 의한 쿼리는 PK 별로 1초에 한번만 insert문이 나가게 됩니다
+- 이 로직을 `PostViewCountService` 클래스에 구현했고, `PostViewCountServiceTest` 클래스에서 테스트코드를 작성했습니다
 
 ## 첨부파일 기능
 
