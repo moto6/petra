@@ -5,10 +5,6 @@ import com.board.post.repository.PostRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -18,8 +14,6 @@ import static com.board.post.PostDtoRequestTestDataSet.request1;
 import static java.lang.Thread.sleep;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.fail;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
 
 @Slf4j
 @SpringBootTest
@@ -32,18 +26,16 @@ class PostViewCountServiceTest {
     PostViewCountService postViewCountService;
 
     @Test
-    @DisplayName(" ")
-    public void test() {
+    @DisplayName("조회수 증가 기능은 1초 지연되서 업데이트 된다")
+    public void viewUpCount() {
+
         //given
         Post post = postRepository.save(request1.toPost());
         final long postId = post.getId();
+
         //when
-        postViewCountService.intervalCount(postId);
-
-        Post beforeincrease = postRepository.findById(post.getId()).orElseThrow(EntityExistsException::new);
-
-        log.info("NONE : getViewCount : {}", beforeincrease.getViewCount());
-
+        postViewCountService.intervalCount(postId);// 선발신호 여기서부터 1초 이내에는 조회수 증가 업데이트 쿼리가 나가지 않습니다
+        Post nothingChange = postRepository.findById(post.getId()).orElseThrow(EntityExistsException::new);
         postViewCountService.intervalCount(postId);
         postViewCountService.intervalCount(postId);
         postViewCountService.intervalCount(postId);
@@ -56,24 +48,24 @@ class PostViewCountServiceTest {
         postViewCountService.intervalCount(postId);
         postViewCountService.intervalCount(postId);
         postViewCountService.intervalCount(postId);
-
-
         Post postBefore = postRepository.findById(post.getId()).orElseThrow(EntityExistsException::new);
-        log.info("BEFORE : getViewCount : {}", postBefore.getViewCount());
+
         try {
-            sleep(3000);
-        }catch (InterruptedException e) {
+            sleep(2000);
+        } catch (InterruptedException e) {
             log.error("테스트 도중 중간에 인터럽트가 발생해 실패합니다");
             fail();
         }
 
-
         //then
         postViewCountService.intervalCount(postId);
         Post postAfter = postRepository.findById(post.getId()).orElseThrow(EntityExistsException::new);
-        log.info("AFTER : getViewCount : {}", postAfter.getViewCount());
 
-        //assertThat(beforeincrease.getViewCount()).isNotEqualTo()
+        assertThat(nothingChange.getViewCount()).isEqualTo(postBefore.getViewCount());
+        log.info("정상적으로 캐싱이 되는경우 nothingChange 와 postBefore 는 동일한 숫자가 나와야 합니다 : {}/{}", nothingChange.getViewCount(), postBefore.getViewCount());
+        assertThat(postAfter.getViewCount()).isNotEqualTo(postBefore.getViewCount());
+        log.info("정상적으로 캐싱이 되는경우 postAfter 와 postBefore 는 서로 다른 숫자가 나옵니다 : {}/{}", postAfter.getViewCount(), postBefore.getViewCount());
 
+        log.info("지금 코드는 실제 조회수와 항상 1 차이가 나는 버그가 있는데, 나중에 Redis Key expire event 를 수신하는 방식으로 구현하면 >> 조회수가 항상 1이상 차이나는 해당 버그를 해결할 수 있습니다");
     }
 }
