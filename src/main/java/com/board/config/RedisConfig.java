@@ -1,5 +1,6 @@
 package com.board.config;
 
+import com.board.post.entity.Post;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -27,8 +28,16 @@ public class RedisConfig {
 
 
     @Bean
-    public RedisTemplate<Long, Integer> redisTemplate() {
+    public RedisTemplate<Long, Integer> redisTemplateA() {
         RedisTemplate<Long, Integer> template = new RedisTemplate<>();
+        template.setConnectionFactory(redisConnectionFactory());
+        return template;
+    }
+
+
+    @Bean
+    public RedisTemplate<Long, Long> redisTemplateB() {
+        RedisTemplate<Long, Long> template = new RedisTemplate<>();
         template.setConnectionFactory(redisConnectionFactory());
         return template;
     }
