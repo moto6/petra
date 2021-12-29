@@ -1,10 +1,15 @@
 package com.board.post.dto;
 
+import com.board.post.entity.Post;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+@Slf4j
 public class PostDtoRequestTest {
 
     public static final PostDtoRequest request1 = PostDtoRequest
@@ -41,14 +46,22 @@ public class PostDtoRequestTest {
 
 
     @Test
-    @DisplayName(" ")
-    public void test() {
+    @DisplayName("영원히 유효한 글이 되도록 날짜를 수정한다")
+    public void validExtension() {
+
         //given
+        PostDtoRequest request = request3.deepCopy();
+        LocalDateTime initValidFrom = request.getValidFrom();
+        LocalDateTime initValidUntil = request.getValidUntil();
 
         //when
+        request.validExtension();
+        Post post = request.toPost();
 
         //then
-        throw new AssertionError();
-
+        assertThat(request.getValidUntil()).isNotEqualTo(initValidUntil);
+        assertThat(request.getValidFrom()).isNotEqualTo(initValidFrom);
+        assertThat(post.isValidPeriod(LocalDateTime.now())).isTrue();
+        log.info("validExtension() 메서드 테스트");
     }
 }
