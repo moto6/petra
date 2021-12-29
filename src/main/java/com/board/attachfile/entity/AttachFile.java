@@ -1,6 +1,7 @@
 package com.board.attachfile.entity;
 
 import com.board.post.entity.Post;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -21,6 +22,13 @@ import javax.persistence.Table;
 @Entity
 @NoArgsConstructor
 public class AttachFile {
+
+    @Builder
+    public AttachFile(String originalFileName, String verifiedFileName, Post post) {
+        this.originalFileName = originalFileName;
+        this.verifiedFileName = verifiedFileName;
+        this.post = post;
+    }
 
     @Id
     @GeneratedValue
