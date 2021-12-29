@@ -4,11 +4,14 @@ import com.board.attachfile.entity.AttachFile;
 import com.board.attachfile.repository.AttachFileRepository;
 import com.board.common.fileservice.FileService;
 import com.board.exception.AttachFileStorageException;
+import com.board.post.entity.Post;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -51,19 +54,28 @@ public class AttachFileService {
         }
     }
 
-
-    public void saveAttach(AttachFile attachFileEntity, MultipartFile uploadedFile) throws Exception {
+    //@note : 파일 업로드에 시간이 많이 걸리면 >> Transactional 이 DB Conn 을 길게 잡고 있어서 >> DB Conn pool 이 말라서 에러가 발생할수 있음
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
+    public void saveAttach(MultipartFile uploadedFile, Post post) {
 
         String originalName = uploadedFile.getOriginalFilename();
         String validName = "";
 
-
-        if (!StringUtils.hasLength(originalName)) {
-            validName = fileService.uploadFile(attachFileLocation, originalName, uploadedFile.getBytes());
+        try {
+            if (!StringUtils.hasLength(originalName)) {
+                validName = fileService.uploadFile(attachFileLocation, originalName, uploadedFile.getBytes());
+            }
+        } catch (Exception e) {
+            throw new AttachFileStorageException("saveAttach : 업로드 실패" + e.getMessage());
         }
 
         //
-        attachFileEntity.updateAttachFile(originalName, validName);
+        AttachFile attachFileEntity = AttachFile
+                .builder()
+                .originalFileName(originalName)
+                .verifiedFileName(validName)
+                .post(post)
+                .build();
         attachFileRepository.save(attachFileEntity);
     }
 
@@ -79,7 +91,6 @@ public class AttachFileService {
                 // 삭제는 파일시스템에 저장된 이름으로
                 fileService.deleteFile(attachFileLocation + "/" + saved.getVerifiedFileName());
             }
-
 
             String originalName = itemImgFile.getOriginalFilename();
             String validName = fileService.uploadFile(attachFileLocation, originalName, itemImgFile.getBytes());

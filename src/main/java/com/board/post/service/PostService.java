@@ -1,5 +1,6 @@
 package com.board.post.service;
 
+import com.board.attachfile.service.AttachFileService;
 import com.board.exception.OutOfDateException;
 import com.board.post.dto.PostDtoRequest;
 import com.board.post.entity.Post;
@@ -19,6 +20,8 @@ import java.util.List;
 public class PostService {
 
     private final PostRepository postRepository;
+
+    private final AttachFileService attachFileService;
 
     @Transactional
     public Long save(PostDtoRequest request) {
@@ -77,6 +80,13 @@ public class PostService {
     }
 
     public void saveWithAttach(PostDtoRequest postDtoRequest, List<MultipartFile> attachFiles) {
-        //@todo 추가예정
+        Long postId = this.save(postDtoRequest);
+        Post post = postRepository
+                .findById(postId)
+                .orElseThrow(EntityNotFoundException::new);
+
+        for (MultipartFile file : attachFiles) {
+            attachFileService.saveAttach(file, post);
+        }
     }
 }
