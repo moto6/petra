@@ -1,10 +1,11 @@
-package com.board.post;
+package com.board.post.dto;
 
-import com.board.post.dto.PostDtoRequest;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 
-public class PostDtoRequestTestDataSet {
+public class PostDtoRequestTest {
 
     public static final PostDtoRequest request1 = PostDtoRequest
             .builder()
@@ -38,4 +39,16 @@ public class PostDtoRequestTestDataSet {
             .validUntil(LocalDateTime.now())
             .build();
 
+
+    @Test
+    @DisplayName(" ")
+    public void test() {
+        //given
+
+        //when
+
+        //then
+        throw new AssertionError();
+
+    }
 }

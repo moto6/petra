@@ -10,7 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.persistence.EntityExistsException;
 
-import static com.board.post.PostDtoRequestTestDataSet.request1;
+import static com.board.post.dto.PostDtoRequestTest.request1;
 import static java.lang.Thread.sleep;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.fail;

@@ -29,10 +29,10 @@ import javax.persistence.PersistenceContext;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static com.board.post.PostDtoRequestTestDataSet.request1;
-import static com.board.post.PostDtoRequestTestDataSet.request2;
-import static com.board.post.PostDtoRequestTestDataSet.request3;
-import static com.board.post.PostDtoRequestTestDataSet.request4;
+import static com.board.post.dto.PostDtoRequestTest.request1;
+import static com.board.post.dto.PostDtoRequestTest.request2;
+import static com.board.post.dto.PostDtoRequestTest.request3;
+import static com.board.post.dto.PostDtoRequestTest.request4;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
