@@ -42,6 +42,9 @@ dependencies {
 	//테스트에서 롬복 사용
 	testCompileOnly 'org.projectlombok:lombok'
 	testAnnotationProcessor 'org.projectlombok:lombok'
+
+	//api 문서화 스웨거
+	implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
 }
 
 test {

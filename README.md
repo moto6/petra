@@ -65,3 +65,5 @@
 $ ./gradlew bootrun
 ```
 - 프로젝트 디렉토리에서 위 명령어로 실행이 가능합니다
+- 서버 동작시 API 문서 페이지 : http://localhost:8080/swagger-ui/
+![스웨거는살아있다](https://user-images.githubusercontent.com/31065684/147682354-d2d5a769-3c96-4672-b799-d8269070616a.png)
