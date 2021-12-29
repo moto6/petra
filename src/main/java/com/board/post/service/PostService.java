@@ -89,4 +89,10 @@ public class PostService {
             attachFileService.saveAttach(file, post);
         }
     }
+
+    @Transactional
+    public void addViews(Long postId, int increment) {
+        Post post = postRepository.findById(postId).orElseThrow(EntityNotFoundException::new);
+        post.incrementViews(increment);
+    }
 }
