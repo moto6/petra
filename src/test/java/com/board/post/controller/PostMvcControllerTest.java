@@ -1,8 +1,8 @@
 package com.board.post.controller;
 
-import com.board.post.dto.PostDtoRequest;
 import com.board.post.entity.Post;
 import com.board.post.repository.PostRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,7 +19,6 @@ import java.util.List;
 
 import static com.board.post.dto.PostDtoRequestTest.request1;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -31,6 +30,9 @@ class PostMvcControllerTest {
 
     @Autowired
     private PostRepository postRepository;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @Test
     @DisplayName("글 작성 페이지가 로딩된다")
@@ -60,19 +62,20 @@ class PostMvcControllerTest {
 
     @Disabled
     @Test
-    @DisplayName("uploadFile 검증")
-    public void uploadFile() throws Exception{
+    @DisplayName("post & attachFile 검증")
+    public void uploadFile() throws Exception {
 
         //given
-        MockMultipartFile jsonFile = new MockMultipartFile("test.json", "", "application/json", "{\"key1\": \"value1\"}".getBytes());
-        PostDtoRequest request = request1;
+        MockMultipartFile jsonFile = new MockMultipartFile("test.json", "test.json", "application/json", "{\"key1\": \"value1\"}".getBytes());
+        String requestBody = objectMapper.writeValueAsString(request1);
+
         List<MultipartFile> files = createMultipartFiles();
 
         //when
         //then
-        mockMvc.perform(MockMvcRequestBuilders.multipart("/fileUpload")
-                                .file("file", jsonFile.getBytes())
-                                .content("need content")
+        mockMvc.perform(MockMvcRequestBuilders.multipart("/post/new")
+                                .file(jsonFile)
+                                .content(requestBody)
                                 .characterEncoding("UTF-8"))
                 .andExpect(status().isOk());
     }
