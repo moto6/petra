@@ -43,7 +43,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class PostControllerTest {
+class PostApiControllerTest {
 
     private static final String PREFIX = "/api/v1/post";
     private static final String SLASH = "/";
