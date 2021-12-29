@@ -14,7 +14,7 @@ public class ExceptionControllerAdvice {
     @ExceptionHandler({OutOfDateException.class})
     public ResponseEntity<?> handleAccessDeniedException(final OutOfDateException e) {
         log.warn("OutOfDateException {}", e.getMessage());
-        return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(e.getMessage());
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(e.getMessage());
     }
 
 }

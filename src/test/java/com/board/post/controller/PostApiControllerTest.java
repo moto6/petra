@@ -222,7 +222,7 @@ class PostApiControllerTest {
     }
 
     @Test
-    @DisplayName("Post 유효기간 지나고 조회시 405/MethodNotAllowed")
+    @DisplayName("Post 유효기간 지나고 조회시 204-NoContent")
     public void readExpired() throws Exception {
         //given
         Post post = (modelMapper.map(request2, Post.class));
@@ -236,7 +236,7 @@ class PostApiControllerTest {
                                 .accept(MediaType.APPLICATION_JSON)
                 )
                 .andDo(print())
-                .andExpect(status().isMethodNotAllowed());
+                .andExpect(status().isNoContent());
     }
 
 
