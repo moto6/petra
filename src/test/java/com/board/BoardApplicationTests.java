@@ -7,18 +7,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.not;
 
 @SpringBootTest
 class BoardApplicationTests {
 
-	@Autowired
-	private WebApplicationContext ctx;
+    @Autowired
+    private WebApplicationContext ctx;
 
-	@Test
-	@DisplayName("스프링 컨텍스트 로딩")
-	void contextLoads() {
-		assertThat(ctx).isNotEqualTo(null);
-	}
+    @Test
+    @DisplayName("스프링 컨텍스트 로딩")
+    void contextLoads() {
+        assertThat(ctx).isNotEqualTo(null);
+    }
 
 }

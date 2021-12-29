@@ -23,6 +23,6 @@ public class WebConfig implements WebMvcConfigurer {
         log.info("Image service alarm ---- \n" +
                          "- images will service URL AT : {} \n" +
                          "- images directory saved  AT : {} \n",
-                 attachFileUri,attachFileUploadPath);
+                 attachFileUri, attachFileUploadPath);
     }
 }

@@ -48,8 +48,13 @@ class PostApiControllerTest {
     private static final String PREFIX = "/api/v1/post";
     private static final String SLASH = "/";
 
+    Logger log = LoggerFactory.getLogger(getClass());
+
     @Autowired
     MockMvc mockMvc;
+
+    @PersistenceContext
+    EntityManager em;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -63,14 +68,8 @@ class PostApiControllerTest {
     @Autowired
     private PostService postService;
 
-    @PersistenceContext
-    EntityManager em;
-
     @Autowired
     private WebApplicationContext ctx;
-
-    Logger log = LoggerFactory.getLogger(getClass());
-
 
     @BeforeEach
     public void setup() {

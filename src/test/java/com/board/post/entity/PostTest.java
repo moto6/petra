@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
 public class PostTest {
@@ -39,9 +38,9 @@ public class PostTest {
         //when
         //then
         assertThat(post1.isValidPeriod(LocalDateTime.now())).isTrue();
-        log.info("유효함 : 시작일:{}, 종료일:{}",post1.getValidFrom(),post1.getValidUntil());
+        log.info("유효함 : 시작일:{}, 종료일:{}", post1.getValidFrom(), post1.getValidUntil());
         assertThat(post2.isValidPeriod(LocalDateTime.now())).isFalse();
-        log.info("유효하지 않음 : 시작일:{}, 종료일:{}",post2.getValidFrom(),post2.getValidUntil());
+        log.info("유효하지 않음 : 시작일:{}, 종료일:{}", post2.getValidFrom(), post2.getValidUntil());
     }
 
     @Test

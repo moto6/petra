@@ -42,7 +42,7 @@ class PostMvcControllerTest {
 
         //given
         Post post = postRepository.save(request1.toPost());
-        String URI = "/post/" + String.valueOf(post.getId());
+        String URI = "/post/" + post.getId();
 
         //when
         //then

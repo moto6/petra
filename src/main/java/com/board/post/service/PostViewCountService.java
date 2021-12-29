@@ -3,12 +3,10 @@ package com.board.post.service;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -18,6 +16,8 @@ import java.util.concurrent.TimeUnit;
 @RequiredArgsConstructor
 public class PostViewCountService {
 
+    private static final Map<Long, ViewCount> redisSimulation = new HashMap<>();
+
     //<postId,increment>
     private final RedisTemplate<Long, Long> counter;
 
@@ -25,8 +25,6 @@ public class PostViewCountService {
     private final RedisTemplate<Long, Long> identifier;
 
     private final PostService postService;
-
-    private static final Map<Long, ViewCount> redisSimulation = new HashMap<>();
 
     public void intervalCount(Long postId) {
         //byRedis(postId); //레디스 Key expired 기능으로 구현하려고 했으나 실패
@@ -36,16 +34,15 @@ public class PostViewCountService {
     private void byMillis(Long postId) {
         if (redisSimulation.containsKey(postId)) {
             ViewCount firstSignal = redisSimulation.get(postId);
-            if( (System.currentTimeMillis() - firstSignal.getMillis()) > 1000) { //1초이상 지난경우
-                postService.addViews(postId,firstSignal.getUpCount());
+            if ((System.currentTimeMillis() - firstSignal.getMillis()) > 1000) { //1초이상 지난경우
+                postService.addViews(postId, firstSignal.getUpCount());
                 redisSimulation.remove(postId);//숫자를 더하고 삭제
-            }
-            else {
-                redisSimulation.replace(postId, new ViewCount(firstSignal.getMillis(), firstSignal.getUpCount()+1));
+            } else {
+                redisSimulation.replace(postId, new ViewCount(firstSignal.getMillis(), firstSignal.getUpCount() + 1));
                 // 숫자만 더하고 시간은 유지
             }
-        }else {
-            redisSimulation.put(postId, new ViewCount(System.currentTimeMillis(),1));
+        } else {
+            redisSimulation.put(postId, new ViewCount(System.currentTimeMillis(), 1));
         }
     }
 
@@ -56,7 +53,7 @@ public class PostViewCountService {
             identifier.expire(postId, 1, TimeUnit.SECONDS);
             counter.opsForValue().set(postId, 1L);
             log.info("업데이트");
-        }else {
+        } else {
             log.info("캐싱");
             counter.opsForValue().set(postId, getCount(postId) + 1L);
         }
