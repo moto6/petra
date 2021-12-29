@@ -9,7 +9,7 @@ import java.io.FileOutputStream;
 import java.util.UUID;
 
 @Service
-public class FileSystemFileServiceImpl implements FileService{
+public class FileSystemFileServiceImpl implements FileService {
 
     private final Logger log = LoggerFactory.getLogger(getClass());
 

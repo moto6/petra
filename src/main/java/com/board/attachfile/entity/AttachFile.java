@@ -13,7 +13,6 @@ import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 @Table(name = "attach_file", indexes = {
         @Index(name = "", columnList = "post_id", unique = false)

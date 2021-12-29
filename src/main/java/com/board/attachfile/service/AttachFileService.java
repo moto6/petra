@@ -1,8 +1,8 @@
 package com.board.attachfile.service;
 
 import com.board.attachfile.entity.AttachFile;
-import com.board.common.fileservice.FileService;
 import com.board.attachfile.repository.AttachFileRepository;
+import com.board.common.fileservice.FileService;
 import com.board.exception.AttachFileStorageException;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -24,11 +24,9 @@ import java.nio.file.StandardCopyOption;
 @RequiredArgsConstructor
 public class AttachFileService {
 
-    Logger log = LoggerFactory.getLogger(getClass());
-
     private final FileService fileService;
     private final AttachFileRepository attachFileRepository;
-
+    Logger log = LoggerFactory.getLogger(getClass());
     @Value("${attachFileLocation}")
     private String attachFileLocation;
 
@@ -52,7 +50,6 @@ public class AttachFileService {
             throw new AttachFileStorageException("fail to store file");
         }
     }
-
 
 
     public void saveAttach(AttachFile attachFileEntity, MultipartFile uploadedFile) throws Exception {
