@@ -12,13 +12,9 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class PostDtoResponse {
-    String title;
-
-    String contents;
-
-    LocalDateTime createdAt;
-
-    Long viewCount;
-
-    String author;
+    private String title;
+    private String contents;
+    private LocalDateTime createdAt;
+    private Long viewCount;
+    private String author;
 }
