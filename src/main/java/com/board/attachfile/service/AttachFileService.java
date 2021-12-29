@@ -28,11 +28,13 @@ import java.nio.file.StandardCopyOption;
 public class AttachFileService {
 
     private final FileService fileService;
+
     private final AttachFileRepository attachFileRepository;
+
     Logger log = LoggerFactory.getLogger(getClass());
+
     @Value("${attachFileLocation}")
     private String attachFileLocation;
-
 
     @Value("${user.home}")
     private String uploadDir;
