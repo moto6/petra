@@ -1,8 +1,10 @@
-package com.board.post.dto;
+package com.board.post;
+
+import com.board.post.dto.PostDtoRequest;
 
 import java.time.LocalDateTime;
 
-public class PostDtoRequestTest {
+public class PostDtoRequestTestDataSet {
 
     public static final PostDtoRequest request1 = PostDtoRequest
             .builder()
