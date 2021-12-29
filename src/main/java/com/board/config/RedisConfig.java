@@ -34,6 +34,12 @@ public class RedisConfig {
         return template;
     }
 
+    @Bean
+    public RedisTemplate<Long, String> redisTemplateC() {
+        RedisTemplate<Long, String> template = new RedisTemplate<>();
+        template.setConnectionFactory(redisConnectionFactory());
+        return template;
+    }
 
     @Bean
     public RedisTemplate<Long, Long> redisTemplateB() {

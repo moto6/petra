@@ -1,41 +1,58 @@
 package com.board.post.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class PostViewCountService {
 
-    private final RedisTemplate<Long, Integer> counter;
+    //<postId,increment>
+    private final RedisTemplate<Long, Long> counter;
 
+    //<postId,postId>
     private final RedisTemplate<Long, Long> identifier;
 
     private final PostService postService;
 
     public void intervalCount(Long postId) {
+        //byRedis(postId); //레디스 Key expired 기능으로 구현하려고 했으나 실패
+
+    }
+
+
+
+    public void byRedis(Long postId) {
         if (!isContained(postId)) {
             postService.addViews(postId, getCount(postId));
             identifier.opsForValue().set(postId, postId, 1, TimeUnit.SECONDS);
-            getCount(postId);
-            counter.opsForValue().set(postId, 1);
-            return;
+            identifier.expire(postId, 1, TimeUnit.SECONDS);
+            counter.opsForValue().set(postId, 1L);
+            log.info("업데이트");
+        }else {
+            log.info("캐싱");
+            counter.opsForValue().set(postId, getCount(postId) + 1L);
         }
-        counter.opsForValue().set(postId, getCount(postId));
     }
 
-    private int getCount(Long postId) {
-        Integer i = counter.opsForValue().get(postId);
-        if (i != null) {
-            return i;
+
+    private long getCount(Long postId) {
+        Long aLong = counter.opsForValue().get(postId);
+        if (aLong != null) {
+            return aLong.intValue();
         }
-        throw new AssertionError();
+        return 1;
     }
 
     private boolean isContained(Long postId) {
-        return identifier.opsForValue().get(postId) == null;
+        Long sample = identifier.opsForValue().get(postId);
+        return identifier.opsForValue().get(postId) != null;
+
     }
 }

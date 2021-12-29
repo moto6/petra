@@ -91,7 +91,7 @@ public class PostService {
     }
 
     @Transactional
-    public void addViews(Long postId, int increment) {
+    public void addViews(Long postId, long increment) {
         Post post = postRepository.findById(postId).orElseThrow(EntityNotFoundException::new);
         post.incrementViews(increment);
     }
