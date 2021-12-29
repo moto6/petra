@@ -4,6 +4,7 @@ import com.board.post.dto.PostDtoRequest;
 import com.board.post.dto.PostDtoResponse;
 import com.board.post.dto.PostListDtoResponse;
 import com.board.post.entity.Post;
+import com.board.post.redis.PostViewCountService;
 import com.board.post.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -29,7 +30,10 @@ import java.util.stream.Collectors;
 public class PostApiController {
 
     private final PostService postService;
+
     private final ModelMapper modelMapper;
+
+    private final PostViewCountService postViewCountService;
 
     @PostMapping
     public ResponseEntity<?> create(@RequestBody PostDtoRequest request) {
@@ -52,7 +56,7 @@ public class PostApiController {
     @GetMapping("/{postId}")
     public ResponseEntity<?> readSingle(@PathVariable Long postId) {
         Post post = postService.read(postId);
-        post.increaseViews();//@ todo : 조회수 카운트는 병목지점이므로 나중에 batch/다른 처리를 위해서 service에 포함되지 않고, 컨트롤러에서 처리
+        postViewCountService.intervalCount(postId);//@ todo : 조회수 카운트를 redis 에서 처리
         PostDtoResponse response = modelMapper.map(post, PostDtoResponse.class);
         return ResponseEntity.ok(response);
     }
