@@ -71,7 +71,7 @@ public class Post extends BaseEntity {
         return this;
     }
 
-    public void incrementViews(int increment) {
+    public void incrementViews(long increment) {
         this.viewCount = this.viewCount + increment;
     }
 }
