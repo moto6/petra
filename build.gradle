@@ -39,6 +39,9 @@ dependencies {
 	//thymeleaf - for test file
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
+	//테스트에서 롬복 사용
+	testCompileOnly 'org.projectlombok:lombok'
+	testAnnotationProcessor 'org.projectlombok:lombok'
 }
 
 test {
