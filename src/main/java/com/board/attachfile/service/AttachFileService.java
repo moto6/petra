@@ -45,7 +45,7 @@ public class AttachFileService {
                 uploadDir +
                         File.separator +
                         StringUtils.cleanPath(multipartFile.getOriginalFilename()));
-
+        log.info("path : {} \n {}",serverPath.toString(),serverPath.toAbsolutePath());
         try {
             Files.copy(multipartFile.getInputStream(), serverPath, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
