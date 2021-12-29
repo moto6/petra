@@ -20,11 +20,14 @@ public class PostDtoRequest {
     @Max(value = 50, message = "최대 길이는 50자 입니다")
     @Min(value = 1, message = "최소길이는 1자 입니다")
     private String title;
+
     @NotNull(message = "본문은 필수입니다")
     @Max(value = 500, message = "최대 길이는 500자 입니다")
     @Min(value = 1, message = "최소길이는 1자 입니다")
     private String contents;
+
     private LocalDateTime validFrom;
+
     private LocalDateTime validUntil;
 
     @Builder
@@ -35,10 +38,7 @@ public class PostDtoRequest {
         this.validUntil = validUntil;
     }
 
-    //주의 : spring bean 객체가 아니라 DI 받을수가 없어 modelMapper사용이 불가능함. 고로 필드가 추가되면 수동업데이트 필요함
-
     public Post toPost() {
-
         return Post
                 .builder()
                 .title(this.title)
