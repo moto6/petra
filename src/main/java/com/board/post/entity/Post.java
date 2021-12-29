@@ -74,4 +74,15 @@ public class Post extends BaseEntity {
     public void incrementViews(long increment) {
         this.viewCount = this.viewCount + increment;
     }
+
+    public Post deepCopy() {
+        return Post.builder()
+                .id(this.getId())
+                .title(this.getTitle())
+                .contents(this.getContents())
+                .viewCount(this.getViewCount())
+                .validFrom(this.getValidFrom())
+                .validUntil(this.getValidUntil())
+                .build();
+    }
 }

@@ -43,3 +43,7 @@
 ## 메타데이터 작성
 - https://docs.spring.io/spring-boot/docs/current/reference/html/configuration-metadata.html
 - 프로퍼티 커스텀 디파인 정의
+
+
+## 디비 인덱스 공부하기
+- https://helloinyong.tistory.com/296
