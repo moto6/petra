@@ -26,7 +26,7 @@ class PostViewCountServiceTest {
     PostViewCountService postViewCountService;
 
     @Test
-    @DisplayName("조회수 증가 기능은 1초 지연되서 업데이트 된다")
+    @DisplayName("조회수 증가는 1초 지연 반영")
     public void viewUpCount() {
 
         //given
