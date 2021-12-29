@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @Slf4j
 class PostTest {
 
-    private static final Post post1 = Post
+    public static final Post post1 = Post
             .builder()
             .id(1L)
             .title("1_어린왕자")
@@ -22,7 +22,7 @@ class PostTest {
             .validUntil(LocalDateTime.now().plusYears(100))
             .build();
 
-    private static final Post post2 = Post
+    public static final Post post2 = Post
             .builder()
             .id(2L)
             .title("2_해리포터 혼혈왕자")
