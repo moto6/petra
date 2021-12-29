@@ -4,7 +4,7 @@ import com.board.post.dto.PostDtoRequest;
 import com.board.post.dto.PostDtoResponse;
 import com.board.post.dto.PostListDtoResponse;
 import com.board.post.entity.Post;
-import com.board.post.redis.PostViewCountService;
+import com.board.post.service.PostViewCountService;
 import com.board.post.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;

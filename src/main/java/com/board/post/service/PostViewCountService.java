@@ -1,4 +1,4 @@
-package com.board.post.redis;
+package com.board.post.service;
 
 import com.board.post.service.PostService;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +14,6 @@ public class PostViewCountService {
     private final RedisTemplate<Long, Integer> redisTemplate;
 
     private final PostService postService;
-
 
     public void intervalCount(Long postId) {
         if (!isContained(postId)) {
