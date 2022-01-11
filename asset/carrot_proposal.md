@@ -1,360 +1,189 @@
-# 당근마켓 클론코딩 기획서
-- 이 페이지는  "챌린지 결제 및 가이드라인 페이지" 페이지를 편하게 보고 백엔드 개발자의 입장에서 재구성한 페이지 입니다
-
-초기 당근마켓 기본 기획서
-
-현재 네카라쿠배당토의 한 축을 차지하고 있는 당근마켓! 2015년에 설립되 짧은 시간안에 당당히 유니콘 기업에 이름을 올렸죠! 하지만 이런 당근마켓 조차도 초기에는 작은 서비스였다는 사실 알고계셨나요? 저희도 3주간의 짧은 시간동안 당근 마켓의 완전 초기 모습을 개발해볼거에요. 물론 현재의 유니콘 기업이 되는 것을 가정하고 확장성 있게 Database도 짜봐야겠죠!
-꼭 읽어주세요!
-앱이 아닌 웹으로 구현해주세요.
-모바일 웹 화면에 맞게 구현해주세요.
-프론트 화면은 기능만 잘 구현되면 괜찮아요.
-야망 넘치는 넘블러들을 위한 챌린지 KeyPoint
-1. 주어진 프로세스에 맞게 기본 기능 구현
-2. 예외 상황에 대한 예외처리
-   ** 예쁘게 보이는 것과 모바일 뷰어 최적화는 필요하지 않아요.**
-3. 확장성 있는 Database 설계
-4. (여유가 된다면) 추가 기능 구현
-   구현 필수 기능
-1. 데이터베이스를 설계하고 Er-diagram 작성 및 제출
-2. 기본 기능 구현 및 서버 배포
-* 필수기능 개발을 진행하신 후에 여유가 되신다면 추가 기능을 개발하시거나 추가 로직을 설정하셔도 좋아요. (해당 경우 가산점이 부여돼요)
-
-
-## 초기 당근마켓 기본 기획서
-
-![img](https://oopy.lazyrockets.com/api/v2/member/image?src=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F6f3481f5-1cfd-4ba8-9640-fd3fd9796cd2%2Fcarrot.png&blockId=b38dd96a-bc76-4231-8049-61750fec6420&t=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJob3N0bmFtZSI6Ind3dy5udW1ibGUuaXQiLCJyb2xlIjoiYXBpIiwiaWF0IjoxNjQxNzgzNjA5LCJleHAiOjE2NDE3OTQ0MDl9.JPYwi98g1KtOfgzWgfXLvE1efwFw9hieLKQlLg9vdUU)
-
-- 우리 서비스가 잘될 것을 가정하고 확장성 있게 Database도 짜봐야겠죠!
-- 주어진 프로세스에 맞게 기본 기능 구현
-- 예외 상황에 대한 예외처리
-- 예쁘게 보이는 것과 모바일 뷰어 최적화는 생략
-- 확장성 있는 Database 설계
-- (여유가 된다면) 추가 기능 구현
-
-#### 구현 필수 기능
-
-- 모델링 : 저장할 데이터를 모델링하고 Er-diagram 작성 및 제출
-- 기본 기능 구현 및 서버 배포
-- 기본기능
-    - 회원가입
-    - 마이페이지
-    - 댓글기능
-- 추가기능
-    - 대댓글
-
-
-
-
-
-
-
-#### 기본 기능 및 유저 스토리
-
-#### 회원가입
-
-
-
-회원가입
-
-로그인을 하지 않았으면 랜딩페이지로 아래와 같은 화면이 시작됩니다.
-
-![img](https://oopy.lazyrockets.com/api/v2/member/image?src=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F8c9310ae-1989-4480-a397-fb3b9e75e55d%2FGroup_1_(2).png&blockId=d8165537-0fa6-431f-8e5b-987a8fcad7d9&t=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJob3N0bmFtZSI6Ind3dy5udW1ibGUuaXQiLCJyb2xlIjoiYXBpIiwiaWF0IjoxNjQxNzgzNjA5LCJleHAiOjE2NDE3OTQ0MDl9.JPYwi98g1KtOfgzWgfXLvE1efwFw9hieLKQlLg9vdUU)
-
-시작하기를 누르면 회원가입 페이지로 넘어갑니다.
-
-![img](https://oopy.lazyrockets.com/api/v2/member/image?src=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F7c65ee90-6c52-41ff-b9cc-c22e9a03e373%2FGroup_2_(2).png&blockId=8acdf3a3-2672-4b75-8d33-d7749fca7883&t=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJob3N0bmFtZSI6Ind3dy5udW1ibGUuaXQiLCJyb2xlIjoiYXBpIiwiaWF0IjoxNjQxNzgzNjA5LCJleHAiOjE2NDE3OTQ0MDl9.JPYwi98g1KtOfgzWgfXLvE1efwFw9hieLKQlLg9vdUU)
-
-이메일, 비밀번호, 이름, 핸드폰번호, 닉네임을 입력받으면 가입완료!
-
-가입완료가 된다면 다시 메인화면으로 넘어가요.
-
-![img](https://oopy.lazyrockets.com/api/v2/member/image?src=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F8c9310ae-1989-4480-a397-fb3b9e75e55d%2FGroup_1_(2).png&blockId=a75f4630-cc7c-46a4-be66-a861b78b81b6&t=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJob3N0bmFtZSI6Ind3dy5udW1ibGUuaXQiLCJyb2xlIjoiYXBpIiwiaWF0IjoxNjQxNzgzNjA5LCJleHAiOjE2NDE3OTQ0MDl9.JPYwi98g1KtOfgzWgfXLvE1efwFw9hieLKQlLg9vdUU)
-
-여기서 로그인을 클릭해서
-
-![img](https://oopy.lazyrockets.com/api/v2/member/image?src=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fc2c2bf7c-af70-4675-94d1-3572b065da6d%2FGroup_4_(2).png&blockId=f6189135-812d-4bea-a47d-a22cc484097c&t=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJob3N0bmFtZSI6Ind3dy5udW1ibGUuaXQiLCJyb2xlIjoiYXBpIiwiaWF0IjoxNjQxNzgzNjA5LCJleHAiOjE2NDE3OTQ0MDl9.JPYwi98g1KtOfgzWgfXLvE1efwFw9hieLKQlLg9vdUU)
-
-아이디, 비밀번호를 입력한 후 로그인을 누르면 정보가 맞게 입력되면 메인 페이지로 접속돼요.
-
-회원정보가 잘못되면 아이디, 비밀번호가 올바르지 않다는 오류 팝업창을 띄워주세요.
-
-시간관계상 비밀번호 찾기나 아이디 찾기 등의 기능은 생략합니다.
-
-![img](https://oopy.lazyrockets.com/api/v2/member/image?src=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F9c068daa-0b99-47ca-920a-9a29911dc629%2FGroup_3_(1).png&blockId=3a69f556-f919-490b-8696-534c9550cd01&t=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJob3N0bmFtZSI6Ind3dy5udW1ibGUuaXQiLCJyb2xlIjoiYXBpIiwiaWF0IjoxNjQxNzgzNjA5LCJleHAiOjE2NDE3OTQ0MDl9.JPYwi98g1KtOfgzWgfXLvE1efwFw9hieLKQlLg9vdUU)
-
-만약 여유가 되신다면 회원가입시 이메일 인증과정을 추가로 진행해주세요.
-
-![img](https://oopy.lazyrockets.com/api/v2/member/image?src=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F47b9806d-ed54-4d6e-846f-402df22f87c9%2FGroup_5.png&blockId=a7c2f61a-4a7f-4171-a220-141494bf092d&t=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJob3N0bmFtZSI6Ind3dy5udW1ibGUuaXQiLCJyb2xlIjoiYXBpIiwiaWF0IjoxNjQxNzgzNjA5LCJleHAiOjE2NDE3OTQ0MDl9.JPYwi98g1KtOfgzWgfXLvE1efwFw9hieLKQlLg9vdUU)
-
-당근마켓의 처음 버전은 판교장터로, 메일로 직장인 인증을 진행했습니다. 다만, 시간관계상 이 인증기능은 필수가 아니며, 여유가 되시는 넘블러분들만 진행해주세요.  직장 메일이나 학교 메일만 가입 가능하게 추가적으로 설정해주셔도 좋습니다.
-
-•
-
-Ex. google, naver, daum 메일 등은 가입이 안되고 @이후 회사계정이나 ac.kr로 끝나는 학교계정만 가입 가능 → (여유가 된다면) 해당 회사나 학교정보를 닉네임 밑에 추가로 띄움
-
-로그인을 하면 로그아웃을 하거나 한 달이상의 시간이 지나기 전에는 회원정보를 들고있어 메인 url에 접속하면 다음의 페이지가 랜딩페이지가 됩니다.
-
-![img](https://oopy.lazyrockets.com/api/v2/member/image?src=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F9c068daa-0b99-47ca-920a-9a29911dc629%2FGroup_3_(1).png&blockId=9afec770-27c8-40cf-8699-8f8a3e940d89&t=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJob3N0bmFtZSI6Ind3dy5udW1ibGUuaXQiLCJyb2xlIjoiYXBpIiwiaWF0IjoxNjQxNzgzNjA5LCJleHAiOjE2NDE3OTQ0MDl9.JPYwi98g1KtOfgzWgfXLvE1efwFw9hieLKQlLg9vdUU)
-
-#### 상품등록
-
-
-
-상품등록
-
-다음의 메인페이지에서 + 버튼을 누릅니다.
-
-![img](https://oopy.lazyrockets.com/api/v2/member/image?src=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F9c068daa-0b99-47ca-920a-9a29911dc629%2FGroup_3_(1).png&blockId=b00eb952-6c23-49bb-b079-9ba3b0db2b2c&t=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJob3N0bmFtZSI6Ind3dy5udW1ibGUuaXQiLCJyb2xlIjoiYXBpIiwiaWF0IjoxNjQxNzgzNjA5LCJleHAiOjE2NDE3OTQ0MDl9.JPYwi98g1KtOfgzWgfXLvE1efwFw9hieLKQlLg9vdUU)
-
-그러면 다음과 같은 글작성 페이지가 나타납니다.
-
-![img](https://oopy.lazyrockets.com/api/v2/member/image?src=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fe63e4b27-c726-40bb-95ba-0b00a061b877%2FGroup_6.png&blockId=1efd1c64-4c76-48ea-9194-cdf207c0f733&t=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJob3N0bmFtZSI6Ind3dy5udW1ibGUuaXQiLCJyb2xlIjoiYXBpIiwiaWF0IjoxNjQxNzgzNjA5LCJleHAiOjE2NDE3OTQ0MDl9.JPYwi98g1KtOfgzWgfXLvE1efwFw9hieLKQlLg9vdUU)
-
-사진을 업로드할 수 있으며, 제목, 카테고리, 가격(원), 본문을 입력받습니다.
-
-이 때, 사진은 실제 모바일 앨범에서 선택하는 것이 아닌, desktop에서 jpeg, png 등 이미지 파일을 업로드하는 기능입니다.
-
-•
-
-여유가 되신다면, 사진의 용량을 줄여서 저장하는 기능을 추가하시면 좋습니다.
-
-•
-
-여유가 되신다면, 기본 이미지 뿐만 아니라 중간 화면을 잘라 1:1 비율로 따로 이미지를 저장하면 좋습니다.(1:1 비율로 이미지를 보여줄 때가 많으므로)
-
-카테고리를 누르면 팝업창이 떠서 다음의 카테고리 중 하나를 선택할 수 있습니다.
-
-•
-
-‘디지털기기’, ‘생활가전’, ‘가구/인테리어’, ‘유아동’, ‘생활/가공식품’, ‘유아도서’, ‘스포츠/레저’, ‘여성잡화’, ‘여성의류’, ‘남성패션/잡화’, ‘게임/취미’, ‘뷰티/미용’, ‘반려동물용품’, ‘도서/티켓/음반’, ‘식물’, ‘기타 중고물품’, ‘중고차’
-
-![img](https://oopy.lazyrockets.com/api/v2/member/image?src=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fc9d7a3f3-8c22-474f-afe2-b3e11a01b71e%2FGroup_11.png&blockId=cefeb26a-4a86-41a6-9a43-3a6151677663&t=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJob3N0bmFtZSI6Ind3dy5udW1ibGUuaXQiLCJyb2xlIjoiYXBpIiwiaWF0IjoxNjQxNzgzNjA5LCJleHAiOjE2NDE3OTQ0MDl9.JPYwi98g1KtOfgzWgfXLvE1efwFw9hieLKQlLg9vdUU)
-
-내용을 모두 입력하면 완료 버튼이 활성화 되어 글을 입력할 수 있습니다. (사진은 업로드하지 않아도 완료 버튼이 활성화되어 글 입력이 가능합니다.)
-
-#### 상품페이지
-
-
-
-상품페이지
-
-랜딩페이지(메인페이지)에서 상품을 클릭하면 다음과 같은 상품페이지를 볼 수 있습니다.
-
-![img](https://oopy.lazyrockets.com/api/v2/member/image?src=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Feb6cfbb5-128a-446b-8894-c58e6faeccb5%2FGroup_12.png&blockId=70a62278-e798-4083-98dc-014095e8ace6&t=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJob3N0bmFtZSI6Ind3dy5udW1ibGUuaXQiLCJyb2xlIjoiYXBpIiwiaWF0IjoxNjQxNzgzNjA5LCJleHAiOjE2NDE3OTQ0MDl9.JPYwi98g1KtOfgzWgfXLvE1efwFw9hieLKQlLg9vdUU)
-
-보여지는 정보는 이미지(이미지가 없을 경우 이미지 밑의 내용부터 보여지며, 이미지 개수에 따라 흰색 점의 개수가 달라집니다.), 판매자 프로필사진, 판매자 닉네임, 게시물 제목, 게시물 가격, 게시물 카테고리, 게시물 게시시간, 본문, 관심(하트 숫자), 판매자의 판매상품입니다.
-
-이 때, 게시시간은 OO전으로 나타나는데, 1시간 전에는 n분전, 하루 전에는 n시간 전, 한 달 전에는 n일전, 1년 전에는 n달 전, 1년 이후에는 n년 전으로 나타납니다.
-
-거래가 완료된 상품은 제목 앞에 ‘거래완료’라는 문구가 붙습니다.
-
-이 때 판매 상품의 모두보기를 클릭하면 다음과 같은 화면을 볼 수 있습니다.
-
-![img](https://oopy.lazyrockets.com/api/v2/member/image?src=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fc6601402-d736-4a9f-89aa-81aeee390a77%2FGroup_13.png&blockId=917e61cd-03f0-4773-bb53-d16eeb4a5779&t=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJob3N0bmFtZSI6Ind3dy5udW1ibGUuaXQiLCJyb2xlIjoiYXBpIiwiaWF0IjoxNjQxNzgzNjA5LCJleHAiOjE2NDE3OTQ0MDl9.JPYwi98g1KtOfgzWgfXLvE1efwFw9hieLKQlLg9vdUU)
-
-이 때, 댓글이나 관심(하트 수)가 0이면 해당 아이콘은 표시되지 않습니다.
-
-거래가 완료된 상품은 거래완료라고 뜹니다.
-
-상품페이지에서 하트를 누르면 관심 물품으로 등록됩니다.
-
-#### 마이 페이지(나의 당근 페이지)
-
-
-
-마이 페이지(나의 당근 페이지)
-
-랜딩페이지에서 나의 당근을 클릭하면 다음과 같은 페이지로 넘어갑니다.
-
-![img](https://oopy.lazyrockets.com/api/v2/member/image?src=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fb3c654e0-02b8-4651-a80d-875240901e10%2FGroup_27.png&blockId=9cecf88e-ee75-455d-9e1a-8ac25a1659c5&t=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJob3N0bmFtZSI6Ind3dy5udW1ibGUuaXQiLCJyb2xlIjoiYXBpIiwiaWF0IjoxNjQxNzgzNjA5LCJleHAiOjE2NDE3OTQ0MDl9.JPYwi98g1KtOfgzWgfXLvE1efwFw9hieLKQlLg9vdUU)
-
-프로필 화면에는 사진을 넣기 전에는 위와 같은 기본화면이, 사진을 넣으면 사진이 표시됩니다. 프로필 수정, 판매내역, 관심목록, Log out등의 기능이 있습니다.
-
-프로필 수정
-
-프로필 수정을 누르면
-
-다음의 화면으로 넘어갑니다.
-
-![img](https://oopy.lazyrockets.com/api/v2/member/image?src=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F8ec2416f-71fd-4889-942e-fd18e44a5d4d%2FGroup_14.png&blockId=c4d8c60e-b83c-4dec-bdc6-10dea5566875&t=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJob3N0bmFtZSI6Ind3dy5udW1ibGUuaXQiLCJyb2xlIjoiYXBpIiwiaWF0IjoxNjQxNzgzNjA5LCJleHAiOjE2NDE3OTQ0MDl9.JPYwi98g1KtOfgzWgfXLvE1efwFw9hieLKQlLg9vdUU)
-
-이 때 닉네임을 수정할 수 있으며 프로필 사진을 업로드할 수 있습니다. 프로필 사진은 중간 부분의 1:1 비율로 업로드되며, 모바일 환경 앨범에서 사진을 선택하는 것이 아니라, desktop에서 이미지 파일을 업로드하는 형태입니다.
-
-판매내역
-
-판매내역을 누르면
-
-![img](https://oopy.lazyrockets.com/api/v2/member/image?src=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F7a88ab3c-f796-415c-80c7-62ee2956f5d7%2FGroup_19.png&blockId=a09c3a43-27ec-4f4b-8a46-ec7e5e6ca2f9&t=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJob3N0bmFtZSI6Ind3dy5udW1ibGUuaXQiLCJyb2xlIjoiYXBpIiwiaWF0IjoxNjQxNzgzNjA5LCJleHAiOjE2NDE3OTQ0MDl9.JPYwi98g1KtOfgzWgfXLvE1efwFw9hieLKQlLg9vdUU)
-
-판매중인 상품 및 거래완료 상품을 확인할 수 있습니다. 해당 화면에서 바로 예약중으로 변경 or 거래완료로 변경하며 상태변경이 가능합니다. 거래완료로 변경할 경우 해당 상품은 거래완료 탭으로 갑니다. 거래완료에서도 판매중이나 예약중으로 상태변경이 가능합니다.
-
-![img](https://oopy.lazyrockets.com/api/v2/member/image?src=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F87855112-ebed-41a7-ac8d-bda63d184f97%2FGroup_20.png&blockId=6e0d11cc-cb0e-4f58-b765-885d2bf6b29d&t=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJob3N0bmFtZSI6Ind3dy5udW1ibGUuaXQiLCJyb2xlIjoiYXBpIiwiaWF0IjoxNjQxNzgzNjA5LCJleHAiOjE2NDE3OTQ0MDl9.JPYwi98g1KtOfgzWgfXLvE1efwFw9hieLKQlLg9vdUU)
-
-판매 상품을 클릭하면 다음과 같이 상품 상세페이지로 가는데 판매자의 판매물품의 경우
-
-판매중, 예약중, 거래완료로 상태변화가 가능합니다.
-
-위의 ... 버튼을 클릭하면 다음과 같이 게시물 수정 및 삭제가 뜹니다.
-
-![img](https://oopy.lazyrockets.com/api/v2/member/image?src=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F371ea818-e781-4edd-bacf-0366d97add4e%2FGroup_21.png&blockId=83dfb00b-9db9-42c9-884a-5dcbb0a0a376&t=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJob3N0bmFtZSI6Ind3dy5udW1ibGUuaXQiLCJyb2xlIjoiYXBpIiwiaWF0IjoxNjQxNzgzNjA5LCJleHAiOjE2NDE3OTQ0MDl9.JPYwi98g1KtOfgzWgfXLvE1efwFw9hieLKQlLg9vdUU)
-
-이 때 삭제 버튼을 클릭하면 다음과 같은 화면이 뜨며 삭제가 가능합니다.
-
-![img](https://oopy.lazyrockets.com/api/v2/member/image?src=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F11adfc02-66d4-46b1-8d44-6602cde42237%2FGroup_22.png&blockId=9e749632-004f-442e-88b6-97246989d324&t=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJob3N0bmFtZSI6Ind3dy5udW1ibGUuaXQiLCJyb2xlIjoiYXBpIiwiaWF0IjoxNjQxNzgzNjA5LCJleHAiOjE2NDE3OTQ0MDl9.JPYwi98g1KtOfgzWgfXLvE1efwFw9hieLKQlLg9vdUU)
-
-게시글 수정 버튼을 클릭하면 게시글 등록과 같은 화면이 뜨지만 글을 입력할 때 입력했던 입력값이 바로 보여집니다. 여기서 글을 수정할 수 있습니다.
-
-![img](https://oopy.lazyrockets.com/api/v2/member/image?src=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F5fc6a16e-8381-4e10-8c57-4bc67341dc9a%2FGroup_23.png&blockId=2d59ea8f-6cde-4850-9bb3-dd74e4b7b035&t=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJob3N0bmFtZSI6Ind3dy5udW1ibGUuaXQiLCJyb2xlIjoiYXBpIiwiaWF0IjoxNjQxNzgzNjA5LCJleHAiOjE2NDE3OTQ0MDl9.JPYwi98g1KtOfgzWgfXLvE1efwFw9hieLKQlLg9vdUU)
-
-관심목록
-
-관심목록을 클릭하면 내가 좋아요 누른 상품이 나타납니다.
-
-![img](https://oopy.lazyrockets.com/api/v2/member/image?src=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F137ec151-fc82-4390-a33c-81e34418d5fe%2FGroup_17.png&blockId=6cb07d0d-302f-416a-82eb-5c76ecce519f&t=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJob3N0bmFtZSI6Ind3dy5udW1ibGUuaXQiLCJyb2xlIjoiYXBpIiwiaWF0IjoxNjQxNzgzNjA5LCJleHAiOjE2NDE3OTQ0MDl9.JPYwi98g1KtOfgzWgfXLvE1efwFw9hieLKQlLg9vdUU)
-
-#### 댓글기능
-
-
-
-댓글기능
-
-상품 페이지에서 댓글 보기 및 댓글 남기기 기능을 사용할 수 있습니다.
-
-![img](https://oopy.lazyrockets.com/api/v2/member/image?src=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fa9cdf97b-649c-4e4e-800a-05bc34331ca0%2FGroup_12.png&blockId=3aeed79d-54bb-415e-9036-80bc622bcc41&t=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJob3N0bmFtZSI6Ind3dy5udW1ibGUuaXQiLCJyb2xlIjoiYXBpIiwiaWF0IjoxNjQxNzgzNjA5LCJleHAiOjE2NDE3OTQ0MDl9.JPYwi98g1KtOfgzWgfXLvE1efwFw9hieLKQlLg9vdUU)
-
-하단의 댓글 보기를 클릭하면
-
-![img](https://oopy.lazyrockets.com/api/v2/member/image?src=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F94a867cb-10aa-4c5d-9d1f-46320abc0f0e%2FGroup_26_(1).png&blockId=84a8ee2b-fec0-4afe-a41e-9741fcd23675&t=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJob3N0bmFtZSI6Ind3dy5udW1ibGUuaXQiLCJyb2xlIjoiYXBpIiwiaWF0IjoxNjQxNzgzNjA5LCJleHAiOjE2NDE3OTQ0MDl9.JPYwi98g1KtOfgzWgfXLvE1efwFw9hieLKQlLg9vdUU)
-
-다음과 같이 닉네임, 시간, 댓글을 볼 수 있습니다.
-
-시간은 n분 전, n시간 전, n일 전, n달 전, n년 전의 5가지 형태로 나타나며,
-
-글을 쓴지 1시간 전에는 n분 전으로, 1일 전에는 n 시간 전으로, 1달 전에는 n일 전으로, 1년부터는 n년 전으로 표시됩니다.
-
-최근에 달린 댓글이 더 상단에 표시됩니다.
-
-자신이 쓴 글에는 Edit 버튼이 떠서 수정이 가능합니다.
-
-← 버튼을 누르면 무조건 이전 product page로 돌아갑니다.
-
-댓글 남기기를 클릭하면 다음과 같이 댓글을 남길 수 있습니다.
-
-![img](https://oopy.lazyrockets.com/api/v2/member/image?src=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Ffc17bf80-c1be-48fc-b58b-2e3b0efa69a7%2FGroup_25.png&blockId=759ee24f-8213-4f57-a361-fd4a226bc920&t=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJob3N0bmFtZSI6Ind3dy5udW1ibGUuaXQiLCJyb2xlIjoiYXBpIiwiaWF0IjoxNjQxNzgzNjA5LCJleHAiOjE2NDE3OTQ0MDl9.JPYwi98g1KtOfgzWgfXLvE1efwFw9hieLKQlLg9vdUU)
-
-Edit 버튼을 클릭할 경우 기존에 자신이 남겼던 글이 default 값으로 써져있으며 수정 후 작성완료를 누르면 수정됩니다.
-
+# 당근마켓 기획서 & 유저 시나리오 분석
+- 이 페이지는 `당근마켓` 서비스의 클론코딩을 위해 백엔드개발자의 입장에서 기획서를 역으로 구성한 페이지 입니다
+
+## 어떻게 진행할까?
+### 기술적인 부분
+- 예외 상황에 대한 예외처리 
+- 필수 기능만 생각하고, 추가기능은 추가가 어렵지만 않게하고 YAGNI!
+- 데이터 모델링 : 확장성 있게 Database 설계 Er-diagram 작성 및 제출
+- 서버 배포와 Integration
+
+### 유저 시나리오 기반의 동작 프로세스
+- http 가 stateless 하지만, 사용자들은 아래 상태들을 한정되는 FSM 으로 모델링 됩니다
+-  고객 시나리오에 대응하는 프로세스를 짜고 이에 맞는 VIEW 와 API 를 작성하자
+#### 사용자 행동 시나리오
+- 1 ) 회원가입
+  - 1.1) 랜딩페이지
+  - 1.2) 회원가입 화면
+  - 1.3) 로그인 화면
+  - 1.4) (추가기능) 토큰만료 화면
+- 2 ) 상품등록(판매 글/글작성)
+  - 2.1) 상품등록 페이지
+  - 2.2) 카테고리 페이지
+  - 2.3) 상품 상세 페이지
+  - 2.4) 이 판매자의 다른 판매상품
+- 3 ) 마이페이지
+  - 3.1) 마이 페이지(나의 당근 페이지) 메인
+  - 3.2) 프로필 수정 페이지
+  - 3.3) 판매내역 페이지
+  - 3.4) 관심목록
+- 4 ) 댓글기능
+  - 4.1) 댓글달기 기능
+  - 4.2) 댓글수정 기능
+  - 4.3) 댓글삭제 기능
+- 5 ) 추가기능
+
+
+<br><br><br><br>
+
+## 1) 회원가입
+### 1.1) 랜딩페이지
+- 로그인을 하지 않았으면 랜딩페이지로 아래와 같은 화면 노출
+- 시작하기를 누르면 회원가입 페이지로 넘어갑니다.
+
+### 1.2) 회원가입 화면
+- 이메일, 비밀번호, 이름, 핸드폰번호, 닉네임을 입력받으면 가입완료!
+- 가입완료시 메인으로 리다이렉트
+
+### 1.3) 로그인 화면
+- 아이디, 비밀번호를 입력한 후 로그인을 누르면 정보확인 후 메인 페이지로 접속
+- 회원정보가 잘못되면 아이디, 비밀번호가 올바르지 않다는 오류 팝업창
+  - 추가기능 : 비밀번호 찾기나 아이디 찾기 등의 기능
+  - 추가기능 : 회원가입시 이메일 인증과정(계정 활성화/비활성화 기능)
+  - 당근마켓의 처음 버전은 판교장터로, 직장 메일이나 학교 메일만 가입 가능하게 추가적으로 설정해도 되고, 구글 오어스로 회사 구글계정 사용자만 로그인되게 해도 될듯
+
+### 1.4) (추가기능) 토큰만료 화면
+- 로그인을 하면 로그아웃을 하거나 한 달이상의 시간이 지나기 전에는 회원정보를 들고있어 메인 url에 접속하면 다음의 페이지가 랜딩페이지가 
+
+<br><br><br><br>
+
+## 2) 상품등록
+
+### 2.1) 상품등록 페이지
+- 다음의 메인페이지에서 + 버튼을 누르면
+- 아래 사진의 `새로운 판매글 작성` 페이지가 나타납니다.
+- 사진을 업로드할 수 있으며, 제목, 카테고리, 가격(원), 본문을 입력받습니다.
+  - 사진은 실제 모바일 앨범에서 선택하는 것이 아닌, desktop에서 jpeg, png 등 이미지 파일을 업로드하도록 작성(MultipartFile 표준 사용하면 될듯)
+- 사진의 크기가 20MB 이하의 파일만 받도록 설정 
+- (추가기능) 사진의 용량을 줄여서 저장하는 기능 
+
+### 2.2) 카테고리 페이지
+- 카테고리를 누르면 팝업창이 떠서 다음의 카테고리 중 하나를 선택할 수 있습니다.
+- 카테고리는 아래 정도만
+  - ‘디지털기기’, ‘생활가전’, ‘가구/인테리어’, ‘유아동’, ‘생활/가공식품’, ‘유아도서’, ‘스포츠/레저’, ‘여성잡화’, ‘여성의류’, ‘남성패션/잡화’, ‘게임/취미’, ‘뷰티/미용’, ‘반려동물용품’, ‘도서/티켓/음반’, ‘식물’, ‘기타 중고물품’, ‘중고차’
+- 내용을 모두 입력하면 완료 버튼이 활성화 되어 글을 입력할 수 있습니다. (사진은 업로드하지 않아도 완료 버튼이 활성화되어 글 입력이 가능)
+- 검증은 프론트, 서버에서 더블체크
+
+
+### 2.3) 상품 상세 페이지
+- 랜딩페이지(메인페이지)에서 상품을 클릭하면 다음과 같은 상품페이지를 볼 수 있습니다.
+- 보여지는 정보는 
+  - 상품사진, 판매자 프로필사진, 판매자 닉네임, 게시물 제목, 게시물 가격, 게시물 카테고리, 게시물 게시시간, 본문, 관심(하트 숫자), 동일판매자가 판매중인 상품, 글 조회수
+  - img, seller profile, seller nick, title, price, category, time, contents, like, seller's other goods, views
+  - 조회수때문에 Redis 필요
+- 이미지는 없을수도 있음
+- 게시시간 표시
+  - 표시방식 : `n분전`, `n일전`, `n시간 전` 
+  - 1시간 전에는 n분전, 하루 전에는 n시간 전, 한 달 전에는 n일전, 1년 전에는 n달 전, 1년 이후에는 n년 전으로 나타납니다.
+- 거래가 완료된 상품은 제목 앞에 ‘거래완료’라는 문구가 붙습니다.
+- `이 판매자가 판매중인 다른 상품 보기` 버튼이 있습니다
+- `...` 버튼을 클릭하면 다음과 같이 `게시물 수정` 및 `게시물 삭제` 버튼이 표시되어야함
+  - 수정 -> 수정페이지 이동, 게시글 등록과 같은 화면이 뜨지만 글을 입력할 때 입력했던 입력값이 바로 보여짐
+  - 삭제 -> 확인팝업 출력 후 삭제, 클릭하면 다음과 같은 화면 한번 거쳐서 삭제
+### 2.4) 이 판매자의 다른 판매상품
+- seller's other goods
+- (상품 상세페이지에서 접근 가능) 판매 상품의 모두보기를 클릭하면 아래의 화면이 출력됩니다
+- 댓글이나 관심(하트 수)가 0이면 해당 아이콘은 표시되지 않습니다.
+- 거래가 완료된 상품은 표시되나 거래완료라는 상태가 함께 출력됩니다
+  - 여기서는 거래 완료 여부와 상관없이 노출 되어야 함
+- 이 페이지에서 하트를 누르면 관심 물품으로 등록됨
+
+<br><br><br><br>
+
+## 3) 마이페이지
+### 3.1) 마이 페이지(나의 당근 페이지) 메인 (줄여서 `마페메`)
+- 랜딩페이지에서 나의 당근을 클릭하면 아래와 같은 페이지가 표시
+- 프로필 화면에는 사진을 넣기 전에는 위와 같은 기본프사가 보이고, 별도 사진을 등록하면 사진이 표시
+- 프로필 수정, 판매내역, 관심목록, Logout 으로 가는 기능이 존재해야함
+
+### 3.2) 프로필 수정 페이지
+- `마페메` 에서 `프로필 수정` 버튼을 누르면 아래 화면 표시
+- 이 페이지에서는 닉네임을 수정 가능
+- 프로필 사진을 업로드기능
+  - 프로필 사진은 중간 부분의 1:1 비율로 업로드
+  - desktop에서 이미지 파일을 업로드하는 형태로 Multipart
+
+### 3.3) 판매내역 페이지
+- `마페메` 에서 `판매내역` 버튼을 누르면 아래 화면 표시
+- 판매중인 상품 및 거래완료 상품을 확인
+- 해당 화면에서 바로 예약중으로 변경 or 거래완료로 변경하며 상태변경이 가능
+- 거래완료로 변경할 경우 해당 상품은 거래완료 탭으로 이동됨
+- 거래완료에서도 판매중이나 예약중으로 상태변경이 가능합니다.
+- 판매 상품을 클릭하면 다음과 같이 상품 상세페이지로 이동
+- 판매자인 경우에만 판매물품의 상태변화가 가능
+  - 판매중, 예약중, 거래완료 status 
+
+### 3.4) 관심목록
+- 관심목록을 클릭하면 좋아요 누른 상품이 나타납니다.
+
+<br><br><br><br>
+
+## 4) 댓글기능
+
+### 4.1) 댓글달기 기능
+- 상품 페이지에서 댓글 보기 및 댓글 남기기 기능을 사용할 수 있습니다.
+- 하단의 댓글 보기를 클릭하면
+  - 다음과 같이 닉네임, 시간, 댓글을 볼 수 있습니다.
+  - 시간은 n분 전, n시간 전, n일 전, n달 전, n년 전의 5가지 형태로 나타나며, 글을 쓴지 1시간 전에는 n분 전으로, 1일 전에는 n 시간 전으로, 1달 전에는 n일 전으로, 1년부터는 n년 전으로 표시
+  - 댓글은 시간이 빠른순서로 표시
+- 자신이 쓴 댓글에는 Edit 버튼이 떠서 수정이 가능, 삭제도 가능
+- (App) ← 버튼을 누르면 무조건 이전 product page로 돌아갑니다.
+- 댓글 남기기를 클릭하면 다음과 같이 댓글을 남길 수 있습니다.
+
+### 4.2) 댓글 수정 기능
+- Edit 버튼을 클릭할 경우 기존에 자신이 남겼던 글이 default 값으로 써져있으며 수정 후 작성완료를 누르면 수정됩니다.
+- 
 작성완료할 경우 댓글 보기 페이지로 넘어갑니다.
-
-채팅기능은 없으며 댓글기능으로 채팅을 대체합니다.
-
-(댓글을 통해 거래 장소 및 시간을 잡습니다)
 
 대댓글 기능은 여유가 되실경우 추가해주시기 바랍니다.
 
 실제 거래는 댓글기능을 통해 판매자와 구매자가 거래 장소 및 시간을 정한 후 직거래 및 현금거래를 한다고 가정합니다. 모든 소통은 댓글을 통해서만 이루어집니다.
 
-### 실력이 좋은 넘블러를 위한 Upgrade 기능
+### 4.3) 댓글 삭제기능
+- 자신이 작성한 댓글만 삭제가 가능해야함
 
-서버 배포 및 블로그 작성, Er-diagram 작성은 다소 시간이 걸릴 수 있으므로 너무 무리하지 마시고 먼저 서버배포부터 완료하고 Upgrade 기능에 도전해봐요!
+<br><br><br><br>
 
-추가 기능
-
-회원가입시 Email 인증 추가
-
-•
-
-여유가 되신다면 이메일 인증기능을 추가해보는건 어떨까요?
-
-•
-
-이메일 인증을 해야만 회원가입이 정상적으로 완료되는거에요.
-
-•
-
-만약 여유가 되신다면, 기업이나 학교메일만 인증이 가능하게 만들어보는건 어떨까요? 특정 기업만 인증이 가능하게 하는 것도 좋아요!(초기 당근마켓은 판교장터라는 이름으로 판교에 있는 직장인들을 대상으로 서비스했어요 :) )
-
-회원가입시 지역 인증 기능 추가
-
-•
-
-여유가 되신다면 회원가입 시 지역인증 기능을 추가해보는건 어떨까요?
-
-•
-
-가입할 때 특정 지역(개발자님의 거주지역)에서 6km 이내에 위치하고 있는지 확인하고 맞으면 회원가입을 할 수 있고, 아니면 회원가입을 못하게 하는거에요!
-
-해당 지역에 있는지 주기적인 인증기능 추가
-
-•
-
-여유가 되신다면 해당 지역에 그 사람이 계속 살고있는지 주기적으로 인증하는 기능을 추가해보는건 어떨까요?
-
-•
-
-지역 인증이 한 달 동안만 유효하고 다음 달이 되면 해당 지역에 그대로 있는지 자동으로 위치확인하는 기능이 실행되고 만약 그 지역에 있지 않으면 그 지역에 가서 인증할 때까지 유저자격이 정지하는거에요. 확인되면 그대로 유저로서의 권한을 누리는거죠.
-
-검색 기능 추가
-
-•
-
-여유가 되신다면 검색 기능을 추가해보는건 어떨까요?
-
-•
-
-검색한 값을 제목이나 본문에 포함하고 있는 상품을 보여주는건 어떨까요?
-
-•
-
-어떤 상품을 상단에 보여줄지는 고민해서 로직을 짜주세요!(Ex. 판매완료된 상품보다는 판매중인 상품이 위에 노출(판매중>예약중>판매완료 순으로 노출), 사람들이 좋아요를 많이 누르거나 댓글을 많이 남긴 상품이 위에 노출)
-
-•
-
-만약 여유가 되신다면 검색에 Filtering 기능을 추가해보는건 어떨까요? 카테고리도 설정할 수 있고, 가격범위(Ex. 0~10000원)도 정할 수 있다면 좋을 것 같아요!
-
-알림기능 추가
-
-•
-
-여유가 되신다면 알림기능을 추가해보는건 어떨까요?
-
-◦
-
-알림 아이콘은 메인 페이지의 맨 위 상단의 검색 아이콘과 카테고리 아이콘 사이에 추가되면 좋을 것 같아요
-
-◦
-
-내가 관심있는 상품(좋아요 누른 상품)의 상태 값이 변경됐을 때(판매중→예약중이나 판매완료로 변경), 내가 판매중인 상품에 댓글이 댈리거나 좋아요가 추가됐을 때, 내가 댓글을 단 상품에 또 댓글이 달렸을 때 알림을 보내면 어떨까요? 줄글 형식으로 보내고 해당 글을 클릭했을 때 관련 화면으로 넘어가면 어떨까요?(Ex. 내가 댓글을 단 상품에 또 댓글이 달렸을 때 해당 상품의 댓글보기 페이지로 넘어가기)
-
-대댓글 기능 추가
-
-•
-
-여유가 되신다면 대댓글 기능을 추가해보는건 어떨까요?
-
-◦
-
-채팅기능 없이 댓글을 통해 소통하기 때문에 만약 판매자분이 여러명과 소통을 하신다면 다소 혼란스럽겠죠? 그래서 댓글에 댓글을 달 수 있는 대댓글 기능을 추가하면 어떨까요?
-
-다음의 기능은 이번 챌린지에서는 추가하지 않으셔도 돼요.
-
-다만, 추후에 추가할 거라고 생각해주세요.
-
-뱃지 기능 추가
-
-•
-
-첫 거래 완료, 10번 거래 완료, 무료 나눔 완료 등 특정 이벤트를 수행하면 관련 뱃지를 지급할 예정이에요.
-
-매너온도 기능 추가
-
-•
-
-거래가 완료되면 서로 상대방의 매너에 대해 평가할 수 있어요. 따뜻한 사람이면 온도가 높아지고 비매너의 행동을 하면 온도가 낮아져요.
-
-채팅 기능 추가
-
-•
-
-서비스가 커지면 댓글기능을 없애고 1:1 채팅기능으로 대신할 거에요.
+## 5) 추가기능
+- 글 보호 기능(중고거래 사기방지) : 일정 기간동안 작성자조차 글 삭제가 불가능해집니다
+  - 1명이 글 보호를 누르면 3시간동안 글이 보호됩니다 
+  - 3명 이상이 글 보호시간이 3주간 보호됩니다
+  - 5명 이상이 글 보호 요청을 눌렀을 경우 1년간 보호됩니다. CS 직원이 확인해야 처리가 가능합니다
+- 회원가입 인증
+  - Email 인증 : 유효한 이메일인지 확인(장물아비, 도배업자 퇴치용)
+  - 지역인증 : 지역에 그 사람이 살고있는지 유효기간마다 인증하도록
+    - 지역 인증이 한 달 동안만 유효
+- 검색 기능
+  - 검색한 값을 제목이나 본문에 포함하고 있는 상품을 보여주는건 어떨까요?
+  - 어떤 상품을 상단에  노출하는지에 대한 로직 추가
+    - (판매중인 상품, 좋아요순, 댓글 많은순)
+  - 검색에 Filtering 기능 : 카테고리 제한 설정, 가격범위(상한필터, 하한필터, 상하한필터)
+- 알림기능 추가
+  - 알림기능을 추가해보는건 어떨까요?
+  - 알람 아이콘은 메인 페이지의 맨 위 상단의 검색 아이콘과 카테고리 아이콘 사이에 위치
+  - 키워드 알람
+    - 키워드를 등록하면 알람이 발생한다
+    - 키워드는 제목, 본문, 제목or본문에 걸 수 있다
+  - 관심 상품 상태 변경 알람(좋아요 누른 상품)
+    - 판매중 -> 예약중/판매완료 혹은 반대로 변경시 알림
+  - 이외 중고나라, 당근마켓 알람 기능
+    - 내 판매중 상품에 댓글, 좋아요 내가 댓글을 단 상품에 댓글이 달렸을 때 
+- 대댓글 기능
+- 뱃지 기능
+  - 첫 거래 완료, 10번 거래 완료, 무료 나눔 완료 등 특정 이벤트를 수행하면 관련 뱃지를 지급할 예정이에요.
+- 매너온도 기능
+  - 거래가 완료되면 서로 상대방의 매너에 대해 평가
+  - 따뜻한 사람이면 온도가 높아지고 비매너의 행동을 하면 온도 떨어트리기
+- 채팅 기능 추가
+  - 1:1 채팅기능
 
