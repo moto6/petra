@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -18,11 +19,11 @@ public class PostViewCountService {
 
     private static final Map<Long, ViewCount> redisSimulation = new HashMap<>();
 
-    //<postId,increment>
-    private final RedisTemplate<Long, Long> counter;
+    //<Key:postId / Value:Time>
+    private final RedisTemplate<Long, ZonedDateTime> timer;
 
-    //<postId,postId>
-    private final RedisTemplate<Long, Long> identifier;
+    //<Key:postId / Value:Count>
+    private final RedisTemplate<Long, Integer> counter;
 
     private final PostService postService;
 
@@ -31,20 +32,6 @@ public class PostViewCountService {
         byMillis(postId);
     }
 
-    private void byMillis(Long postId) {
-        if (redisSimulation.containsKey(postId)) {
-            ViewCount firstSignal = redisSimulation.get(postId);
-            if ((System.currentTimeMillis() - firstSignal.getMillis()) > 1000) { //1초이상 지난경우
-                postService.addViews(postId, firstSignal.getUpCount());
-                redisSimulation.remove(postId);//숫자를 더하고 삭제
-            } else {
-                redisSimulation.replace(postId, new ViewCount(firstSignal.getMillis(), firstSignal.getUpCount() + 1));
-                // 숫자만 더하고 시간은 유지
-            }
-        } else {
-            redisSimulation.put(postId, new ViewCount(System.currentTimeMillis(), 1));
-        }
-    }
 
     public void byRedis(Long postId) {
         if (!isContained(postId)) {
