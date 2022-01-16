@@ -28,13 +28,25 @@ public class RedisConfig {
     }
 
     @Bean
-    public RedisTemplate<Long, ZonedDateTime> redisTemplate() {
+    public RedisTemplate<Long, ZonedDateTime> redisTemplateTimer() {
         log.debug("Redis Bean add" + System.lineSeparator() +
                           "\t KEY[{}: {}] " + System.lineSeparator() +
                           "\t VALUE[{}: {}]",
                   "Long", "Entity's PRIMARY-KEY",
-                  "ZonedDateTime", "data requested time");
+                  "ZonedDateTime", "time of requested");
         RedisTemplate<Long, ZonedDateTime> template = new RedisTemplate<>();
+        template.setConnectionFactory(redisConnectionFactory());
+        return template;
+    }
+
+    @Bean
+    public RedisTemplate<Long, Integer> redisTemplateCounter() {
+        log.debug("Redis Bean add" + System.lineSeparator() +
+                          "\t KEY[{}: {}] " + System.lineSeparator() +
+                          "\t VALUE[{}: {}]",
+                  "Long", "Entity's PRIMARY-KEY",
+                  "Integer", "count of request");
+        RedisTemplate<Long, Integer> template = new RedisTemplate<>();
         template.setConnectionFactory(redisConnectionFactory());
         return template;
     }
