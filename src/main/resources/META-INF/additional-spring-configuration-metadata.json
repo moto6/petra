@@ -9,5 +9,10 @@
       "name": "attachFileUri",
       "type": "java.lang.String",
       "description": "server will serviced attachFile this Uri."
+    },
+    {
+      "name": "viewCountLazyUpdatePeriodSecond",
+      "type": "java.lang.Integer",
+      "description": "view-Count's Lazy Update Period by Redis Caching, unit:second."
     }
   ] }
