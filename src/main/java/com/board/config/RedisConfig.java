@@ -9,6 +9,8 @@ import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactor
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
 
+import java.time.ZonedDateTime;
+
 @Slf4j
 @Configuration
 @EnableRedisRepositories
@@ -26,23 +28,15 @@ public class RedisConfig {
     }
 
     @Bean
-    public RedisTemplate<Long, Integer> redisTemplateA() {
-        RedisTemplate<Long, Integer> template = new RedisTemplate<>();
+    public RedisTemplate<Long, ZonedDateTime> redisTemplate() {
+        log.debug("Redis Bean add" + System.lineSeparator() +
+                          "\t KEY[{}: {}] " + System.lineSeparator() +
+                          "\t VALUE[{}: {}]",
+                  "Long", "Entity's PRIMARY-KEY",
+                  "ZonedDateTime", "data requested time");
+        RedisTemplate<Long, ZonedDateTime> template = new RedisTemplate<>();
         template.setConnectionFactory(redisConnectionFactory());
         return template;
     }
 
-    @Bean
-    public RedisTemplate<Long, String> redisTemplateC() {
-        RedisTemplate<Long, String> template = new RedisTemplate<>();
-        template.setConnectionFactory(redisConnectionFactory());
-        return template;
-    }
-
-    @Bean
-    public RedisTemplate<Long, Long> redisTemplateB() {
-        RedisTemplate<Long, Long> template = new RedisTemplate<>();
-        template.setConnectionFactory(redisConnectionFactory());
-        return template;
-    }
 }
