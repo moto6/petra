@@ -53,7 +53,7 @@ public class Post extends BaseEntity {
 
     //@Todo : 첨부파일 추가필요
 
-    public boolean isValidPeriod(LocalDateTime standardTime) {
+    public boolean isExpired(LocalDateTime standardTime) {
         return (validFrom.isBefore(standardTime) && validUntil.isAfter(standardTime));
     }
 
@@ -71,8 +71,12 @@ public class Post extends BaseEntity {
         return this;
     }
 
-    public void incrementViews(long increment) {
-        this.viewCount = this.viewCount + increment;
+    public void incrementViewsAsync() {
+
+    }
+
+    public void incrementViewsSync(long count) {
+        this.viewCount += count;
     }
 
     public Post deepCopy() {
