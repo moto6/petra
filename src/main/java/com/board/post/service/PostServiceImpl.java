@@ -5,6 +5,7 @@ import com.board.exception.OutOfDateException;
 import com.board.post.dto.PostDtoRequest;
 import com.board.post.entity.Post;
 import com.board.post.repository.PostRepository;
+import com.board.post.util.SearchType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -46,7 +47,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Transactional(readOnly = true)
-    public Post get(Long postId, String query) {
+    public Post get(Long postId, SearchType query) {
         Post post = postRepository
                 .findById(postId)
                 .orElseThrow(EntityNotFoundException::new);

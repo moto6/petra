@@ -6,6 +6,7 @@ import com.board.post.dto.PostDtoResponse;
 import com.board.post.dto.PostListDtoResponse;
 import com.board.post.entity.Post;
 import com.board.post.service.PostService;
+import com.board.post.util.SearchType;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Pageable;
@@ -25,6 +26,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.board.post.util.SearchType.SearchTypeAdaptor;
 
 @RequestMapping("/api/v1/post")
 @RestController
@@ -66,9 +69,8 @@ public class PostApiController {
 
     @GetMapping("/{postId}")
     public ResponseEntity<?> getPost(@PathVariable Long postId, @RequestParam(required = false) String query) {
-
-
-        PostDtoResponse response = modelMapper.map(postService.get(postId,query), PostDtoResponse.class);
+        SearchType search = SearchTypeAdaptor(query);
+        PostDtoResponse response = modelMapper.map(postService.get(postId,search), PostDtoResponse.class);
         ApiResponse<?> result = ApiResponse.sussess(response, HttpStatus.OK);
 
         return ResponseEntity
