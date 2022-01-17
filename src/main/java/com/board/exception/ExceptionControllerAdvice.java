@@ -16,4 +16,10 @@ public class ExceptionControllerAdvice {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(e.getMessage());
     }
 
+    @ExceptionHandler({InvalidQueryException.class})
+    public ResponseEntity<?> InvalidQueryExceptionHandler(final InvalidQueryException e) {
+        log.warn("InvalidQueryException {}", e.getMessage());
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(e.getMessage());
+    }
+
 }
