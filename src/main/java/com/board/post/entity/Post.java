@@ -72,7 +72,7 @@ public class Post extends BaseEntity {
     }
 
     public void incrementViewsAsync() {
-
+        //@todo : Redis 로 비동기적으로 업데이트 되도록 처리하는 코드를 작성해야 함
     }
 
     public void incrementViewsSync(long count) {
