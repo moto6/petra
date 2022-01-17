@@ -37,9 +37,9 @@ public class PostTest {
         //given
         //when
         //then
-        assertThat(post1.isValidPeriod(LocalDateTime.now())).isTrue();
+        assertThat(post1.isExpired(LocalDateTime.now())).isTrue();
         log.info("유효함 : 시작일:{}, 종료일:{}", post1.getValidFrom(), post1.getValidUntil());
-        assertThat(post2.isValidPeriod(LocalDateTime.now())).isFalse();
+        assertThat(post2.isExpired(LocalDateTime.now())).isFalse();
         log.info("유효하지 않음 : 시작일:{}, 종료일:{}", post2.getValidFrom(), post2.getValidUntil());
     }
 
@@ -52,7 +52,7 @@ public class PostTest {
         long increase = 100L;
 
         //when
-        post.incrementViews(increase);
+        post.incrementViewsSync(increase);
 
         //then
         assertThat(post.getViewCount()).isEqualTo(increase + originalViews);

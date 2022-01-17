@@ -272,7 +272,7 @@ class PostApiControllerTest {
         Post savedPost3 = postRepository.save(postC);
         Post savedPost4 = postRepository.save(postD);
         List<Post> savePostList = List.of(savedPost1, savedPost2, savedPost3, savedPost4);
-        long validPostCount = savePostList.stream().filter(post -> post.isValidPeriod(LocalDateTime.now())).count();
+        long validPostCount = savePostList.stream().filter(post -> post.isExpired(LocalDateTime.now())).count();
 
         //then
         mockMvc.perform(get(PREFIX)
@@ -284,8 +284,8 @@ class PostApiControllerTest {
 
         Pageable pageable = PageRequest.of(0, 5, Sort.Direction.DESC, "id");
 
-        List<?> postValidList = postService.readAll(pageable);
-        List<?> postAllList = postService.readAnyAll(pageable);
+        List<?> postValidList = postService.getPage(pageable);
+        List<?> postAllList = postService.getPageAny(pageable);
         assertThat(postValidList.size()).isEqualTo(validPostCount);
         assertThat(postValidList.size()).isNotEqualTo(postAllList.size());
         log.info("\n validPostCount : {}\n postValidListSize : {}\n postAllListSize : {}\n",
@@ -307,7 +307,7 @@ class PostApiControllerTest {
         Post savedPost3 = postRepository.save(postC);
         Post savedPost4 = postRepository.save(postD);
         List<Post> savePostList = List.of(savedPost1, savedPost2, savedPost3, savedPost4);
-        long validPostCount = savePostList.stream().filter(post -> post.isValidPeriod(LocalDateTime.now())).count();
+        long validPostCount = savePostList.stream().filter(post -> post.isExpired(LocalDateTime.now())).count();
 
         //then
         mockMvc.perform(get(PREFIX + "/any")

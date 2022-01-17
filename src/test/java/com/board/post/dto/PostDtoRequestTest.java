@@ -61,7 +61,7 @@ public class PostDtoRequestTest {
         //then
         assertThat(request.getValidUntil()).isNotEqualTo(initValidUntil);
         assertThat(request.getValidFrom()).isNotEqualTo(initValidFrom);
-        assertThat(post.isValidPeriod(LocalDateTime.now())).isTrue();
+        assertThat(post.isExpired(LocalDateTime.now())).isTrue();
         log.info("validExtension() 메서드 테스트");
     }
 }
