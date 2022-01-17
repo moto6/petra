@@ -27,7 +27,7 @@ public class RedisPost {
     }
 
     public boolean isElapsed(Long postId, Long interval) {
-
+        return true;
     }
 
     /*

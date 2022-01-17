@@ -5,7 +5,6 @@ import com.board.post.dto.PostDtoResponse;
 import com.board.post.dto.PostListDtoResponse;
 import com.board.post.entity.Post;
 import com.board.post.service.PostService;
-import com.board.post.service.PostViewCountService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Pageable;
@@ -33,8 +32,6 @@ public class PostApiController {
 
     private final ModelMapper modelMapper;
 
-    private final PostViewCountService postViewCountService;
-
     @PostMapping
     public ResponseEntity<?> create(@RequestBody PostDtoRequest request) {
         Long id = postService.save(request);
@@ -56,7 +53,7 @@ public class PostApiController {
     @GetMapping("/{postId}")
     public ResponseEntity<?> readSingle(@PathVariable Long postId) {
         Post post = postService.read(postId);
-        postViewCountService.intervalCount(postId);//@ todo : 조회수 카운트를 redis 에서 처리
+        //postViewCountService.intervalCount(postId);//@ todo : 조회수 카운트를 redis 에서 처리
         PostDtoResponse response = modelMapper.map(post, PostDtoResponse.class);
         return ResponseEntity.ok(response);
     }
