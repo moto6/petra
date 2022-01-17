@@ -77,7 +77,7 @@ public class PostServiceImpl implements PostService {
 
 
     public void saveWithAttach(PostDtoRequest postDtoRequest, List<MultipartFile> attachFiles) {
-        Long postId = this.save(postDtoRequest);
+        Long postId = this.save(postDtoRequest).getId();
         Post post = postRepository
                 .findById(postId)
                 .orElseThrow(EntityNotFoundException::new);
