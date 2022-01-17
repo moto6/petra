@@ -8,17 +8,15 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 public interface PostService {
-    Long save(PostDtoRequest request);
+    Post save(PostDtoRequest request);
 
-    Long update(Long postId, PostDtoRequest request);
+    Post update(Long postId, PostDtoRequest request);
 
     void delete(Long postId);
 
-    Post get(Long postId);
+    Post get(Long postId,String query);
 
     List<Post> getPage(Pageable pageable);
-
-    Post getAny(Long postId);
 
     List<Post> getPageAny(Pageable pageable);
 

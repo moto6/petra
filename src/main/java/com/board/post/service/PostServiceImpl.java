@@ -24,20 +24,20 @@ public class PostServiceImpl implements PostService {
     private final AttachFileService attachFileService;
 
     @Transactional
-    public Long save(PostDtoRequest request) {
+    public Post save(PostDtoRequest request) {
         Post post = request.toPost();
         //@todo : author는 추후 account정보에서 자동으로 읽어오기, DTO에서 안받고 임시로 상수값으로 넣어줌
         post.config("Anonymous");
-        return postRepository.save(post).getId();
+        return postRepository.save(post);
     }
 
     @Transactional
-    public Long update(Long postId, PostDtoRequest request) {
+    public Post update(Long postId, PostDtoRequest request) {
         Post savedPost = postRepository
                 .findById(postId)
                 .orElseThrow(EntityNotFoundException::new);
 
-        return postRepository.save(savedPost.update(request.toPost())).getId();
+        return postRepository.save(savedPost.update(request.toPost()));
     }
 
     @Transactional
@@ -46,25 +46,18 @@ public class PostServiceImpl implements PostService {
     }
 
     @Transactional(readOnly = true)
-    public Post get(Long postId) {
+    public Post get(Long postId, String query) {
         Post post = postRepository
                 .findById(postId)
                 .orElseThrow(EntityNotFoundException::new);
 
-        if (post.isExpired(LocalDateTime.now())) {
+        if (query.equals("any") && post.isExpired(LocalDateTime.now())) {
             throw new OutOfDateException();
         }
 
         post.incrementViewsAsync();
 
         return post;
-    }
-
-    @Transactional(readOnly = true)
-    public Post getAny(Long postId) {
-        return postRepository
-                .findById(postId)
-                .orElseThrow(EntityNotFoundException::new);
     }
 
     @Transactional(readOnly = true)
