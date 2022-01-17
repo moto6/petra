@@ -14,13 +14,13 @@ public interface PostService {
 
     void delete(Long postId);
 
-    Post read(Long postId);
+    Post get(Long postId);
 
-    Post readAny(Long postId);
+    List<Post> getPage(Pageable pageable);
 
-    List<Post> readAll(Pageable pageable);
+    Post getAny(Long postId);
 
-    List<Post> readAnyAll(Pageable pageable);
+    List<Post> getPageAny(Pageable pageable);
 
     @Deprecated
     void saveWithAttach(PostDtoRequest postDtoRequest, List<MultipartFile> attachFiles);

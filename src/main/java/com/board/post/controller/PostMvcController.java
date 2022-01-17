@@ -34,7 +34,7 @@ public class PostMvcController {
 
     @GetMapping("/{postId}")
     public String read(@PathVariable Long postId, Model model) {
-        Post post = postService.read(postId);
+        Post post = postService.get(postId);
         PostDtoResponse response = modelMapper.map(post, PostDtoResponse.class);
         model.addAttribute(response);
         return "postDetail";

@@ -46,34 +46,36 @@ public class PostServiceImpl implements PostService {
     }
 
     @Transactional(readOnly = true)
-    public Post read(Long postId) {
-
+    public Post get(Long postId) {
         Post post = postRepository
                 .findById(postId)
                 .orElseThrow(EntityNotFoundException::new);
 
-        if (!post.isValidPeriod(LocalDateTime.now())) {
+        if (post.isExpired(LocalDateTime.now())) {
             throw new OutOfDateException();
         }
+
+        post.incrementViewsAsync();
+
         return post;
     }
 
     @Transactional(readOnly = true)
-    public Post readAny(Long postId) {
+    public Post getAny(Long postId) {
         return postRepository
                 .findById(postId)
                 .orElseThrow(EntityNotFoundException::new);
     }
 
     @Transactional(readOnly = true)
-    public List<Post> readAll(Pageable pageable) {
+    public List<Post> getPage(Pageable pageable) {
         return postRepository
                 .findAllValid(LocalDateTime.now(), pageable)
                 .toList();
     }
 
     @Transactional(readOnly = true)
-    public List<Post> readAnyAll(Pageable pageable) {
+    public List<Post> getPageAny(Pageable pageable) {
         return postRepository
                 .findAll(pageable)
                 .toList();
@@ -96,6 +98,6 @@ public class PostServiceImpl implements PostService {
         Post post = postRepository
                 .findById(postId)
                 .orElseThrow(EntityNotFoundException::new);
-        post.incrementViews(increment);
+        post.incrementViewsSync(increment);
     }
 }

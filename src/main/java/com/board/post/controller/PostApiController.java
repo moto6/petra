@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -33,36 +34,42 @@ public class PostApiController {
     private final ModelMapper modelMapper;
 
     @PostMapping
-    public ResponseEntity<?> create(@RequestBody PostDtoRequest request) {
+    public ResponseEntity<?> createPost(@RequestBody PostDtoRequest request) {
         Long id = postService.save(request);
         return ResponseEntity.ok(id); //@create 로 변경
     }
 
     @PutMapping("/{postId}")
-    public ResponseEntity<?> update(@PathVariable Long postId, @RequestBody PostDtoRequest request) {
+    public ResponseEntity<?> updatePost(@PathVariable Long postId, @RequestBody PostDtoRequest request) {
         Long id = postService.update(postId, request);
         return ResponseEntity.ok(id);
     }
 
     @DeleteMapping("/{postId}")
-    public ResponseEntity<?> delete(@PathVariable Long postId) {
+    public ResponseEntity<?> deletePost(@PathVariable Long postId) {
         postService.delete(postId);
         return ResponseEntity.ok("delete");
     }
 
     @GetMapping("/{postId}")
-    public ResponseEntity<?> readSingle(@PathVariable Long postId) {
-        Post post = postService.read(postId);
+    public ResponseEntity<?> getPost(@PathVariable Long postId, @RequestParam String query) {
+
+        if(query.equals("any")) {
+            PostDtoResponse response = modelMapper.map(postService.getAny(postId), PostDtoResponse.class);
+            return ResponseEntity.ok(response);
+        }
+
+        Post post = postService.get(postId);
         //postViewCountService.intervalCount(postId);//@ todo : 조회수 카운트를 redis 에서 처리
         PostDtoResponse response = modelMapper.map(post, PostDtoResponse.class);
         return ResponseEntity.ok(response);
     }
 
     @GetMapping
-    public ResponseEntity<?> readPage(
+    public ResponseEntity<?> getPostPage(
             @PageableDefault(direction = Sort.Direction.ASC) Pageable pageable) {
 
-        List<Post> postList = postService.readAll(pageable);
+        List<Post> postList = postService.getPage(pageable);
         List<PostDtoResponse> dtoList = postList
                 .stream()
                 .map(post -> modelMapper.map(post, PostDtoResponse.class))
@@ -72,12 +79,11 @@ public class PostApiController {
         return ResponseEntity.ok(dto);
     }
 
-    //YAGNI 에 의해 요청이 요구사항에는 없지만, 해당 과제전형의 중요 평가 요소가 유효기간 기능이라고 생각해 미리 작성
+
+    /*
     @GetMapping("/any/{postId}")
     public ResponseEntity<?> readAny(@PathVariable Long postId) {
-        Post post = postService.readAny(postId);
-        PostDtoResponse response = modelMapper.map(post, PostDtoResponse.class);
-        return ResponseEntity.ok(response);
+
     }
 
     @GetMapping("/any")
@@ -93,5 +99,7 @@ public class PostApiController {
         PostListDtoResponse dto = new PostListDtoResponse(dtoList, pageable);
         return ResponseEntity.ok(dto);
     }
+
+     */
 
 }
