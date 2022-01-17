@@ -69,7 +69,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Transactional(readOnly = true)
-    public List<Post> getPageAny(Pageable pageable) {
+    public List<Post> getPageEvery(Pageable pageable) {
         return postRepository
                 .findAll(pageable)
                 .toList();

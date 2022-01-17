@@ -94,17 +94,12 @@ public class PostApiController {
     }
 
 
-    /*
-    @GetMapping("/any/{postId}")
-    public ResponseEntity<?> readAny(@PathVariable Long postId) {
 
-    }
-
-    @GetMapping("/any")
-    public ResponseEntity<?> readPageAny(
+    @GetMapping("/every")
+    public ResponseEntity<?> readPageEvery(
             @PageableDefault(direction = Sort.Direction.ASC) Pageable pageable) {
 
-        List<Post> postList = postService.readAnyAll(pageable);
+        List<Post> postList = postService.getPageEvery(pageable);
         List<PostDtoResponse> dtoList = postList
                 .stream()
                 .map(post -> modelMapper.map(post, PostDtoResponse.class))
@@ -113,7 +108,5 @@ public class PostApiController {
         PostListDtoResponse dto = new PostListDtoResponse(dtoList, pageable);
         return ResponseEntity.ok(dto);
     }
-
-     */
 
 }

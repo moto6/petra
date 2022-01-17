@@ -19,7 +19,7 @@ public interface PostService {
 
     List<Post> getPage(Pageable pageable);
 
-    List<Post> getPageAny(Pageable pageable);
+    List<Post> getPageEvery(Pageable pageable);
 
     @Deprecated
     void saveWithAttach(PostDtoRequest postDtoRequest, List<MultipartFile> attachFiles);

@@ -285,7 +285,7 @@ class PostApiControllerTest {
         Pageable pageable = PageRequest.of(0, 5, Sort.Direction.DESC, "id");
 
         List<?> postValidList = postService.getPage(pageable);
-        List<?> postAllList = postService.getPageAny(pageable);
+        List<?> postAllList = postService.getPageEvery(pageable);
         assertThat(postValidList.size()).isEqualTo(validPostCount);
         assertThat(postValidList.size()).isNotEqualTo(postAllList.size());
         log.info("\n validPostCount : {}\n postValidListSize : {}\n postAllListSize : {}\n",
