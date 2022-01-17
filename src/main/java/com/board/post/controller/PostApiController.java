@@ -1,6 +1,6 @@
 package com.board.post.controller;
 
-import com.board.common.ApiResponse;
+import com.board.common.ApiResult;
 import com.board.post.dto.PostDtoRequest;
 import com.board.post.dto.PostDtoResponse;
 import com.board.post.dto.PostListDtoResponse;
@@ -41,7 +41,7 @@ public class PostApiController {
     @PostMapping
     public ResponseEntity<?> createPost(@RequestBody PostDtoRequest request) {
         PostDtoResponse response = modelMapper.map(postService.save(request), PostDtoResponse.class);
-        ApiResponse<?> result = ApiResponse.sussess(response, HttpStatus.CREATED);
+        ApiResult<?> result = ApiResult.sussess(response, HttpStatus.CREATED);
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -51,7 +51,7 @@ public class PostApiController {
     @PutMapping("/{postId}")
     public ResponseEntity<?> updatePost(@PathVariable Long postId, @RequestBody PostDtoRequest request) {
         PostDtoResponse response = modelMapper.map(postService.update(postId, request), PostDtoResponse.class);
-        ApiResponse<?> result = ApiResponse.sussess(response, HttpStatus.OK);
+        ApiResult<?> result = ApiResult.sussess(response, HttpStatus.OK);
 
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -71,7 +71,7 @@ public class PostApiController {
     public ResponseEntity<?> getPost(@PathVariable Long postId, @RequestParam(required = false) String query) {
         SearchType search = SearchTypeAdaptor(query);
         PostDtoResponse response = modelMapper.map(postService.get(postId,search), PostDtoResponse.class);
-        ApiResponse<?> result = ApiResponse.sussess(response, HttpStatus.OK);
+        ApiResult<?> result = ApiResult.sussess(response, HttpStatus.OK);
 
         return ResponseEntity
                 .status(HttpStatus.OK)
