@@ -1,5 +1,6 @@
 package com.board.post.controller;
 
+import com.board.common.ApiResponse;
 import com.board.post.dto.PostDtoRequest;
 import com.board.post.dto.PostDtoResponse;
 import com.board.post.dto.PostListDtoResponse;
@@ -10,6 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,32 +37,44 @@ public class PostApiController {
 
     @PostMapping
     public ResponseEntity<?> createPost(@RequestBody PostDtoRequest request) {
-        Long id = postService.save(request);
-        return ResponseEntity.ok(id); //@create 로 변경
+        PostDtoResponse response = modelMapper.map(postService.save(request), PostDtoResponse.class);
+        ApiResponse<?> result = ApiResponse.sussess(response, HttpStatus.CREATED);
+
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(result);
     }
 
     @PutMapping("/{postId}")
     public ResponseEntity<?> updatePost(@PathVariable Long postId, @RequestBody PostDtoRequest request) {
-        Long id = postService.update(postId, request);
-        return ResponseEntity.ok(id);
+        PostDtoResponse response = modelMapper.map(postService.update(postId, request), PostDtoResponse.class);
+        ApiResponse<?> result = ApiResponse.sussess(response, HttpStatus.OK);
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(result);
     }
 
     @DeleteMapping("/{postId}")
     public ResponseEntity<?> deletePost(@PathVariable Long postId) {
         postService.delete(postId);
-        return ResponseEntity.ok("delete");
+
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .build();
     }
 
     @GetMapping("/{postId}")
-    public ResponseEntity<?> getPost(@PathVariable Long postId, @RequestParam String query) {
+    public ResponseEntity<?> getPost(@PathVariable Long postId, @RequestParam(required = false) String query) {
 
-        if (query.equals("any")) {
-            PostDtoResponse response = modelMapper.map(postService.getAny(postId), PostDtoResponse.class);
-            return ResponseEntity.ok(response);
-        }
 
-        PostDtoResponse response = modelMapper.map(postService.get(postId), PostDtoResponse.class);
-        return ResponseEntity.ok(response);
+        PostDtoResponse response = modelMapper.map(postService.get(postId,query), PostDtoResponse.class);
+        ApiResponse<?> result = ApiResponse.sussess(response, HttpStatus.OK);
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(result);
+
     }
 
     @GetMapping
