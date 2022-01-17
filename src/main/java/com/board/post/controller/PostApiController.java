@@ -54,14 +54,12 @@ public class PostApiController {
     @GetMapping("/{postId}")
     public ResponseEntity<?> getPost(@PathVariable Long postId, @RequestParam String query) {
 
-        if(query.equals("any")) {
+        if (query.equals("any")) {
             PostDtoResponse response = modelMapper.map(postService.getAny(postId), PostDtoResponse.class);
             return ResponseEntity.ok(response);
         }
 
-        Post post = postService.get(postId);
-        //postViewCountService.intervalCount(postId);//@ todo : 조회수 카운트를 redis 에서 처리
-        PostDtoResponse response = modelMapper.map(post, PostDtoResponse.class);
+        PostDtoResponse response = modelMapper.map(postService.get(postId), PostDtoResponse.class);
         return ResponseEntity.ok(response);
     }
 
