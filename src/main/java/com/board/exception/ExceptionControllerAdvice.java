@@ -10,9 +10,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @Slf4j
 public class ExceptionControllerAdvice {
 
-    // OutOfDateException
     @ExceptionHandler({OutOfDateException.class})
-    public ResponseEntity<?> handleAccessDeniedException(final OutOfDateException e) {
+    public ResponseEntity<?> OutOfDateExceptionHandler(final OutOfDateException e) {
         log.warn("OutOfDateException {}", e.getMessage());
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(e.getMessage());
     }
