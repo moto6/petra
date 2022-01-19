@@ -68,9 +68,9 @@ public class PostApiController {
     }
 
     @GetMapping("/{postId}")
-    public ResponseEntity<?> getPost(@PathVariable Long postId, @RequestParam(required = false) String query) {
+    public ResponseEntity<?> getPost(@PathVariable Long postId, @RequestParam(required = false, defaultValue = "") String query) {
         SearchType search = SearchTypeAdaptor(query);
-        PostDtoResponse response = modelMapper.map(postService.get(postId,search), PostDtoResponse.class);
+        PostDtoResponse response = modelMapper.map(postService.get(postId, search), PostDtoResponse.class);
         ApiResult<?> result = ApiResult.sussess(response, HttpStatus.OK);
 
         return ResponseEntity
@@ -92,7 +92,6 @@ public class PostApiController {
         PostListDtoResponse dto = new PostListDtoResponse(dtoList, pageable);
         return ResponseEntity.ok(dto);
     }
-
 
 
     @GetMapping("/every")
