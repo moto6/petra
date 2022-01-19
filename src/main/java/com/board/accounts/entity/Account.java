@@ -2,6 +2,7 @@ package com.board.accounts.entity;
 
 
 import com.board.accounts.dto.AccountDto;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,6 +30,7 @@ import java.util.Set;
         indexes = {@Index(name = "email", columnList = "email", unique = true)}
 )
 @NoArgsConstructor
+@AllArgsConstructor
 public class Account extends TimeEntity{
 
     @Id
@@ -84,6 +86,8 @@ public class Account extends TimeEntity{
 
         return AccountRole.GUEST.getKey();
     }
+
+
 }
 
 
