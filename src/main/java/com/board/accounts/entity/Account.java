@@ -1,4 +1,4 @@
-package com.board.accounts;
+package com.board.accounts.entity;
 
 
 import lombok.AllArgsConstructor;
