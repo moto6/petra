@@ -40,7 +40,7 @@ public class PostApiController {
 
     @PostMapping
     public ResponseEntity<?> createPost(@RequestBody PostDtoRequest request) {
-        PostDtoResponse response = modelMapper.map(postService.save(request), PostDtoResponse.class);
+        PostDtoResponse response = modelMapper.map(postService.save(request.toPost()), PostDtoResponse.class);
         ApiResult<?> result = ApiResult.sussess(response, HttpStatus.CREATED);
 
         return ResponseEntity
@@ -50,7 +50,7 @@ public class PostApiController {
 
     @PutMapping("/{postId}")
     public ResponseEntity<?> updatePost(@PathVariable Long postId, @RequestBody PostDtoRequest request) {
-        PostDtoResponse response = modelMapper.map(postService.update(postId, request), PostDtoResponse.class);
+        PostDtoResponse response = modelMapper.map(postService.update(postId, request.toPost()), PostDtoResponse.class);
         ApiResult<?> result = ApiResult.sussess(response, HttpStatus.OK);
 
         return ResponseEntity

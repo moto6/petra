@@ -23,7 +23,7 @@ class PostServiceTest {
     private PostRepository postRepository;
 
     @InjectMocks
-    private PostService postService;
+    private PostServiceImpl postService;
 
     @Test
     @DisplayName("조회수가 증가한다")
@@ -33,11 +33,11 @@ class PostServiceTest {
         long initialCount = post.getViewCount();
         long increase = 12345;
         when(postRepository.findById(any())).thenReturn(Optional.of(post));
-
+        post.incrementViewsSync(increase);
         //when
-        postService.addViews(1L, increase);
+        postService.save(post);
 
         //then
-        assertThat(initialCount + increase).isEqualTo(post.getViewCount());
+        assertThat(post.getViewCount()).isEqualTo(initialCount + increase);
     }
 }

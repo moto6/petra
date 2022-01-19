@@ -9,9 +9,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 public interface PostService {
-    Post save(PostDtoRequest request);
+    Post save(Post post);
 
-    Post update(Long postId, PostDtoRequest request);
+    Post update(Long postId, Post updatePost);
 
     void delete(Long postId);
 
@@ -22,6 +22,5 @@ public interface PostService {
     List<Post> getPageEvery(Pageable pageable);
 
     @Deprecated
-    void saveWithAttach(PostDtoRequest postDtoRequest, List<MultipartFile> attachFiles);
-
+    void saveWithAttach(Long postId, List<MultipartFile> attachFiles);
 }

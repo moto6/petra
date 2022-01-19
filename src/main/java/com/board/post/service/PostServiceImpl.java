@@ -25,20 +25,20 @@ public class PostServiceImpl implements PostService {
     private final AttachFileService attachFileService;
 
     @Transactional
-    public Post save(PostDtoRequest request) {
-        Post post = request.toPost();
+    public Post save(Post post) {
+        //Post post = request.toPost();
         //@todo : author는 추후 account정보에서 자동으로 읽어오기, DTO에서 안받고 임시로 상수값으로 넣어줌
         post.config("Anonymous");
         return postRepository.save(post);
     }
 
     @Transactional
-    public Post update(Long postId, PostDtoRequest request) {
+    public Post update(Long postId, Post updatePost) {
         Post savedPost = postRepository
                 .findById(postId)
                 .orElseThrow(EntityNotFoundException::new);
 
-        return postRepository.save(savedPost.update(request.toPost()));
+        return postRepository.save(savedPost.update(updatePost));
     }
 
     @Transactional
@@ -76,8 +76,7 @@ public class PostServiceImpl implements PostService {
     }
 
 
-    public void saveWithAttach(PostDtoRequest postDtoRequest, List<MultipartFile> attachFiles) {
-        Long postId = this.save(postDtoRequest).getId();
+    public void saveWithAttach(Long postId, List<MultipartFile> attachFiles) {
         Post post = postRepository
                 .findById(postId)
                 .orElseThrow(EntityNotFoundException::new);
