@@ -43,11 +43,13 @@ public class PostMvcController {
     }
 
 
+    /*
     @PostMapping("/new")
     public PostDtoRequest postSave(@Valid PostDtoRequest postDtoRequest,
                                    @RequestParam(value = "attachFiles",
                                            required = false) List<MultipartFile> attachFiles) {
-        postService.saveWithAttach(postDtoRequest, attachFiles);
+        //postService.saveWithAttach(1L, attachFiles);
         return postDtoRequest;
     }
+     */
 }
