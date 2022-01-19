@@ -1,6 +1,7 @@
 package com.board.config;
 
 import com.board.accounts.auth.CustomOAuth2UserService;
+import com.board.accounts.entity.AccountRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,6 +16,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final CustomOAuth2UserService customOAuth2UserService;
 
+    private final String[] authOnly = new String[]{};
+    private static final String[] permitAll = new String[]{
+            "/",
+            "/css/**",
+            "/images/**",
+            "/js/**",
+            "/h2-console/**",
+            "/profile",
+            "/users/login",
+            "/users/login/error",
+            "/users/logout",
+            "/error",
+    };
+
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -28,10 +44,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 //permit
-                .antMatchers()
+                .antMatchers(permitAll)
                 .permitAll()
                 //auth need
-                .antMatchers()
+                .antMatchers(authOnly)
+                .hasAnyRole(AccountRole.USER.name(), AccountRole.ADMIN.name())
+                .anyRequest()
                 .authenticated()
                 //로그아웃시 리디렉션 위치
                 .and()
@@ -45,7 +63,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }
