@@ -97,8 +97,7 @@ class PostApiControllerTest {
                                 .accept(MediaType.APPLICATION_JSON)
                 )
                 .andDo(print())
-                .andExpect(status().isOk());     // 4
-        //.andExpect(content().string( "바디내용을 검증해야함"));
+                .andExpect(status().isCreated());
     }
 
     @Test
@@ -141,7 +140,6 @@ class PostApiControllerTest {
     public void deletePost() throws Exception {
 
         //given
-        int count = 2;
         Post savedPost1 = postRepository.save(modelMapper.map(request1, Post.class));
         Post savedPost2 = postRepository.save(modelMapper.map(request2, Post.class));
 
@@ -151,14 +149,14 @@ class PostApiControllerTest {
                                 .accept(MediaType.APPLICATION_JSON)
                 )
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().isNoContent());
 
         mockMvc.perform(delete(PREFIX + SLASH + savedPost2.getId())
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .accept(MediaType.APPLICATION_JSON)
                 )
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().isNoContent());
 
         //then
         em.flush();
@@ -166,19 +164,11 @@ class PostApiControllerTest {
 
         try {
             postRepository.findById(savedPost1.getId()).orElseThrow(EntityNotFoundException::new);
-        } catch (EntityNotFoundException e) {
-            log.info("savedPost1 삭제 성공");
-            count--;
-        }
-
-        try {
             postRepository.findById(savedPost2.getId()).orElseThrow(EntityNotFoundException::new);
-        } catch (EntityNotFoundException e) {
-            log.info("savedPost1 삭제 성공");
-            count--;
-        }
 
-        assertThat(count).isZero();
+        } catch (EntityNotFoundException e) {
+            log.info("Post 삭제 성공");
+        }
     }
 
     @Test
