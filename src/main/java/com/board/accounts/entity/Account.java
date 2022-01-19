@@ -70,6 +70,7 @@ public class Account extends TimeEntity{
     public Account update(String name, String picture) {
         this.realName = name;
         this.picture = picture;
+        return this;
     }
 
     public String getRoleKey() {
@@ -77,9 +78,11 @@ public class Account extends TimeEntity{
             return AccountRole.ADMIN.getKey();
         }
 
+        if(this.roles.contains(AccountRole.USER) ) {
+            return AccountRole.USER.getKey();
+        }
 
-
-
+        return AccountRole.GUEST.getKey();
     }
 }
 
