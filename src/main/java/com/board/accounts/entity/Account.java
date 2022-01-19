@@ -39,10 +39,16 @@ public class Account extends TimeEntity{
     @Column(name = "nickname")
     private String nickname;
 
+    @Column(name = "real_name")
+    private String realName;
+
+
     @Column(name = "email", unique = true)
     private String email;
 
     private String password;
+
+    private String picture;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(value = EnumType.STRING)
@@ -61,6 +67,20 @@ public class Account extends TimeEntity{
         return newcomer;
     }
 
+    public Account update(String name, String picture) {
+        this.realName = name;
+        this.picture = picture;
+    }
+
+    public String getRoleKey() {
+        if(this.roles.contains(AccountRole.ADMIN) ) {
+            return AccountRole.ADMIN.getKey();
+        }
+
+
+
+
+    }
 }
 
 
