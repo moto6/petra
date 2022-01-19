@@ -13,6 +13,7 @@ import java.util.Set;
 @NoArgsConstructor
 public class AccountDto {
     private Long id;
+    private String nickname;
     private String email;
     private Set<AccountRole> roles = new HashSet<>();
 }
