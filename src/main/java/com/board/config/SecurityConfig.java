@@ -24,6 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/js/**",
             "/h2-console/**",
             "/profile",
+            "/post/**",
             "/users/login",
             "/users/login/error",
             "/users/logout",
