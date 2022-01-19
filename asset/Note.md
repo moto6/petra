@@ -1,5 +1,9 @@
 ## 계획
 
+- https://www.numble.it/d92e4efb-9ed0-44ae-8fbb-d98ad9a66836
+- https://github.com/BAECHOOs/Spring-toyproject/blob/main/README.md
+
+
 ### 비지니스 목표
 - 공지사항 등록, 수정, 삭제, 조회 API 구현
 - 공지사항 등록시 입력 항목
