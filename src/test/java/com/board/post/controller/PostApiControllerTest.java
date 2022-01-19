@@ -17,6 +17,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
@@ -82,6 +83,7 @@ class PostApiControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "USER")
     @DisplayName("Post 생성된다")
     public void postingPost() throws Exception {
         //given
@@ -100,6 +102,7 @@ class PostApiControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "USER")
     @Transactional
     @DisplayName("Post 수정된다")
     public void updatePost() throws Exception {
@@ -132,6 +135,7 @@ class PostApiControllerTest {
 
 
     @Test
+    @WithMockUser(roles = "USER")
     @Transactional
     @DisplayName("Post 삭제된다")
     public void deletePost() throws Exception {
@@ -178,6 +182,7 @@ class PostApiControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "USER")
     @DisplayName("Post 단건조회")
     public void readPost() throws Exception {
         //given
@@ -221,6 +226,7 @@ class PostApiControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "USER")
     @DisplayName("Post 유효기간 지나고 조회시 204-NoContent")
     public void readExpired() throws Exception {
         //given
@@ -240,6 +246,7 @@ class PostApiControllerTest {
 
 
     @Test
+    @WithMockUser(roles = "USER")
     @DisplayName("Post 단건조회 & 유효기간 무시")
     public void readAny() throws Exception {
         //given
@@ -258,6 +265,7 @@ class PostApiControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "USER")
     @DisplayName("Post 페이지단위 조회")
     public void readPage() throws Exception {
         //given
@@ -293,6 +301,7 @@ class PostApiControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "USER")
     @DisplayName("Post 페이지단위 조회 & 유효기간 무시")
     public void readPageAny() throws Exception {
         //given
@@ -310,7 +319,7 @@ class PostApiControllerTest {
         long validPostCount = savePostList.stream().filter(post -> post.isExpired(LocalDateTime.now())).count();
 
         //then
-        mockMvc.perform(get(PREFIX + "/any")
+        mockMvc.perform(get(PREFIX )
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .accept(MediaType.APPLICATION_JSON)
                 )
