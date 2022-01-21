@@ -1,10 +1,101 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout1}">
 
-</body>
-</html>
+<!-- 사용자 CSS 추가 -->
+<th:block layout:fragment="css">
+    <style>
+        .carousel-inner > .item {
+            height: 350px;
+        }
+
+        .margin {
+            margin-bottom: 30px;
+        }
+
+        .banner {
+            height: 300px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .card-text {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+
+        .center {
+            text-align: center;
+        }
+    </style>
+</th:block>
+
+<div layout:fragment="content">
+    <div id="carouselControls" data-ride="carousel">
+        <div>
+            <div>
+                <img class="My-banner"
+                     src="https://user-images.githubusercontent.com/31065684/150462218-a0b4f370-d2e5-4779-baff-f966259c4393.png"
+                     alt="First slide" width="1240" >
+            </div>
+        </div>
+        <div>
+            <div>
+                <h2>  개발자 페이지 Link</h2>
+            </div>
+            <div class="row">
+
+                <h1>
+                    중고거래 인기매물
+                </h1>
+
+                <p>
+                    <label>
+                        <input type="text" value="지역을 선택하세요">
+                    </label>
+
+                    <label>
+                        <input type="text" value="동네를 선택하세요">
+                    </label>
+                </p>
+            </div>
+            <div>
+                <p>
+                    <img src="https://user-images.githubusercontent.com/31065684/150472303-42011937-5f94-4912-ac17-3d03af8f6535.png" alt="articles" width="1240">
+                </p>
+
+            </div>
+        </div>
+
+
+
+    </div>
+
+</div>
+</div>
+
+<br><br><br>
+<div>
+    <footer class="footer" th:fragment="fragment-footer()" style="font-size: 20px; text-align: left; padding-bottom: 10px">
+        <div class="container">
+            <div>고객문의 cs@clone_daangnservice.com </div>
+            <div>제휴문의 contact@clone_daangn.com</div>
+            <div>지역광고 ad@clone_daangn.com </div>
+            <div>PR문의 pr@clone_daangn.com </div>
+            <div>사업장 : 서울특별시 구로구 디지털로00길 00, 00호 (클론당근서비스) </div>
+            <div>사업자 등록번호 : 000-00-00000 직업정보제공사업 신고번호 : 0000000000000000</div>
+            <div>통신판매업 번호 : 2022-서울강남-2022</div>
+        </div>
+    </footer>
+
+
+</div>
