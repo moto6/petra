@@ -29,6 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/users/login/error",
             "/users/logout",
             "/error",
+            "/myLogin"
     };
 
 
