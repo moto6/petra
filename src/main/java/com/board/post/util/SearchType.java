@@ -1,6 +1,6 @@
 package com.board.post.util;
 
-import com.board.exception.InvalidQueryException;
+import com.board.exception.custom.InvalidQueryException;
 
 import java.util.HashMap;
 import java.util.Map;

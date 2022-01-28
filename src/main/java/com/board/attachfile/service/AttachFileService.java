@@ -3,7 +3,7 @@ package com.board.attachfile.service;
 import com.board.attachfile.entity.AttachFile;
 import com.board.attachfile.repository.AttachFileRepository;
 import com.board.common.fileservice.FileService;
-import com.board.exception.AttachFileStorageException;
+import com.board.exception.custom.AttachFileStorageException;
 import com.board.post.entity.Post;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;

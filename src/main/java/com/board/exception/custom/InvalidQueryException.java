@@ -1,4 +1,4 @@
-package com.board.exception;
+package com.board.exception.custom;
 
 public class InvalidQueryException extends RuntimeException {
     public InvalidQueryException(String string) {
