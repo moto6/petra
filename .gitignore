@@ -252,4 +252,5 @@ gradle-app.setting
 
 bin/**
 
+src/main/resources/http-request/auth-reuqest.http
 # End of https://www.toptal.com/developers/gitignore/api/macos,visualstudiocode,intellij,java,gradle,windows,linux

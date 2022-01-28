@@ -1,4 +1,4 @@
-package com.board.accounts.controller;
+package com.board.auth;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.core.OAuth2AccessToken;
