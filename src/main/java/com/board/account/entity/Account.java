@@ -1,7 +1,7 @@
 package com.board.account.entity;
 
 
-import com.board.account.TimeEntity;
+import com.board.common.TimeEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

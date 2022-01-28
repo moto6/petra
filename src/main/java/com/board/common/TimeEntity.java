@@ -1,4 +1,4 @@
-package com.board.account;
+package com.board.common;
 
 import lombok.Getter;
 import lombok.Setter;
