@@ -1,6 +1,6 @@
 package com.board.config;
 
-import com.board.accounts.auth.CustomOAuth2UserService;
+import com.board.auth.CustomOAuth2UserService;
 import com.board.accounts.entity.AccountRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

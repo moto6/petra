@@ -1,4 +1,4 @@
-package com.board.accounts.auth;
+package com.board.auth;
 
 import com.board.accounts.entity.Account;
 import com.board.accounts.entity.AccountRole;
