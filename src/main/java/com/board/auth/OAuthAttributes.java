@@ -1,7 +1,5 @@
 package com.board.auth;
 
-import com.board.accounts.entity.Account;
-import com.board.accounts.entity.AccountRole;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -9,6 +7,9 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import com.board.account.entity.Account;
+import com.board.account.entity.AccountRole;
 
 @Getter
 public class OAuthAttributes {

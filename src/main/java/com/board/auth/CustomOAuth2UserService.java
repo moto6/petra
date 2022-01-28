@@ -1,6 +1,6 @@
 package com.board.auth;
 
-import com.board.accounts.entity.Account;
+import com.board.account.entity.Account;
 import com.board.accounts.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

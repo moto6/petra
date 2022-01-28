@@ -2,11 +2,8 @@ package com.jari.jari.common.auth;
 
 import com.jari.jari.account.entity.Account;
 import com.jari.jari.account.service.AccountService;
-import com.jari.jari.exception.exceptions.GuestForbiddenException;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -33,10 +30,10 @@ public class AuthInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String method = request.getMethod();
         String uri = request.getRequestURI();
-            String authInfo = request.getHeader(AUTH_KEY);
+        String authInfo = request.getHeader(AUTH_KEY);
 
-            //@@todo npe
-        if ((authInfo != null) &&guestAccessDenyCondition(method,uri)) {
+        //@@todo npe
+        if ((authInfo != null) && guestAccessDenyCondition(method, uri)) {
 
 
             Account account = accountService.authInfoParser(authInfo);

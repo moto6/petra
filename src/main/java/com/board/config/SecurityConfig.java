@@ -1,7 +1,8 @@
 package com.board.config;
 
+import com.board.account.entity.AccountRole;
 import com.board.auth.CustomOAuth2UserService;
-import com.board.accounts.entity.AccountRole;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
