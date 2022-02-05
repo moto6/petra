@@ -1,7 +1,7 @@
-package com.carrot.post.service;
+package com.carrot.article.service;
 
-import com.carrot.post.entity.Post;
-import com.carrot.post.repository.PostRepository;
+import com.carrot.article.entity.Post;
+import com.carrot.article.repository.ArticleRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,19 +11,19 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
-import static com.carrot.post.entity.PostTest.post1;
+import static com.carrot.article.entity.PostTest.post1;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class PostServiceTest {
+class ArticleServiceTest {
 
     @Mock
-    private PostRepository postRepository;
+    private ArticleRepository articleRepository;
 
     @InjectMocks
-    private PostServiceImpl postService;
+    private ArticleServiceImpl postService;
 
     @Test
     @DisplayName("조회수가 증가한다")
@@ -32,7 +32,7 @@ class PostServiceTest {
         Post post = post1.deepCopy();
         long initialCount = post.getViewCount();
         long increase = 12345;
-        when(postRepository.findById(any())).thenReturn(Optional.of(post));
+        when(articleRepository.findById(any())).thenReturn(Optional.of(post));
         post.incrementViewsSync(increase);
         //when
         postService.save(post);

@@ -1,13 +1,13 @@
-package com.carrot.post.service;
+package com.carrot.article.service;
 
-import com.carrot.post.entity.Post;
-import com.carrot.post.util.SearchType;
+import com.carrot.article.entity.Post;
+import com.carrot.article.util.SearchType;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-public interface PostService {
+public interface ArticleService {
     Post save(Post post);
 
     Post update(Long postId, Post updatePost);

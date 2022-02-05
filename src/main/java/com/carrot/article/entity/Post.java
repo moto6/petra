@@ -1,4 +1,4 @@
-package com.carrot.post.entity;
+package com.carrot.article.entity;
 
 import com.carrot.common.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonInclude;

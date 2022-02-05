@@ -1,8 +1,8 @@
-package com.carrot.post.controller;
+package com.carrot.article.controller;
 
-import com.carrot.post.entity.Post;
-import com.carrot.post.repository.PostRepository;
-import com.carrot.post.service.PostService;
+import com.carrot.article.entity.Post;
+import com.carrot.article.repository.ArticleRepository;
+import com.carrot.article.service.ArticleService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -30,10 +30,10 @@ import javax.persistence.PersistenceContext;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static com.carrot.post.dto.PostDtoRequestTest.request1;
-import static com.carrot.post.dto.PostDtoRequestTest.request2;
-import static com.carrot.post.dto.PostDtoRequestTest.request3;
-import static com.carrot.post.dto.PostDtoRequestTest.request4;
+import static com.carrot.article.dto.ArticleDtoRequestTest.request1;
+import static com.carrot.article.dto.ArticleDtoRequestTest.request2;
+import static com.carrot.article.dto.ArticleDtoRequestTest.request3;
+import static com.carrot.article.dto.ArticleDtoRequestTest.request4;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -64,17 +64,17 @@ class PostApiControllerTest {
     private ModelMapper modelMapper;
 
     @Autowired
-    private PostRepository postRepository;
+    private ArticleRepository articleRepository;
 
     @Autowired
-    private PostService postService;
+    private ArticleService articleService;
 
     @Autowired
     private WebApplicationContext ctx;
 
     @BeforeEach
     public void setup() {
-        postRepository.deleteAll();
+        articleRepository.deleteAll();
 
         this.mockMvc = MockMvcBuilders.webAppContextSetup(ctx)
                 .addFilters(new CharacterEncodingFilter("UTF-8", true))  // 필터 추가
@@ -109,7 +109,7 @@ class PostApiControllerTest {
         String requestBody = objectMapper.writeValueAsString(request2);
 
         //when
-        Post savedPost = postRepository.save(modelMapper.map(request1, Post.class));
+        Post savedPost = articleRepository.save(modelMapper.map(request1, Post.class));
 
 
         //then
@@ -123,7 +123,7 @@ class PostApiControllerTest {
 
         em.flush();
         em.clear();
-        Post afterUpdate = postRepository.findById(savedPost.getId()).orElseThrow(EntityNotFoundException::new);
+        Post afterUpdate = articleRepository.findById(savedPost.getId()).orElseThrow(EntityNotFoundException::new);
         log.info("Contents 와 Title 은 그대로 반영된다");
         assertThat(afterUpdate.getContents()).isEqualTo(request2.getContents());
         assertThat(afterUpdate.getTitle()).isEqualTo(request2.getTitle());
@@ -140,8 +140,8 @@ class PostApiControllerTest {
     public void deletePost() throws Exception {
 
         //given
-        Post savedPost1 = postRepository.save(modelMapper.map(request1, Post.class));
-        Post savedPost2 = postRepository.save(modelMapper.map(request2, Post.class));
+        Post savedPost1 = articleRepository.save(modelMapper.map(request1, Post.class));
+        Post savedPost2 = articleRepository.save(modelMapper.map(request2, Post.class));
 
         //when
         mockMvc.perform(delete(PREFIX + SLASH + savedPost1.getId())
@@ -163,8 +163,8 @@ class PostApiControllerTest {
         em.clear();
 
         try {
-            postRepository.findById(savedPost1.getId()).orElseThrow(EntityNotFoundException::new);
-            postRepository.findById(savedPost2.getId()).orElseThrow(EntityNotFoundException::new);
+            articleRepository.findById(savedPost1.getId()).orElseThrow(EntityNotFoundException::new);
+            articleRepository.findById(savedPost2.getId()).orElseThrow(EntityNotFoundException::new);
 
         } catch (EntityNotFoundException e) {
             log.info("Post 삭제 성공");
@@ -182,9 +182,9 @@ class PostApiControllerTest {
 
 
         //when
-        Post savedPost1 = postRepository.save(postA);
-        Post savedPost2 = postRepository.save(postB);
-        Post savedPost3 = postRepository.save(postC);
+        Post savedPost1 = articleRepository.save(postA);
+        Post savedPost2 = articleRepository.save(postB);
+        Post savedPost3 = articleRepository.save(postC);
 
         //then
         mockMvc.perform(get(PREFIX + SLASH + savedPost1.getId())
@@ -222,7 +222,7 @@ class PostApiControllerTest {
         //given
         Post post = (modelMapper.map(request2, Post.class));
         post.config("rolling");
-        Post savedPost = postRepository.save(post);
+        Post savedPost = articleRepository.save(post);
 
         //when
         //then
@@ -242,7 +242,7 @@ class PostApiControllerTest {
         //given
         Post post = (modelMapper.map(request2, Post.class));
         post.config("rolling");
-        Post savedPost = postRepository.save(post);
+        Post savedPost = articleRepository.save(post);
 
         //when
         //then
@@ -265,10 +265,10 @@ class PostApiControllerTest {
         Post postD = request4.toPost();
 
         //when
-        Post savedPost1 = postRepository.save(postA);
-        Post savedPost2 = postRepository.save(postB);
-        Post savedPost3 = postRepository.save(postC);
-        Post savedPost4 = postRepository.save(postD);
+        Post savedPost1 = articleRepository.save(postA);
+        Post savedPost2 = articleRepository.save(postB);
+        Post savedPost3 = articleRepository.save(postC);
+        Post savedPost4 = articleRepository.save(postD);
         List<Post> savePostList = List.of(savedPost1, savedPost2, savedPost3, savedPost4);
         long validPostCount = savePostList.stream().filter(post -> post.isExpired(LocalDateTime.now())).count();
 
@@ -282,8 +282,8 @@ class PostApiControllerTest {
 
         Pageable pageable = PageRequest.of(0, 5, Sort.Direction.DESC, "id");
 
-        List<?> postValidList = postService.getPage(pageable);
-        List<?> postAllList = postService.getPageEvery(pageable);
+        List<?> postValidList = articleService.getPage(pageable);
+        List<?> postAllList = articleService.getPageEvery(pageable);
         assertThat(postValidList.size()).isEqualTo(validPostCount);
         assertThat(postValidList.size()).isNotEqualTo(postAllList.size());
         log.info("\n validPostCount : {}\n postValidListSize : {}\n postAllListSize : {}\n",
@@ -301,10 +301,10 @@ class PostApiControllerTest {
         Post postD = request4.toPost();
 
         //when
-        Post savedPost1 = postRepository.save(postA);
-        Post savedPost2 = postRepository.save(postB);
-        Post savedPost3 = postRepository.save(postC);
-        Post savedPost4 = postRepository.save(postD);
+        Post savedPost1 = articleRepository.save(postA);
+        Post savedPost2 = articleRepository.save(postB);
+        Post savedPost3 = articleRepository.save(postC);
+        Post savedPost4 = articleRepository.save(postD);
         List<Post> savePostList = List.of(savedPost1, savedPost2, savedPost3, savedPost4);
         long validPostCount = savePostList.stream().filter(post -> post.isExpired(LocalDateTime.now())).count();
 

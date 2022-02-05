@@ -1,7 +1,7 @@
 package com.carrot.favorite.entitiy;
 
 import com.carrot.account.entity.Account;
-import com.carrot.post.entity.Post;
+import com.carrot.article.entity.Post;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;

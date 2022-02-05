@@ -1,4 +1,4 @@
-package com.carrot.post.dto;
+package com.carrot.article.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @Setter
-public class PostDtoResponse {
+public class ArticleDtoResponse {
     private String title;
     private String contents;
     private LocalDateTime createdAt;

@@ -1,9 +1,9 @@
-package com.carrot.post.controller;
+package com.carrot.article.controller;
 
-import com.carrot.post.dto.PostDtoRequest;
-import com.carrot.post.dto.PostDtoResponse;
-import com.carrot.post.entity.Post;
-import com.carrot.post.service.PostService;
+import com.carrot.article.dto.ArticleDtoRequest;
+import com.carrot.article.dto.ArticleDtoResponse;
+import com.carrot.article.entity.Post;
+import com.carrot.article.service.ArticleService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
@@ -12,26 +12,26 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import static com.carrot.post.util.SearchType.SALE;
+import static com.carrot.article.util.SearchType.SALE;
 
 @Controller
 @RequestMapping("/post")
 @RequiredArgsConstructor
-public class PostMvcController {
+public class ArticleMvcController {
 
-    private final PostService postService;
+    private final ArticleService articleService;
     private final ModelMapper modelMapper;
 
     @GetMapping
     public String form(Model model) {
-        model.addAttribute("postDtoRequest", new PostDtoRequest());
+        model.addAttribute("postDtoRequest", new ArticleDtoRequest());
         return "postForm";
     }
 
     @GetMapping("/{postId}")
     public String read(@PathVariable Long postId, Model model) {
-        Post post = postService.get(postId,SALE);
-        PostDtoResponse response = modelMapper.map(post, PostDtoResponse.class);
+        Post post = articleService.get(postId, SALE);
+        ArticleDtoResponse response = modelMapper.map(post, ArticleDtoResponse.class);
         model.addAttribute(response);
         return "postDetail";
     }

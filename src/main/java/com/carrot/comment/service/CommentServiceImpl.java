@@ -5,8 +5,8 @@ import com.carrot.comment.entity.Comment;
 import com.carrot.comment.repository.CommentRepository;
 import com.carrot.exception.custom.CommentDeleteUnauthorized;
 import com.carrot.exception.custom.GuestForbiddenException;
-import com.carrot.post.entity.Post;
-import com.carrot.post.service.PostService;
+import com.carrot.article.entity.Post;
+import com.carrot.article.service.ArticleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,7 +22,7 @@ public class CommentServiceImpl implements CommentService {
 
     private final CommentRepository commentRepository;
 
-    private final PostService articleService;
+    private final ArticleService articleService;
 
     @Override
     public Comment create(Long articleId, Account account, Comment comment) {

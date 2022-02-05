@@ -1,4 +1,4 @@
-package com.carrot.post.util;
+package com.carrot.article.util;
 
 import com.carrot.exception.custom.InvalidQueryException;
 

@@ -1,4 +1,4 @@
-package com.carrot.post.entity;
+package com.carrot.article.entity;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;

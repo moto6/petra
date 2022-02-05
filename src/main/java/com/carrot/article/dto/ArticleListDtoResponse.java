@@ -1,4 +1,4 @@
-package com.carrot.post.dto;
+package com.carrot.article.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,11 +10,11 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class PostListDtoResponse {
-    private List<PostDtoResponse> list;
+public class ArticleListDtoResponse {
+    private List<ArticleDtoResponse> list;
     private Pageable pageable;
 
-    public PostListDtoResponse(List<PostDtoResponse> list, Pageable pageable) {
+    public ArticleListDtoResponse(List<ArticleDtoResponse> list, Pageable pageable) {
         this.list = list;
         this.pageable = pageable;
     }

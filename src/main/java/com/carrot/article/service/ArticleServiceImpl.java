@@ -1,10 +1,10 @@
-package com.carrot.post.service;
+package com.carrot.article.service;
 
 import com.carrot.attachfile.service.AttachFileService;
 import com.carrot.exception.custom.OutOfDateException;
-import com.carrot.post.entity.Post;
-import com.carrot.post.repository.PostRepository;
-import com.carrot.post.util.SearchType;
+import com.carrot.article.entity.Post;
+import com.carrot.article.repository.ArticleRepository;
+import com.carrot.article.util.SearchType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -17,9 +17,9 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class PostServiceImpl implements PostService {
+public class ArticleServiceImpl implements ArticleService {
 
-    private final PostRepository postRepository;
+    private final ArticleRepository articleRepository;
 
     private final AttachFileService attachFileService;
 
@@ -28,26 +28,26 @@ public class PostServiceImpl implements PostService {
         //Post post = request.toPost();
         //@todo : author는 추후 account정보에서 자동으로 읽어오기, DTO에서 안받고 임시로 상수값으로 넣어줌
         post.config("Anonymous");
-        return postRepository.save(post);
+        return articleRepository.save(post);
     }
 
     @Transactional
     public Post update(Long postId, Post updatePost) {
-        Post savedPost = postRepository
+        Post savedPost = articleRepository
                 .findById(postId)
                 .orElseThrow(EntityNotFoundException::new);
 
-        return postRepository.save(savedPost.update(updatePost));
+        return articleRepository.save(savedPost.update(updatePost));
     }
 
     @Transactional
     public void delete(Long postId) {
-        postRepository.deleteById(postId);
+        articleRepository.deleteById(postId);
     }
 
     @Transactional(readOnly = true)
     public Post get(Long postId, SearchType query) {
-        Post post = postRepository
+        Post post = articleRepository
                 .findById(postId)
                 .orElseThrow(EntityNotFoundException::new);
 
@@ -62,21 +62,21 @@ public class PostServiceImpl implements PostService {
 
     @Transactional(readOnly = true)
     public List<Post> getPage(Pageable pageable) {
-        return postRepository
+        return articleRepository
                 .findAllValid(LocalDateTime.now(), pageable)
                 .toList();
     }
 
     @Transactional(readOnly = true)
     public List<Post> getPageEvery(Pageable pageable) {
-        return postRepository
+        return articleRepository
                 .findAll(pageable)
                 .toList();
     }
 
 
     public void saveWithAttach(Long postId, List<MultipartFile> attachFiles) {
-        Post post = postRepository
+        Post post = articleRepository
                 .findById(postId)
                 .orElseThrow(EntityNotFoundException::new);
 
@@ -87,12 +87,12 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Post read(Long articleId) {
-        return postRepository.findById(articleId).get();
+        return articleRepository.findById(articleId).get();
     }
 
     @Transactional
     public void incrementViewCount(Long postId, long increment) {
-        Post post = postRepository
+        Post post = articleRepository
                 .findById(postId)
                 .orElseThrow(EntityNotFoundException::new);
         post.incrementViewsSync(increment);

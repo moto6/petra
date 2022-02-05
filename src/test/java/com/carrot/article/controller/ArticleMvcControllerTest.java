@@ -1,7 +1,7 @@
-package com.carrot.post.controller;
+package com.carrot.article.controller;
 
-import com.carrot.post.entity.Post;
-import com.carrot.post.repository.PostRepository;
+import com.carrot.article.entity.Post;
+import com.carrot.article.repository.ArticleRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
@@ -17,19 +17,19 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.carrot.post.dto.PostDtoRequestTest.request1;
+import static com.carrot.article.dto.ArticleDtoRequestTest.request1;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class PostMvcControllerTest {
+class ArticleMvcControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @Autowired
-    private PostRepository postRepository;
+    private ArticleRepository articleRepository;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -52,7 +52,7 @@ class PostMvcControllerTest {
     public void form() throws Exception {
 
         //given
-        Post post = postRepository.save(request1.toPost());
+        Post post = articleRepository.save(request1.toPost());
         String URI = "/post/" + post.getId();
 
         //when

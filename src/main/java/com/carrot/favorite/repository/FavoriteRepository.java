@@ -2,7 +2,7 @@ package com.carrot.favorite.repository;
 
 import com.carrot.account.entity.Account;
 import com.carrot.favorite.entitiy.Favorite;
-import com.carrot.post.entity.Post;
+import com.carrot.article.entity.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

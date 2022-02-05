@@ -1,4 +1,4 @@
-package com.carrot.post.entity;
+package com.carrot.article.entity;
 
 import lombok.Getter;
 import lombok.ToString;
@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Getter
 @ToString
 @RedisHash("Post")
-public class RedisPost {
+public class RedisArticle {
 
     @Id
     private Long id;
