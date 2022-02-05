@@ -2,8 +2,10 @@
 
 > 당근마켓 클론코딩을 진행하면서 이번에 주로 어떤일들을 했는지, 어떤생각으로 이런 결정을 했는지 정리 해봤습니다
 
+
 ![사진](https://user-images.githubusercontent.com/31065684/150481671-27687c99-62ad-4b8a-a27a-c26a17978cd4.png)
 
+![erd](https://user-images.githubusercontent.com/31065684/152649812-8f8e4c33-7941-46f6-ac85-7b79a94489c1.png)
 
 # 이 작업에 대한 정리글은 아래 링크에
 
