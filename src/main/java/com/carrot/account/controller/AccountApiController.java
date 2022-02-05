@@ -1,4 +1,4 @@
-package com.carrot.accounts.controller;
+package com.carrot.account.controller;
 
 import com.carrot.account.dto.AccountDto;
 import com.carrot.account.entity.Account;
