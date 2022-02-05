@@ -46,7 +46,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 class ArticleApiControllerTest {
 
-    private static final String PREFIX = "/api/v1/post";
+    private static final String PREFIX = "/api/v1/article";
     private static final String SLASH = "/";
 
     Logger log = LoggerFactory.getLogger(getClass());
@@ -84,8 +84,8 @@ class ArticleApiControllerTest {
 
     @Test
     @WithMockUser(roles = "USER")
-    @DisplayName("Post 생성된다")
-    public void postingPost() throws Exception {
+    @DisplayName("article 생성된다")
+    public void postingarticle() throws Exception {
         //given
         String requestBody = objectMapper.writeValueAsString(request1);
 
@@ -103,8 +103,8 @@ class ArticleApiControllerTest {
     @Test
     @WithMockUser(roles = "USER")
     @Transactional
-    @DisplayName("Post 수정된다")
-    public void updatePost() throws Exception {
+    @DisplayName("article 수정된다")
+    public void updatearticle() throws Exception {
         //given
         String requestBody = objectMapper.writeValueAsString(request2);
 
@@ -136,8 +136,8 @@ class ArticleApiControllerTest {
     @Test
     @WithMockUser(roles = "USER")
     @Transactional
-    @DisplayName("Post 삭제된다")
-    public void deletePost() throws Exception {
+    @DisplayName("article 삭제된다")
+    public void deletearticle() throws Exception {
 
         //given
         Article savedArticle1 = articleRepository.save(modelMapper.map(request1, Article.class));
@@ -167,14 +167,14 @@ class ArticleApiControllerTest {
             articleRepository.findById(savedArticle2.getId()).orElseThrow(EntityNotFoundException::new);
 
         } catch (EntityNotFoundException e) {
-            log.info("Post 삭제 성공");
+            log.info("article 삭제 성공");
         }
     }
 
     @Test
     @WithMockUser(roles = "USER")
-    @DisplayName("Post 단건조회")
-    public void readPost() throws Exception {
+    @DisplayName("article 단건조회")
+    public void readarticle() throws Exception {
         //given
         Article articleA = request1.deepCopy().validExtension().toEntity();
         Article articleB = request2.deepCopy().validExtension().toEntity();
@@ -217,7 +217,7 @@ class ArticleApiControllerTest {
 
     @Test
     @WithMockUser(roles = "USER")
-    @DisplayName("Post 유효기간 지나고 조회시 204-NoContent")
+    @DisplayName("article 유효기간 지나고 조회시 204-NoContent")
     public void readExpired() throws Exception {
         //given
         Article article = (modelMapper.map(request2, Article.class));
@@ -237,7 +237,7 @@ class ArticleApiControllerTest {
 
     @Test
     @WithMockUser(roles = "USER")
-    @DisplayName("Post 단건조회 & 유효기간 무시")
+    @DisplayName("article 단건조회 & 유효기간 무시")
     public void readAny() throws Exception {
         //given
         Article article = (modelMapper.map(request2, Article.class));
@@ -256,7 +256,7 @@ class ArticleApiControllerTest {
 
     @Test
     @WithMockUser(roles = "USER")
-    @DisplayName("Post 페이지단위 조회")
+    @DisplayName("article 페이지단위 조회")
     public void readPage() throws Exception {
         //given
         Article articleA = request1.toEntity();
@@ -270,7 +270,7 @@ class ArticleApiControllerTest {
         Article savedArticle3 = articleRepository.save(articleC);
         Article savedArticle4 = articleRepository.save(articleD);
         List<Article> saveArticleList = List.of(savedArticle1, savedArticle2, savedArticle3, savedArticle4);
-        long validPostCount = saveArticleList.stream().filter(post -> post.isExpired(LocalDateTime.now())).count();
+        long validarticleCount = saveArticleList.stream().filter(article -> article.isExpired(LocalDateTime.now())).count();
 
         //then
         mockMvc.perform(get(PREFIX)
@@ -282,17 +282,17 @@ class ArticleApiControllerTest {
 
         Pageable pageable = PageRequest.of(0, 5, Sort.Direction.DESC, "id");
 
-        List<?> postValidList = articleService.getPage(pageable);
-        List<?> postAllList = articleService.getPageEvery(pageable);
-        assertThat(postValidList.size()).isEqualTo(validPostCount);
-        assertThat(postValidList.size()).isNotEqualTo(postAllList.size());
-        log.info("\n validPostCount : {}\n postValidListSize : {}\n postAllListSize : {}\n",
-                 validPostCount, postValidList.size(), postAllList.size());
+        List<?> articleValidList = articleService.getPage(pageable).toList();
+        List<?> articleAllList = articleService.getPageEvery(pageable).toList();
+        assertThat(articleValidList.size()).isEqualTo(validarticleCount);
+        assertThat(articleValidList.size()).isNotEqualTo(articleAllList.size());
+        log.info("\n validarticleCount : {}\n articleValidListSize : {}\n articleAllListSize : {}\n",
+                 validarticleCount, articleValidList.size(), articleAllList.size());
     }
 
     @Test
     @WithMockUser(roles = "USER")
-    @DisplayName("Post 페이지단위 조회 & 유효기간 무시")
+    @DisplayName("article 페이지단위 조회 & 유효기간 무시")
     public void readPageAny() throws Exception {
         //given
         Article articleA = request1.toEntity();
@@ -306,19 +306,19 @@ class ArticleApiControllerTest {
         Article savedArticle3 = articleRepository.save(articleC);
         Article savedArticle4 = articleRepository.save(articleD);
         List<Article> saveArticleList = List.of(savedArticle1, savedArticle2, savedArticle3, savedArticle4);
-        long validPostCount = saveArticleList.stream().filter(post -> post.isExpired(LocalDateTime.now())).count();
+        long validarticleCount = saveArticleList.stream().filter(article -> article.isExpired(LocalDateTime.now())).count();
 
         //then
-        mockMvc.perform(get(PREFIX )
+        mockMvc.perform(get(PREFIX)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .accept(MediaType.APPLICATION_JSON)
                 )
                 .andDo(print())
                 .andExpect(status().isOk());
 
-        //.andExpect(content().string(savedPost1.getTitle()));
+        //.andExpect(content().string(savedarticle1.getTitle()));
         //assertThat()
-        log.info("count : {}", validPostCount);
+        log.info("count : {}", validarticleCount);
 
     }
 
