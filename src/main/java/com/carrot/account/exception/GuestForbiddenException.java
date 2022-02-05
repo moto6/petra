@@ -1,4 +1,4 @@
-package com.carrot.exception.custom;
+package com.carrot.account.exception;
 
 public class GuestForbiddenException extends RuntimeException {
     public GuestForbiddenException() {

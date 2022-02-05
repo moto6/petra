@@ -1,4 +1,4 @@
-package com.carrot.exception.custom;
+package com.carrot.account.exception;
 
 public class NoSuchAccountException extends RuntimeException {
     public NoSuchAccountException() {

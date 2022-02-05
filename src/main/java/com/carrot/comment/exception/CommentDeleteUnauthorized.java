@@ -1,4 +1,4 @@
-package com.carrot.exception.custom;
+package com.carrot.comment.exception;
 
 public class CommentDeleteUnauthorized extends RuntimeException {
     public CommentDeleteUnauthorized() {
