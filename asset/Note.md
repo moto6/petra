@@ -52,3 +52,49 @@
 ## 디비 인덱스 공부하기
 - https://helloinyong.tistory.com/296
 
+## 빈 순환참조
+
+## 스프링 빈순환참조
+
+
+
+***************************
+
+APPLICATION FAILED TO START
+
+***************************
+
+Description:
+
+The dependencies of some of the beans in the application context form a cycle:
+
+accountController defined in file [/Users/dong/workspace/carrot-market/build/classes/java/main/com/carrot/account/controller/AccountController.class]
+┌─────┐
+|  accountService defined in file [/Users/dong/workspace/carrot-market/build/classes/java/main/com/carrot/account/service/AccountService.class]
+↑     ↓
+|  securityConfig
+↑     ↓
+|  org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration$EnableWebMvcConfiguration
+↑     ↓
+|  loginUserConfig defined in file [/Users/dong/workspace/carrot-market/build/classes/java/main/com/carrot/auth/LoginUserConfig.class]
+↑     ↓
+|  loginUserArgumentResolver defined in file [/Users/dong/workspace/carrot-market/build/classes/java/main/com/carrot/auth/LoginUserArgumentResolver.class]
+└─────┘
+
+
+
+Process finished with exit code 0
+
+
+
+
+
+```java
+@RequiredArgsConstructor
+//@EnableWebSecurity
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+```
+
+
+
