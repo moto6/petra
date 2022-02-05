@@ -6,6 +6,7 @@ import com.carrot.exception.custom.OutOfDateException;
 import com.carrot.article.repository.ArticleRepository;
 import com.carrot.article.util.SearchType;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,23 +33,30 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Transactional
-    public Article update(Long postId, Article updateArticle) {
+    public Article update(Long articleId, Article updateArticle) {
         Article savedArticle = articleRepository
-                .findById(postId)
+                .findById(articleId)
                 .orElseThrow(EntityNotFoundException::new);
 
         return articleRepository.save(savedArticle.update(updateArticle));
     }
 
     @Transactional
-    public void delete(Long postId) {
-        articleRepository.deleteById(postId);
+    public void delete(Long articleId) {
+        articleRepository.deleteById(articleId);
+    }
+
+    @Override
+    public Article get(Long articleId) {
+        return articleRepository
+                .findById(articleId)
+                .orElseThrow(EntityNotFoundException::new);
     }
 
     @Transactional(readOnly = true)
-    public Article get(Long postId, SearchType query) {
+    public Article query(Long articleId, SearchType query) {
         Article article = articleRepository
-                .findById(postId)
+                .findById(articleId)
                 .orElseThrow(EntityNotFoundException::new);
 
         if (query.equals("any") && article.isExpired(LocalDateTime.now())) {
@@ -61,23 +69,19 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Transactional(readOnly = true)
-    public List<Article> getPage(Pageable pageable) {
-        return articleRepository
-                .findAllValid(LocalDateTime.now(), pageable)
-                .toList();
+    public Page<Article> getPage(Pageable pageable) {
+        return articleRepository.findAllValid(LocalDateTime.now(), pageable);
     }
 
     @Transactional(readOnly = true)
-    public List<Article> getPageEvery(Pageable pageable) {
-        return articleRepository
-                .findAll(pageable)
-                .toList();
+    public Page<Article> getPageEvery(Pageable pageable) {
+        return articleRepository.findAll(pageable);
     }
 
 
-    public void saveWithAttach(Long postId, List<MultipartFile> attachFiles) {
+    public void saveWithAttach(Long articleId, List<MultipartFile> attachFiles) {
         Article article = articleRepository
-                .findById(postId)
+                .findById(articleId)
                 .orElseThrow(EntityNotFoundException::new);
 
         for (MultipartFile file : attachFiles) {
@@ -91,9 +95,9 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Transactional
-    public void incrementViewCount(Long postId, long increment) {
+    public void incrementViewCount(Long articleId, long increment) {
         Article article = articleRepository
-                .findById(postId)
+                .findById(articleId)
                 .orElseThrow(EntityNotFoundException::new);
         article.incrementViewsSync(increment);
     }

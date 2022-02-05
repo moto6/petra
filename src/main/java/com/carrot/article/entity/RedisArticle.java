@@ -21,7 +21,6 @@ public class RedisArticle {
     @DateTimeFormat(pattern = "yyyy-MM-dd-HH:mm")
     private LocalDateTime RequestedAt;
 
-
     public void increaseViewCount(int viewCount) {
         this.viewCount++;
     }

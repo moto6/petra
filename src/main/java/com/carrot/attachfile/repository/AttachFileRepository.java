@@ -8,5 +8,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface AttachFileRepository extends JpaRepository<AttachFile, Long> {
-    Optional<List<AttachFile>> findAllByPost(Article article);
+
+    Optional<List<AttachFile>> findAllByArticle(Article article);
 }

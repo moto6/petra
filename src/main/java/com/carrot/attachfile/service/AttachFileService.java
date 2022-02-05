@@ -76,7 +76,7 @@ public class AttachFileService {
                 .builder()
                 .originalFileName(originalName)
                 .verifiedFileName(validName)
-                .post(article)
+                .article(article)
                 .build();
         attachFileRepository.save(attachFileEntity);
     }

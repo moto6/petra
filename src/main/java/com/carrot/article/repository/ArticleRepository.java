@@ -12,9 +12,9 @@ import java.time.LocalDateTime;
 
 @Repository
 public interface ArticleRepository extends JpaRepository<Article, Long> {
+
     Page<Article> findAll(Pageable pageable);
 
-    @Query(value = "select p from Article p WHERE p.validUntil>:time and p.validFrom<:time")
+    @Query(value = "select article from Article AS article WHERE article.validUntil>:time and article.validFrom<:time")
     Page<Article> findAllValid(@Param("time") LocalDateTime time, Pageable pageable);
-
 }
