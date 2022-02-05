@@ -1,6 +1,6 @@
 package com.carrot.attachfile.entity;
 
-import com.carrot.article.entity.Post;
+import com.carrot.article.entity.Article;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,10 +24,10 @@ import javax.persistence.Table;
 public class AttachFile {
 
     @Builder
-    public AttachFile(String originalFileName, String verifiedFileName, Post post) {
+    public AttachFile(String originalFileName, String verifiedFileName, Article article) {
         this.originalFileName = originalFileName;
         this.verifiedFileName = verifiedFileName;
-        this.post = post;
+        this.article = article;
     }
 
     @Id
@@ -43,7 +43,7 @@ public class AttachFile {
 
     @ManyToOne(fetch = FetchType.LAZY) //N-1 단방향 관계로 맵핑
     @JoinColumn(name = "post_id")
-    private Post post;
+    private Article article;
 
     public String getImgUrl() {
         return "not yet";

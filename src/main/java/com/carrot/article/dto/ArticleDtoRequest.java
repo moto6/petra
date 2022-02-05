@@ -1,6 +1,6 @@
 package com.carrot.article.dto;
 
-import com.carrot.article.entity.Post;
+import com.carrot.article.entity.Article;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,8 +38,8 @@ public class ArticleDtoRequest {
         this.validUntil = validUntil;
     }
 
-    public Post toPost() {
-        return Post
+    public Article toPost() {
+        return Article
                 .builder()
                 .title(this.title)
                 .contents(this.contents)

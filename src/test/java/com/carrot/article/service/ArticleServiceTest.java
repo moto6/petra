@@ -1,6 +1,6 @@
 package com.carrot.article.service;
 
-import com.carrot.article.entity.Post;
+import com.carrot.article.entity.Article;
 import com.carrot.article.repository.ArticleRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -11,7 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
-import static com.carrot.article.entity.PostTest.post1;
+import static com.carrot.article.entity.ArticleTest.ARTICLE_1;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -29,15 +29,15 @@ class ArticleServiceTest {
     @DisplayName("조회수가 증가한다")
     public void addViews() {
         //given
-        Post post = post1.deepCopy();
-        long initialCount = post.getViewCount();
+        Article article = ARTICLE_1.deepCopy();
+        long initialCount = article.getViewCount();
         long increase = 12345;
-        when(articleRepository.findById(any())).thenReturn(Optional.of(post));
-        post.incrementViewsSync(increase);
+        when(articleRepository.findById(any())).thenReturn(Optional.of(article));
+        article.incrementViewsSync(increase);
         //when
-        postService.save(post);
+        postService.save(article);
 
         //then
-        assertThat(post.getViewCount()).isEqualTo(initialCount + increase);
+        assertThat(article.getViewCount()).isEqualTo(initialCount + increase);
     }
 }

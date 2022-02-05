@@ -4,7 +4,7 @@ import com.carrot.attachfile.entity.AttachFile;
 import com.carrot.attachfile.repository.AttachFileRepository;
 import com.carrot.common.fileservice.FileService;
 import com.carrot.exception.custom.AttachFileStorageException;
-import com.carrot.article.entity.Post;
+import com.carrot.article.entity.Article;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,7 +58,7 @@ public class AttachFileService {
 
     //@note : 파일 업로드에 시간이 많이 걸리면 >> Transactional 이 DB Conn 을 길게 잡고 있어서 >> DB Conn pool 이 말라서 에러가 발생할수 있음
     @Transactional(isolation = Isolation.REPEATABLE_READ)
-    public void saveAttach(MultipartFile uploadedFile, Post post) {
+    public void saveAttach(MultipartFile uploadedFile, Article article) {
 
         String originalName = uploadedFile.getOriginalFilename();
         String validName = "";
@@ -76,7 +76,7 @@ public class AttachFileService {
                 .builder()
                 .originalFileName(originalName)
                 .verifiedFileName(validName)
-                .post(post)
+                .post(article)
                 .build();
         attachFileRepository.save(attachFileEntity);
     }

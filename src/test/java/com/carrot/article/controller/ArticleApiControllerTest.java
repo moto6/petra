@@ -1,6 +1,6 @@
 package com.carrot.article.controller;
 
-import com.carrot.article.entity.Post;
+import com.carrot.article.entity.Article;
 import com.carrot.article.repository.ArticleRepository;
 import com.carrot.article.service.ArticleService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -44,7 +44,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class PostApiControllerTest {
+class ArticleApiControllerTest {
 
     private static final String PREFIX = "/api/v1/post";
     private static final String SLASH = "/";
@@ -109,11 +109,11 @@ class PostApiControllerTest {
         String requestBody = objectMapper.writeValueAsString(request2);
 
         //when
-        Post savedPost = articleRepository.save(modelMapper.map(request1, Post.class));
+        Article savedArticle = articleRepository.save(modelMapper.map(request1, Article.class));
 
 
         //then
-        mockMvc.perform(put(PREFIX + SLASH + savedPost.getId())
+        mockMvc.perform(put(PREFIX + SLASH + savedArticle.getId())
                                 .content(requestBody)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .accept(MediaType.APPLICATION_JSON)
@@ -123,13 +123,13 @@ class PostApiControllerTest {
 
         em.flush();
         em.clear();
-        Post afterUpdate = articleRepository.findById(savedPost.getId()).orElseThrow(EntityNotFoundException::new);
+        Article afterUpdate = articleRepository.findById(savedArticle.getId()).orElseThrow(EntityNotFoundException::new);
         log.info("Contents 와 Title 은 그대로 반영된다");
         assertThat(afterUpdate.getContents()).isEqualTo(request2.getContents());
         assertThat(afterUpdate.getTitle()).isEqualTo(request2.getTitle());
         log.info("유효기간은 null 인 경우 서버에서 검증된다");
-        assertThat(afterUpdate.getValidUntil()).isEqualTo(savedPost.getValidUntil());
-        assertThat(afterUpdate.getValidFrom()).isEqualTo(savedPost.getValidFrom());
+        assertThat(afterUpdate.getValidUntil()).isEqualTo(savedArticle.getValidUntil());
+        assertThat(afterUpdate.getValidFrom()).isEqualTo(savedArticle.getValidFrom());
     }
 
 
@@ -140,18 +140,18 @@ class PostApiControllerTest {
     public void deletePost() throws Exception {
 
         //given
-        Post savedPost1 = articleRepository.save(modelMapper.map(request1, Post.class));
-        Post savedPost2 = articleRepository.save(modelMapper.map(request2, Post.class));
+        Article savedArticle1 = articleRepository.save(modelMapper.map(request1, Article.class));
+        Article savedArticle2 = articleRepository.save(modelMapper.map(request2, Article.class));
 
         //when
-        mockMvc.perform(delete(PREFIX + SLASH + savedPost1.getId())
+        mockMvc.perform(delete(PREFIX + SLASH + savedArticle1.getId())
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .accept(MediaType.APPLICATION_JSON)
                 )
                 .andDo(print())
                 .andExpect(status().isNoContent());
 
-        mockMvc.perform(delete(PREFIX + SLASH + savedPost2.getId())
+        mockMvc.perform(delete(PREFIX + SLASH + savedArticle2.getId())
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .accept(MediaType.APPLICATION_JSON)
                 )
@@ -163,8 +163,8 @@ class PostApiControllerTest {
         em.clear();
 
         try {
-            articleRepository.findById(savedPost1.getId()).orElseThrow(EntityNotFoundException::new);
-            articleRepository.findById(savedPost2.getId()).orElseThrow(EntityNotFoundException::new);
+            articleRepository.findById(savedArticle1.getId()).orElseThrow(EntityNotFoundException::new);
+            articleRepository.findById(savedArticle2.getId()).orElseThrow(EntityNotFoundException::new);
 
         } catch (EntityNotFoundException e) {
             log.info("Post 삭제 성공");
@@ -176,18 +176,18 @@ class PostApiControllerTest {
     @DisplayName("Post 단건조회")
     public void readPost() throws Exception {
         //given
-        Post postA = request1.deepCopy().validExtension().toPost();
-        Post postB = request2.deepCopy().validExtension().toPost();
-        Post postC = request3.deepCopy().validExtension().toPost();
+        Article articleA = request1.deepCopy().validExtension().toPost();
+        Article articleB = request2.deepCopy().validExtension().toPost();
+        Article articleC = request3.deepCopy().validExtension().toPost();
 
 
         //when
-        Post savedPost1 = articleRepository.save(postA);
-        Post savedPost2 = articleRepository.save(postB);
-        Post savedPost3 = articleRepository.save(postC);
+        Article savedArticle1 = articleRepository.save(articleA);
+        Article savedArticle2 = articleRepository.save(articleB);
+        Article savedArticle3 = articleRepository.save(articleC);
 
         //then
-        mockMvc.perform(get(PREFIX + SLASH + savedPost1.getId())
+        mockMvc.perform(get(PREFIX + SLASH + savedArticle1.getId())
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .accept(MediaType.APPLICATION_JSON)
                 )
@@ -196,7 +196,7 @@ class PostApiControllerTest {
         //.andExpect(content().string(savedPost1.getTitle()));
 
 
-        mockMvc.perform(get(PREFIX + SLASH + savedPost2.getId())
+        mockMvc.perform(get(PREFIX + SLASH + savedArticle2.getId())
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .accept(MediaType.APPLICATION_JSON)
                 )
@@ -205,7 +205,7 @@ class PostApiControllerTest {
         //.andExpect(content().string(savedPost2.getTitle()));
 
 
-        mockMvc.perform(get(PREFIX + SLASH + savedPost3.getId())
+        mockMvc.perform(get(PREFIX + SLASH + savedArticle3.getId())
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .accept(MediaType.APPLICATION_JSON)
                 )
@@ -220,13 +220,13 @@ class PostApiControllerTest {
     @DisplayName("Post 유효기간 지나고 조회시 204-NoContent")
     public void readExpired() throws Exception {
         //given
-        Post post = (modelMapper.map(request2, Post.class));
-        post.config("rolling");
-        Post savedPost = articleRepository.save(post);
+        Article article = (modelMapper.map(request2, Article.class));
+        article.config("rolling");
+        Article savedArticle = articleRepository.save(article);
 
         //when
         //then
-        mockMvc.perform(get(PREFIX + SLASH + savedPost.getId())
+        mockMvc.perform(get(PREFIX + SLASH + savedArticle.getId())
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .accept(MediaType.APPLICATION_JSON)
                 )
@@ -240,13 +240,13 @@ class PostApiControllerTest {
     @DisplayName("Post 단건조회 & 유효기간 무시")
     public void readAny() throws Exception {
         //given
-        Post post = (modelMapper.map(request2, Post.class));
-        post.config("rolling");
-        Post savedPost = articleRepository.save(post);
+        Article article = (modelMapper.map(request2, Article.class));
+        article.config("rolling");
+        Article savedArticle = articleRepository.save(article);
 
         //when
         //then
-        mockMvc.perform(get(PREFIX + SLASH + "any/" + savedPost.getId())
+        mockMvc.perform(get(PREFIX + SLASH + "any/" + savedArticle.getId())
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .accept(MediaType.APPLICATION_JSON)
                 )
@@ -259,18 +259,18 @@ class PostApiControllerTest {
     @DisplayName("Post 페이지단위 조회")
     public void readPage() throws Exception {
         //given
-        Post postA = request1.toPost();
-        Post postB = request2.toPost();
-        Post postC = request3.toPost();
-        Post postD = request4.toPost();
+        Article articleA = request1.toPost();
+        Article articleB = request2.toPost();
+        Article articleC = request3.toPost();
+        Article articleD = request4.toPost();
 
         //when
-        Post savedPost1 = articleRepository.save(postA);
-        Post savedPost2 = articleRepository.save(postB);
-        Post savedPost3 = articleRepository.save(postC);
-        Post savedPost4 = articleRepository.save(postD);
-        List<Post> savePostList = List.of(savedPost1, savedPost2, savedPost3, savedPost4);
-        long validPostCount = savePostList.stream().filter(post -> post.isExpired(LocalDateTime.now())).count();
+        Article savedArticle1 = articleRepository.save(articleA);
+        Article savedArticle2 = articleRepository.save(articleB);
+        Article savedArticle3 = articleRepository.save(articleC);
+        Article savedArticle4 = articleRepository.save(articleD);
+        List<Article> saveArticleList = List.of(savedArticle1, savedArticle2, savedArticle3, savedArticle4);
+        long validPostCount = saveArticleList.stream().filter(post -> post.isExpired(LocalDateTime.now())).count();
 
         //then
         mockMvc.perform(get(PREFIX)
@@ -295,18 +295,18 @@ class PostApiControllerTest {
     @DisplayName("Post 페이지단위 조회 & 유효기간 무시")
     public void readPageAny() throws Exception {
         //given
-        Post postA = request1.toPost();
-        Post postB = request2.toPost();
-        Post postC = request3.toPost();
-        Post postD = request4.toPost();
+        Article articleA = request1.toPost();
+        Article articleB = request2.toPost();
+        Article articleC = request3.toPost();
+        Article articleD = request4.toPost();
 
         //when
-        Post savedPost1 = articleRepository.save(postA);
-        Post savedPost2 = articleRepository.save(postB);
-        Post savedPost3 = articleRepository.save(postC);
-        Post savedPost4 = articleRepository.save(postD);
-        List<Post> savePostList = List.of(savedPost1, savedPost2, savedPost3, savedPost4);
-        long validPostCount = savePostList.stream().filter(post -> post.isExpired(LocalDateTime.now())).count();
+        Article savedArticle1 = articleRepository.save(articleA);
+        Article savedArticle2 = articleRepository.save(articleB);
+        Article savedArticle3 = articleRepository.save(articleC);
+        Article savedArticle4 = articleRepository.save(articleD);
+        List<Article> saveArticleList = List.of(savedArticle1, savedArticle2, savedArticle3, savedArticle4);
+        long validPostCount = saveArticleList.stream().filter(post -> post.isExpired(LocalDateTime.now())).count();
 
         //then
         mockMvc.perform(get(PREFIX )

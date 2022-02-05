@@ -1,6 +1,6 @@
 package com.carrot.article.controller;
 
-import com.carrot.article.entity.Post;
+import com.carrot.article.entity.Article;
 import com.carrot.article.repository.ArticleRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Disabled;
@@ -52,8 +52,8 @@ class ArticleMvcControllerTest {
     public void form() throws Exception {
 
         //given
-        Post post = articleRepository.save(request1.toPost());
-        String URI = "/post/" + post.getId();
+        Article article = articleRepository.save(request1.toPost());
+        String URI = "/post/" + article.getId();
 
         //when
         //then

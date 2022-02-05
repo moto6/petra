@@ -4,7 +4,7 @@ import com.carrot.common.ApiResult;
 import com.carrot.article.dto.ArticleDtoRequest;
 import com.carrot.article.dto.ArticleDtoResponse;
 import com.carrot.article.dto.ArticleListDtoResponse;
-import com.carrot.article.entity.Post;
+import com.carrot.article.entity.Article;
 import com.carrot.article.service.ArticleService;
 import com.carrot.article.util.SearchType;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 
 import static com.carrot.article.util.SearchType.SearchTypeAdaptor;
 
-@RequestMapping("/api/v1/post")
+@RequestMapping("/api/v1/article")
 @RestController
 @RequiredArgsConstructor
 public class ArticleApiController {
@@ -39,7 +39,7 @@ public class ArticleApiController {
     private final ModelMapper modelMapper;
 
     @PostMapping
-    public ResponseEntity<?> createPost(@RequestBody ArticleDtoRequest request) {
+    public ResponseEntity<?> createArticle(@RequestBody ArticleDtoRequest request) {
         ArticleDtoResponse response = modelMapper.map(articleService.save(request.toPost()), ArticleDtoResponse.class);
         ApiResult<?> result = ApiResult.sussess(response, HttpStatus.CREATED);
 
@@ -48,9 +48,9 @@ public class ArticleApiController {
                 .body(result);
     }
 
-    @PutMapping("/{postId}")
-    public ResponseEntity<?> updatePost(@PathVariable Long postId, @RequestBody ArticleDtoRequest request) {
-        ArticleDtoResponse response = modelMapper.map(articleService.update(postId, request.toPost()), ArticleDtoResponse.class);
+    @PutMapping("/{articleId}")
+    public ResponseEntity<?> updateArticle(@PathVariable Long articleId, @RequestBody ArticleDtoRequest request) {
+        ArticleDtoResponse response = modelMapper.map(articleService.update(articleId, request.toPost()), ArticleDtoResponse.class);
         ApiResult<?> result = ApiResult.sussess(response, HttpStatus.OK);
 
         return ResponseEntity
@@ -58,19 +58,19 @@ public class ArticleApiController {
                 .body(result);
     }
 
-    @DeleteMapping("/{postId}")
-    public ResponseEntity<?> deletePost(@PathVariable Long postId) {
-        articleService.delete(postId);
+    @DeleteMapping("/{articleId}")
+    public ResponseEntity<?> deletePost(@PathVariable Long articleId) {
+        articleService.delete(articleId);
 
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
                 .build();
     }
 
-    @GetMapping("/{postId}")
-    public ResponseEntity<?> getPost(@PathVariable Long postId, @RequestParam(required = false, defaultValue = "") String query) {
+    @GetMapping("/{articleId}")
+    public ResponseEntity<?> getArticle(@PathVariable Long articleId, @RequestParam(required = false, defaultValue = "") String query) {
         SearchType search = SearchTypeAdaptor(query);
-        ArticleDtoResponse response = modelMapper.map(articleService.get(postId, search), ArticleDtoResponse.class);
+        ArticleDtoResponse response = modelMapper.map(articleService.get(articleId, search), ArticleDtoResponse.class);
         ApiResult<?> result = ApiResult.sussess(response, HttpStatus.OK);
 
         return ResponseEntity
@@ -80,11 +80,11 @@ public class ArticleApiController {
     }
 
     @GetMapping
-    public ResponseEntity<?> getPostPage(
+    public ResponseEntity<?> getArticlePage(
             @PageableDefault(direction = Sort.Direction.ASC) Pageable pageable) {
 
-        List<Post> postList = articleService.getPage(pageable);
-        List<ArticleDtoResponse> dtoList = postList
+        List<Article> articleList = articleService.getPage(pageable);
+        List<ArticleDtoResponse> dtoList = articleList
                 .stream()
                 .map(post -> modelMapper.map(post, ArticleDtoResponse.class))
                 .collect(Collectors.toList());
@@ -98,8 +98,8 @@ public class ArticleApiController {
     public ResponseEntity<?> readPageEvery(
             @PageableDefault(direction = Sort.Direction.ASC) Pageable pageable) {
 
-        List<Post> postList = articleService.getPageEvery(pageable);
-        List<ArticleDtoResponse> dtoList = postList
+        List<Article> articleList = articleService.getPageEvery(pageable);
+        List<ArticleDtoResponse> dtoList = articleList
                 .stream()
                 .map(post -> modelMapper.map(post, ArticleDtoResponse.class))
                 .collect(Collectors.toList());

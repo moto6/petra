@@ -1,7 +1,7 @@
 package com.carrot.favorite.entitiy;
 
 import com.carrot.account.entity.Account;
-import com.carrot.article.entity.Post;
+import com.carrot.article.entity.Article;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
@@ -37,7 +37,7 @@ public class Favorite {
     @NotNull
     @ManyToOne
     @JoinColumn(name = "article_id")
-    private Post article;
+    private Article article;
 
     @NotNull
     @ManyToOne
@@ -49,7 +49,7 @@ public class Favorite {
     @DateTimeFormat(pattern = DATETIME_FORMAT)
     private LocalDateTime createAt;
 
-    public Favorite(Post article, Account account) {
+    public Favorite(Article article, Account account) {
         this.article = article;
         this.account = account;
         this.createAt = LocalDateTime.now();

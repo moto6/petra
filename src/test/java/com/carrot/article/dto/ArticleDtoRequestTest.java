@@ -1,6 +1,6 @@
 package com.carrot.article.dto;
 
-import com.carrot.article.entity.Post;
+import com.carrot.article.entity.Article;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -56,12 +56,12 @@ public class ArticleDtoRequestTest {
 
         //when
         request.validExtension();
-        Post post = request.toPost();
+        Article article = request.toPost();
 
         //then
         assertThat(request.getValidUntil()).isNotEqualTo(initValidUntil);
         assertThat(request.getValidFrom()).isNotEqualTo(initValidFrom);
-        assertThat(post.isExpired(LocalDateTime.now())).isTrue();
+        assertThat(article.isExpired(LocalDateTime.now())).isTrue();
         log.info("validExtension() 메서드 테스트");
     }
 }

@@ -1,15 +1,15 @@
 
 ### 생성
-POST http://localhost:8080/api/v1/post
+POST http://localhost:8080/api/v1/article
 
 ### 단건조회
-GET http://localhost:8080/api/v1/post/1
+GET http://localhost:8080/api/v1/article/1
 
 ### 페이지 조회
-GET http://localhost:8080/api/v1/post
+GET http://localhost:8080/api/v1/article
 
 ### 삭제요청
-DELETE http://localhost:8080/api/v1/post/1
+DELETE http://localhost:8080/api/v1/article/1
 
 ### 업데이트
-PUT http://localhost:8080/api/v1/post/1
+PUT http://localhost:8080/api/v1/article/1

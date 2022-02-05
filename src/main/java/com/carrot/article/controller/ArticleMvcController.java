@@ -2,7 +2,7 @@ package com.carrot.article.controller;
 
 import com.carrot.article.dto.ArticleDtoRequest;
 import com.carrot.article.dto.ArticleDtoResponse;
-import com.carrot.article.entity.Post;
+import com.carrot.article.entity.Article;
 import com.carrot.article.service.ArticleService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -30,8 +30,8 @@ public class ArticleMvcController {
 
     @GetMapping("/{postId}")
     public String read(@PathVariable Long postId, Model model) {
-        Post post = articleService.get(postId, SALE);
-        ArticleDtoResponse response = modelMapper.map(post, ArticleDtoResponse.class);
+        Article article = articleService.get(postId, SALE);
+        ArticleDtoResponse response = modelMapper.map(article, ArticleDtoResponse.class);
         model.addAttribute(response);
         return "postDetail";
     }

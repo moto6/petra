@@ -15,19 +15,19 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
 
-@Table(name = "post")
+@Table(name = "table_article")
 @Entity
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Post extends BaseEntity {
+public class Article extends BaseEntity {
 
 
     @Id
     @GeneratedValue
-    @Column(name = "post_id")
+    @Column(name = "article_id")
     private Long id;
 
     @Column(name = "title", nullable = false, length = 50)
@@ -43,6 +43,7 @@ public class Post extends BaseEntity {
     @Column(name = "view_count", nullable = false)
     private long viewCount = 0;
 
+    //@todo : audit 적용하도록 수정
     @Column(name = "valid_from", nullable = false)
     @DateTimeFormat(pattern = DATETIME_FORMAT)
     private LocalDateTime validFrom;
@@ -62,12 +63,12 @@ public class Post extends BaseEntity {
         this.viewCount = 0L;
     }
 
-    public Post update(Post post) {
-        this.title = post.title;
-        this.contents = post.contents;
-        this.author = post.author;
-        this.validUntil = post.validUntil;
-        this.validFrom = post.validFrom;
+    public Article update(Article article) {
+        this.title = article.title;
+        this.contents = article.contents;
+        this.author = article.author;
+        this.validUntil = article.validUntil;
+        this.validFrom = article.validFrom;
         return this;
     }
 
@@ -79,8 +80,8 @@ public class Post extends BaseEntity {
         this.viewCount += count;
     }
 
-    public Post deepCopy() {
-        return Post.builder()
+    public Article deepCopy() {
+        return Article.builder()
                 .id(this.getId())
                 .title(this.getTitle())
                 .contents(this.getContents())

@@ -1,6 +1,6 @@
 package com.carrot.article.service;
 
-import com.carrot.article.entity.Post;
+import com.carrot.article.entity.Article;
 import com.carrot.article.repository.ArticleRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Disabled;
@@ -13,7 +13,7 @@ import static com.carrot.article.dto.ArticleDtoRequestTest.request1;
 
 @Slf4j
 @SpringBootTest
-class PostViewCountServiceTest {
+class ArticleViewCountServiceTest {
 
     @Autowired
     ArticleRepository articleRepository;
@@ -27,8 +27,8 @@ class PostViewCountServiceTest {
     public void viewUpCount() {
 
         //given
-        Post post = articleRepository.save(request1.toPost());
-        final long postId = post.getId();
+        Article article = articleRepository.save(request1.toPost());
+        final long postId = article.getId();
 
         /*
         //when

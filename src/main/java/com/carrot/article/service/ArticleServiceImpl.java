@@ -1,8 +1,8 @@
 package com.carrot.article.service;
 
+import com.carrot.article.entity.Article;
 import com.carrot.attachfile.service.AttachFileService;
 import com.carrot.exception.custom.OutOfDateException;
-import com.carrot.article.entity.Post;
 import com.carrot.article.repository.ArticleRepository;
 import com.carrot.article.util.SearchType;
 import lombok.RequiredArgsConstructor;
@@ -24,20 +24,20 @@ public class ArticleServiceImpl implements ArticleService {
     private final AttachFileService attachFileService;
 
     @Transactional
-    public Post save(Post post) {
+    public Article save(Article article) {
         //Post post = request.toPost();
         //@todo : author는 추후 account정보에서 자동으로 읽어오기, DTO에서 안받고 임시로 상수값으로 넣어줌
-        post.config("Anonymous");
-        return articleRepository.save(post);
+        article.config("Anonymous");
+        return articleRepository.save(article);
     }
 
     @Transactional
-    public Post update(Long postId, Post updatePost) {
-        Post savedPost = articleRepository
+    public Article update(Long postId, Article updateArticle) {
+        Article savedArticle = articleRepository
                 .findById(postId)
                 .orElseThrow(EntityNotFoundException::new);
 
-        return articleRepository.save(savedPost.update(updatePost));
+        return articleRepository.save(savedArticle.update(updateArticle));
     }
 
     @Transactional
@@ -46,29 +46,29 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Transactional(readOnly = true)
-    public Post get(Long postId, SearchType query) {
-        Post post = articleRepository
+    public Article get(Long postId, SearchType query) {
+        Article article = articleRepository
                 .findById(postId)
                 .orElseThrow(EntityNotFoundException::new);
 
-        if (query.equals("any") && post.isExpired(LocalDateTime.now())) {
+        if (query.equals("any") && article.isExpired(LocalDateTime.now())) {
             throw new OutOfDateException();
         }
 
-        post.incrementViewsAsync();
+        article.incrementViewsAsync();
 
-        return post;
+        return article;
     }
 
     @Transactional(readOnly = true)
-    public List<Post> getPage(Pageable pageable) {
+    public List<Article> getPage(Pageable pageable) {
         return articleRepository
                 .findAllValid(LocalDateTime.now(), pageable)
                 .toList();
     }
 
     @Transactional(readOnly = true)
-    public List<Post> getPageEvery(Pageable pageable) {
+    public List<Article> getPageEvery(Pageable pageable) {
         return articleRepository
                 .findAll(pageable)
                 .toList();
@@ -76,25 +76,25 @@ public class ArticleServiceImpl implements ArticleService {
 
 
     public void saveWithAttach(Long postId, List<MultipartFile> attachFiles) {
-        Post post = articleRepository
+        Article article = articleRepository
                 .findById(postId)
                 .orElseThrow(EntityNotFoundException::new);
 
         for (MultipartFile file : attachFiles) {
-            attachFileService.saveAttach(file, post);
+            attachFileService.saveAttach(file, article);
         }
     }
 
     @Override
-    public Post read(Long articleId) {
+    public Article read(Long articleId) {
         return articleRepository.findById(articleId).get();
     }
 
     @Transactional
     public void incrementViewCount(Long postId, long increment) {
-        Post post = articleRepository
+        Article article = articleRepository
                 .findById(postId)
                 .orElseThrow(EntityNotFoundException::new);
-        post.incrementViewsSync(increment);
+        article.incrementViewsSync(increment);
     }
 }
