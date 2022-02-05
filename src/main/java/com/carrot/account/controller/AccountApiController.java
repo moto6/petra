@@ -1,7 +1,7 @@
 package com.carrot.accounts.controller;
 
-import com.carrot.account.entity.Account;
 import com.carrot.account.dto.AccountDto;
+import com.carrot.account.entity.Account;
 import com.carrot.auth.CurrentUser;
 import com.carrot.common.ApiResult;
 import lombok.RequiredArgsConstructor;

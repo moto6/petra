@@ -1,7 +1,6 @@
-package com.jari.jari.common.auth;
+package com.carrot.auth;
 
-import com.jari.jari.account.service.AccountService;
-import com.jari.jari.exception.exceptions.NoSuchAccountException;
+import com.carrot.account.service.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,8 +13,8 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 
 import javax.servlet.http.HttpServletRequest;
 
-//import static com.jari.jari.common.auth.AuthFilter.AUTH_KEY;
-import static com.jari.jari.common.auth.UnknownAccount.guestAuth;
+import static com.carrot.auth.UnknownAccount.guestAuth;
+
 
 @RequiredArgsConstructor
 @Component

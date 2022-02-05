@@ -17,6 +17,8 @@ public class AccountService implements UserDetailsService {
     private final AccountRepository accountRepository;
 
     private final PasswordEncoder passwordEncoder;
+    private final AccountRepository accountRepository;
+    Logger log = LoggerFactory.getLogger(getClass());
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -27,11 +29,6 @@ public class AccountService implements UserDetailsService {
     public Account save(Account account) {
         return accountRepository.save(account);
     }
-
-
-    private final AccountRepository accountRepository;
-
-    Logger log = LoggerFactory.getLogger(getClass());
 
     @PostConstruct
     public void registry() {
@@ -61,14 +58,13 @@ public class AccountService implements UserDetailsService {
     }
 
 
-
     public Page<Account> readPage(Pageable pageable) {
 
         return accountRepository.findAll(pageable);
     }
 
     @Transactional(readOnly = true)
-    public Account authInfoParser (String authInfo){
+    public Account authInfoParser(String authInfo) {
         //todo 리팩토링 필요, 테스트 필요
         try {
             String[] authStrings = authInfo.split(" ");

@@ -1,11 +1,9 @@
-package com.jari.jari.account.controller;
+package com.carrot.account.controller;
 
-import com.jari.jari.account.dto.AccountRequestDto;
-import com.jari.jari.account.dto.AccountResponseDto;
-import com.jari.jari.account.entity.Account;
-import com.jari.jari.account.service.AccountService;
-import com.jari.jari.common.auth.AuthUser;
-import com.jari.jari.common.result.ApiResult;
+import com.carrot.account.dto.AccountResponseDto;
+import com.carrot.account.entity.Account;
+import com.carrot.account.service.AccountService;
+import com.carrot.common.ApiResult;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

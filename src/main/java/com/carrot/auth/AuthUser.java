@@ -1,4 +1,4 @@
-package com.jari.jari.common.auth;
+package com.carrot.auth;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

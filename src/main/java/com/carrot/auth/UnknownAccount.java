@@ -1,7 +1,7 @@
-package com.jari.jari.common.auth;
+package com.carrot.auth;
 
-import com.jari.jari.account.entity.Account;
-import com.jari.jari.account.entity.AccountType;
+
+import com.carrot.account.entity.Account;
 
 public final class UnknownAccount {
     private static final Account GUEST = Account.builder()

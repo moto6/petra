@@ -1,7 +1,7 @@
 package com.carrot.auth;
 
 import com.carrot.account.entity.Account;
-import com.carrot.accounts.repository.AccountRepository;
+import com.carrot.account.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -21,7 +21,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
     private final AccountRepository accountRepository;
 
-    private final HttpSession httpSession;
+    //private final HttpSession httpSession;
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {

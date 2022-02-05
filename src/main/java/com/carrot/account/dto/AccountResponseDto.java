@@ -1,6 +1,6 @@
-package com.jari.jari.account.dto;
+package com.carrot.account.dto;
 
-import com.jari.jari.account.entity.Account;
+import com.carrot.account.entity.Account;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -25,7 +25,7 @@ public class AccountResponseDto {
     public AccountResponseDto(Account account) {
         this.id = account.getId();
         this.nickname = account.getNickname();
-        this.accountType = account.getAccountType().getDescription();
+        //this.accountType = account.().getDescription();
     }
 
     public static Page<AccountResponseDto> pages(Page<Account> accounts) {

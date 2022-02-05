@@ -1,7 +1,6 @@
-package com.jari.jari.account.dto;
+package com.carrot.account.dto;
 
-import com.jari.jari.account.entity.Account;
-import com.jari.jari.account.entity.AccountType;
+import com.carrot.account.entity.Account;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,12 +12,12 @@ import lombok.Setter;
 @Setter
 public class AccountRequestDto {
     private String nickname;
-    private AccountType accountType;
+    //private AccountType accountType;
 
     public Account createAccount() {
         return Account.builder()
                 .nickname(nickname)
-                .accountType(accountType)
+                //.accountType(accountType)
                 .authentication("NONE")
                 .quit(Boolean.FALSE)
                 .build();

@@ -1,13 +1,12 @@
 package com.carrot.account.dto;
 
+import com.carrot.account.entity.AccountRole;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.HashSet;
 import java.util.Set;
-
-import com.carrot.account.entity.AccountRole;
 
 @Getter
 @Setter
