@@ -40,7 +40,7 @@ public class ArticleApiController {
 
     @PostMapping
     public ResponseEntity<?> createArticle(@RequestBody ArticleDtoRequest request) {
-        ArticleDtoResponse response = modelMapper.map(articleService.save(request.toPost()), ArticleDtoResponse.class);
+        ArticleDtoResponse response = modelMapper.map(articleService.save(request.toEntity()), ArticleDtoResponse.class);
         ApiResult<?> result = ApiResult.sussess(response, HttpStatus.CREATED);
 
         return ResponseEntity
@@ -50,18 +50,18 @@ public class ArticleApiController {
 
     @PutMapping("/{articleId}")
     public ResponseEntity<?> updateArticle(@PathVariable Long articleId, @RequestBody ArticleDtoRequest request) {
-        ArticleDtoResponse response = modelMapper.map(articleService.update(articleId, request.toPost()), ArticleDtoResponse.class);
-        ApiResult<?> result = ApiResult.sussess(response, HttpStatus.OK);
 
+        ArticleDtoResponse response = modelMapper.map(articleService.update(articleId, request.toEntity()), ArticleDtoResponse.class);
+        ApiResult<?> result = ApiResult.sussess(response, HttpStatus.OK);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(result);
     }
 
     @DeleteMapping("/{articleId}")
-    public ResponseEntity<?> deletePost(@PathVariable Long articleId) {
-        articleService.delete(articleId);
+    public ResponseEntity<?> deleteArticle(@PathVariable Long articleId) {
 
+        articleService.delete(articleId);
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
                 .build();
@@ -69,14 +69,13 @@ public class ArticleApiController {
 
     @GetMapping("/{articleId}")
     public ResponseEntity<?> getArticle(@PathVariable Long articleId, @RequestParam(required = false, defaultValue = "") String query) {
+
         SearchType search = SearchTypeAdaptor(query);
         ArticleDtoResponse response = modelMapper.map(articleService.get(articleId, search), ArticleDtoResponse.class);
         ApiResult<?> result = ApiResult.sussess(response, HttpStatus.OK);
-
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(result);
-
     }
 
     @GetMapping
@@ -84,13 +83,13 @@ public class ArticleApiController {
             @PageableDefault(direction = Sort.Direction.ASC) Pageable pageable) {
 
         List<Article> articleList = articleService.getPage(pageable);
-        List<ArticleDtoResponse> dtoList = articleList
-                .stream()
-                .map(post -> modelMapper.map(post, ArticleDtoResponse.class))
+        List<ArticleDtoResponse> responseList
+                = articleList.stream()
+                .map(article -> modelMapper.map(article, ArticleDtoResponse.class))
                 .collect(Collectors.toList());
 
-        ArticleListDtoResponse dto = new ArticleListDtoResponse(dtoList, pageable);
-        return ResponseEntity.ok(dto);
+        ArticleListDtoResponse response = new ArticleListDtoResponse(responseList, pageable);
+        return ResponseEntity.ok(response);
     }
 
 
@@ -99,13 +98,12 @@ public class ArticleApiController {
             @PageableDefault(direction = Sort.Direction.ASC) Pageable pageable) {
 
         List<Article> articleList = articleService.getPageEvery(pageable);
-        List<ArticleDtoResponse> dtoList = articleList
-                .stream()
-                .map(post -> modelMapper.map(post, ArticleDtoResponse.class))
+        List<ArticleDtoResponse> responseList
+                = articleList.stream()
+                .map(article -> modelMapper.map(article, ArticleDtoResponse.class))
                 .collect(Collectors.toList());
 
-        ArticleListDtoResponse dto = new ArticleListDtoResponse(dtoList, pageable);
-        return ResponseEntity.ok(dto);
+        ArticleListDtoResponse response = new ArticleListDtoResponse(responseList, pageable);
+        return ResponseEntity.ok(response);
     }
-
 }

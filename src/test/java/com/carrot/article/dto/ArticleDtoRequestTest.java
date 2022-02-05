@@ -56,7 +56,7 @@ public class ArticleDtoRequestTest {
 
         //when
         request.validExtension();
-        Article article = request.toPost();
+        Article article = request.toEntity();
 
         //then
         assertThat(request.getValidUntil()).isNotEqualTo(initValidUntil);

@@ -52,7 +52,7 @@ class ArticleMvcControllerTest {
     public void form() throws Exception {
 
         //given
-        Article article = articleRepository.save(request1.toPost());
+        Article article = articleRepository.save(request1.toEntity());
         String URI = "/post/" + article.getId();
 
         //when

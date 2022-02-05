@@ -38,7 +38,7 @@ public class ArticleDtoRequest {
         this.validUntil = validUntil;
     }
 
-    public Article toPost() {
+    public Article toEntity() {
         return Article
                 .builder()
                 .title(this.title)

@@ -27,7 +27,7 @@ class ArticleViewCountServiceTest {
     public void viewUpCount() {
 
         //given
-        Article article = articleRepository.save(request1.toPost());
+        Article article = articleRepository.save(request1.toEntity());
         final long postId = article.getId();
 
         /*

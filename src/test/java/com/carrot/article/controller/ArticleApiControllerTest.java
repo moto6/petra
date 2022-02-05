@@ -176,9 +176,9 @@ class ArticleApiControllerTest {
     @DisplayName("Post 단건조회")
     public void readPost() throws Exception {
         //given
-        Article articleA = request1.deepCopy().validExtension().toPost();
-        Article articleB = request2.deepCopy().validExtension().toPost();
-        Article articleC = request3.deepCopy().validExtension().toPost();
+        Article articleA = request1.deepCopy().validExtension().toEntity();
+        Article articleB = request2.deepCopy().validExtension().toEntity();
+        Article articleC = request3.deepCopy().validExtension().toEntity();
 
 
         //when
@@ -259,10 +259,10 @@ class ArticleApiControllerTest {
     @DisplayName("Post 페이지단위 조회")
     public void readPage() throws Exception {
         //given
-        Article articleA = request1.toPost();
-        Article articleB = request2.toPost();
-        Article articleC = request3.toPost();
-        Article articleD = request4.toPost();
+        Article articleA = request1.toEntity();
+        Article articleB = request2.toEntity();
+        Article articleC = request3.toEntity();
+        Article articleD = request4.toEntity();
 
         //when
         Article savedArticle1 = articleRepository.save(articleA);
@@ -295,10 +295,10 @@ class ArticleApiControllerTest {
     @DisplayName("Post 페이지단위 조회 & 유효기간 무시")
     public void readPageAny() throws Exception {
         //given
-        Article articleA = request1.toPost();
-        Article articleB = request2.toPost();
-        Article articleC = request3.toPost();
-        Article articleD = request4.toPost();
+        Article articleA = request1.toEntity();
+        Article articleB = request2.toEntity();
+        Article articleC = request3.toEntity();
+        Article articleD = request4.toEntity();
 
         //when
         Article savedArticle1 = articleRepository.save(articleA);
