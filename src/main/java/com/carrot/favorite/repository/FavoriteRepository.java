@@ -1,8 +1,8 @@
-package com.jari.jari.favorite.repository;
+package com.carrot.favorite.repository;
 
-import com.jari.jari.account.entity.Account;
-import com.jari.jari.article.entity.Article;
-import com.jari.jari.favorite.entitiy.Favorite;
+import com.carrot.account.entity.Account;
+import com.carrot.comment.Article;
+import com.carrot.favorite.entitiy.Favorite;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

@@ -1,7 +1,8 @@
-package com.jari.jari.favorite.entitiy;
+package com.carrot.favorite.entitiy;
 
-import com.jari.jari.account.entity.Account;
-import com.jari.jari.article.entity.Article;
+import com.carrot.account.entity.Account;
+import com.carrot.comment.Article;
+import com.carrot.post.entity.Post;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
@@ -18,7 +19,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
-import static com.jari.jari.common.audit.TimeEntity.DATETIME_FORMAT;
+import static com.carrot.common.BaseEntity.DATETIME_FORMAT;
+
 
 @Entity
 @Table(name = "favorite", indexes = {
@@ -36,7 +38,7 @@ public class Favorite {
     @NotNull
     @ManyToOne
     @JoinColumn(name = "article_id")
-    private Article article;
+    private Post article;
 
     @NotNull
     @ManyToOne
