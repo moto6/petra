@@ -2,8 +2,8 @@ package com.carrot.attachfile.service;
 
 import com.carrot.attachfile.domain.AttachFile;
 import com.carrot.attachfile.repository.AttachFileRepository;
-import com.carrot.common.fileservice.FileService;
-import com.carrot.exception.custom.AttachFileStorageException;
+import com.carrot.attachfile.component.fileservice.FileService;
+import com.carrot.attachfile.exception.AttachFileStorageException;
 import com.carrot.article.domain.Article;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;

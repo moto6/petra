@@ -1,7 +1,6 @@
 package com.carrot.article.util;
 
-import com.carrot.exception.custom.InvalidQueryException;
-import org.springframework.expression.spel.ast.OpInc;
+import com.carrot.article.exception.InvalidArticleQueryException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,7 +34,7 @@ public enum SearchType {
         String filteredString = query.toUpperCase();
 
         if(typeMapping.get(filteredString) == null) {
-            throw new InvalidQueryException(filteredString);
+            throw new InvalidArticleQueryException(filteredString);
         }
 
         return Optional.of(typeMapping.get(filteredString));

@@ -1,4 +1,4 @@
-package com.carrot.exception.custom;
+package com.carrot.favorite.exception;
 
 public class FavoriteDuplicationException extends RuntimeException {
     public FavoriteDuplicationException() {

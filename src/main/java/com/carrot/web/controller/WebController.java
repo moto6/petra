@@ -1,4 +1,4 @@
-package com.carrot.web;
+package com.carrot.web.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -16,6 +16,7 @@ public class WebController {
 
     @GetMapping("/myLogin")
     public String login() {
+
         return "web/login";
     }
 

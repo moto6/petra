@@ -2,7 +2,7 @@ package com.carrot.article.service;
 
 import com.carrot.article.domain.Article;
 import com.carrot.attachfile.service.AttachFileService;
-import com.carrot.exception.custom.OutOfDateException;
+import com.carrot.article.exception.OutOfDateArticleExposeException;
 import com.carrot.article.repository.ArticleRepository;
 import com.carrot.article.util.SearchType;
 import lombok.RequiredArgsConstructor;
@@ -60,7 +60,7 @@ public class ArticleServiceImpl implements ArticleService {
                 .orElseThrow(EntityNotFoundException::new);
 
         if (query.equals("any") && article.isExpired(LocalDateTime.now())) {
-            throw new OutOfDateException();
+            throw new OutOfDateArticleExposeException();
         }
 
         article.incrementViewsAsync();

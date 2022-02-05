@@ -1,4 +1,4 @@
-package com.carrot.common.fileservice;
+package com.carrot.attachfile.component.fileservice;
 
 import org.springframework.stereotype.Service;
 

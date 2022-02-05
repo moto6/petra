@@ -3,7 +3,7 @@ package com.carrot.account.service;
 import com.carrot.account.dto.AccountResponseDto;
 import com.carrot.account.domain.Account;
 import com.carrot.account.repository.AccountRepository;
-import com.carrot.exception.custom.NoSuchAccountException;
+import com.carrot.account.exception.NoSuchAccountException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;

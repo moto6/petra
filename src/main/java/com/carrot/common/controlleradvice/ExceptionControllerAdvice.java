@@ -1,12 +1,12 @@
 package com.carrot.common.controlleradvice;
 
 import com.carrot.common.apiresult.ApiResult;
-import com.carrot.exception.custom.FavoriteDuplicationException;
-import com.carrot.exception.custom.GuestForbiddenException;
-import com.carrot.exception.custom.InvalidQueryException;
-import com.carrot.exception.custom.NoSuchAccountException;
-import com.carrot.exception.custom.NoSuchAccountTypeException;
-import com.carrot.exception.custom.OutOfDateException;
+import com.carrot.favorite.exception.FavoriteDuplicationException;
+import com.carrot.account.exception.GuestForbiddenException;
+import com.carrot.article.exception.InvalidArticleQueryException;
+import com.carrot.account.exception.NoSuchAccountException;
+import com.carrot.account.exception.NoSuchAccountTypeException;
+import com.carrot.article.exception.OutOfDateArticleExposeException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,14 +19,14 @@ import javax.persistence.EntityNotFoundException;
 @Slf4j
 public class ExceptionControllerAdvice {
 
-    @ExceptionHandler({OutOfDateException.class})
-    public ResponseEntity<?> OutOfDateExceptionHandler(final OutOfDateException e) {
+    @ExceptionHandler({OutOfDateArticleExposeException.class})
+    public ResponseEntity<?> OutOfDateExceptionHandler(final OutOfDateArticleExposeException e) {
         log.warn("OutOfDateException {}", e.getMessage());
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(e.getMessage());
     }
 
-    @ExceptionHandler({InvalidQueryException.class})
-    public ResponseEntity<?> InvalidQueryExceptionHandler(final InvalidQueryException e) {
+    @ExceptionHandler({InvalidArticleQueryException.class})
+    public ResponseEntity<?> InvalidQueryExceptionHandler(final InvalidArticleQueryException e) {
         log.warn("InvalidQueryException {}", e.getMessage());
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(e.getMessage());
     }

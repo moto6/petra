@@ -1,4 +1,4 @@
-package com.carrot.favorite.entitiy;
+package com.carrot.favorite.domain;
 
 import com.carrot.account.domain.Account;
 import com.carrot.article.domain.Article;
