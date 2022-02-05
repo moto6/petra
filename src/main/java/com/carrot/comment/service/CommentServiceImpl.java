@@ -1,12 +1,12 @@
-package com.jari.jari.comment.service;
+package com.carrot.comment.service;
 
-import com.jari.jari.account.entity.Account;
-import com.jari.jari.article.entity.Article;
-import com.jari.jari.article.service.ArticleService;
-import com.jari.jari.comment.entity.Comment;
-import com.jari.jari.comment.repository.CommentRepository;
-import com.jari.jari.exception.exceptions.CommentDeleteUnauthorized;
-import com.jari.jari.exception.exceptions.GuestForbiddenException;
+import com.carrot.account.entity.Account;
+import com.carrot.comment.Article;
+import com.carrot.comment.entity.Comment;
+import com.carrot.comment.repository.CommentRepository;
+import com.carrot.exception.custom.CommentDeleteUnauthorized;
+import com.carrot.exception.custom.GuestForbiddenException;
+import com.carrot.post.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 
-import static com.jari.jari.common.auth.UnknownAccount.guestAuth;
+import static com.carrot.auth.UnknownAccount.guestAuth;
 
 @Service
 @RequiredArgsConstructor
@@ -22,7 +22,7 @@ public class CommentServiceImpl implements CommentService {
 
     private final CommentRepository commentRepository;
 
-    private final ArticleService articleService;
+    private final PostService  articleService;
 
     @Override
     public Comment create(Long articleId, Account account, Comment comment) {

@@ -1,7 +1,7 @@
-package com.jari.jari.comment.repository;
+package com.carrot.comment.repository;
 
-import com.jari.jari.article.entity.Article;
-import com.jari.jari.comment.entity.Comment;
+import com.carrot.comment.Article;
+import com.carrot.comment.entity.Comment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

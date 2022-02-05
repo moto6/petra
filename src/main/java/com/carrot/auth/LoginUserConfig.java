@@ -1,5 +1,6 @@
-package com.jari.jari.common.auth;
+package com.carrot.auth;
 
+import com.carrot.auth.LoginUserArgumentResolver;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;

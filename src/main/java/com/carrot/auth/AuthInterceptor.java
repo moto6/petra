@@ -1,7 +1,7 @@
-package com.jari.jari.common.auth;
+package com.carrot.auth;
 
-import com.jari.jari.account.entity.Account;
-import com.jari.jari.account.service.AccountService;
+import com.carrot.account.entity.Account;
+import com.carrot.account.service.AccountService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -12,9 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static com.jari.jari.common.auth.UnknownAccount.guestAuth;
-import static com.jari.jari.common.config.ServerConfigure.ACCOUNT_URL;
-import static com.jari.jari.common.config.ServerConfigure.ARTICLE_URL;
+import static com.carrot.auth.UnknownAccount.guestAuth;
 
 @Slf4j
 @Component
@@ -33,7 +31,7 @@ public class AuthInterceptor implements HandlerInterceptor {
         String authInfo = request.getHeader(AUTH_KEY);
 
         //@@todo npe
-        if ((authInfo != null) && guestAccessDenyCondition(method, uri)) {
+        if ((authInfo != null)) {
 
 
             Account account = accountService.authInfoParser(authInfo);
@@ -50,10 +48,6 @@ public class AuthInterceptor implements HandlerInterceptor {
     }
 
 
-    private boolean guestAccessDenyCondition(String method, String uri) {
-        return ((!method.equals("GET")) && uri.startsWith(ARTICLE_URL)) || //GET을 제외한 모든 article 관련 API
-                (uri.startsWith(ACCOUNT_URL)); //모든 account 관련 API
-    }
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {

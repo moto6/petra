@@ -1,6 +1,6 @@
-package com.jari.jari.comment.dto;
+package com.carrot.comment.dto;
 
-import com.jari.jari.comment.entity.Comment;
+import com.carrot.comment.entity.Comment;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

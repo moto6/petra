@@ -1,12 +1,12 @@
-package com.jari.jari.comment.controller;
+package com.carrot.comment.controller;
 
-import com.jari.jari.account.entity.Account;
-import com.jari.jari.comment.dto.CommentRequestDto;
-import com.jari.jari.comment.dto.CommentResponseDto;
-import com.jari.jari.comment.entity.Comment;
-import com.jari.jari.comment.service.CommentService;
-import com.jari.jari.common.auth.AuthUser;
-import com.jari.jari.common.result.ApiResult;
+import com.carrot.account.entity.Account;
+import com.carrot.auth.AuthUser;
+import com.carrot.comment.dto.CommentRequestDto;
+import com.carrot.comment.dto.CommentResponseDto;
+import com.carrot.comment.entity.Comment;
+import com.carrot.comment.service.CommentService;
+import com.carrot.common.ApiResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,8 +22,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static com.jari.jari.comment.dto.CommentResponseDto.commentListResponse;
-import static com.jari.jari.common.result.ApiResult.sussess;
+import static com.carrot.comment.dto.CommentResponseDto.commentListResponse;
+import static com.carrot.common.ApiResult.sussess;
 
 @RequestMapping("api/v1/comment")
 @RequiredArgsConstructor

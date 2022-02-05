@@ -1,8 +1,13 @@
 package com.carrot.account.service;
 
+import com.carrot.account.dto.AccountResponseDto;
 import com.carrot.account.entity.Account;
-import com.carrot.accounts.repository.AccountRepository;
+import com.carrot.account.repository.AccountRepository;
+import com.carrot.exception.custom.NoSuchAccountException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -10,6 +15,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
+
+import static com.carrot.auth.UnknownAccount.guestAuth;
+
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AccountService implements UserDetailsService {
@@ -17,8 +27,6 @@ public class AccountService implements UserDetailsService {
     private final AccountRepository accountRepository;
 
     private final PasswordEncoder passwordEncoder;
-    private final AccountRepository accountRepository;
-    Logger log = LoggerFactory.getLogger(getClass());
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -35,14 +43,6 @@ public class AccountService implements UserDetailsService {
 
         Account account = accountRepository.save(guestAuth());
         log.info("registry GUEST: {}", new AccountResponseDto(account));
-    }
-
-    public Account getAccount(Long accountId, String accountTypeString) {
-
-        AccountType accountTypeEnum = AccountType.castFromString(accountTypeString);
-        return accountRepository
-                .findByIdAndAccountType(accountId, accountTypeEnum)
-                .orElseThrow(NoSuchAccountException::new);
     }
 
     public Account create(Account account) {
@@ -75,5 +75,10 @@ public class AccountService implements UserDetailsService {
             log.info("잘못된 회원 인증헤더 정보 {}", authInfo);
         }
         return guestAuth();
+    }
+
+    private Account getAccount(Long accountId, String accountType) {
+        //todo
+        return new Account();
     }
 }

@@ -1,8 +1,8 @@
-package com.jari.jari.comment.entity;
+package com.carrot.comment.entity;
 
-import com.jari.jari.account.entity.Account;
-import com.jari.jari.article.entity.Article;
-import com.jari.jari.common.audit.TimeEntity;
+import com.carrot.account.entity.Account;
+import com.carrot.common.TimeEntity;
+import com.carrot.post.entity.Post;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -33,7 +33,7 @@ public class Comment extends TimeEntity {
 
     @ManyToOne
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_article"))
-    private Article article;
+    private Post article;
 
     @ManyToOne
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_account"))
@@ -43,7 +43,7 @@ public class Comment extends TimeEntity {
     @Column(name = "contents", length = 200)
     private String contents;
 
-    public void setRelation(Article article, Account account) {
+    public void setRelation(Post article, Account account) {
         this.article = article;
         this.account = account;
     }
