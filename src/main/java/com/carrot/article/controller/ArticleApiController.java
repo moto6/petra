@@ -1,14 +1,13 @@
 package com.carrot.article.controller;
 
-import com.carrot.common.ApiResult;
 import com.carrot.article.dto.ArticleDtoRequest;
 import com.carrot.article.dto.ArticleDtoResponse;
-import com.carrot.article.dto.ArticleListDtoResponse;
 import com.carrot.article.entity.Article;
 import com.carrot.article.service.ArticleService;
-import com.carrot.article.util.SearchType;
+import com.carrot.common.ApiResult;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -24,9 +23,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import static com.carrot.article.util.SearchType.SearchTypeAdaptor;
 
 @RequestMapping("/api/v1/article")
@@ -40,56 +36,46 @@ public class ArticleApiController {
 
     @PostMapping
     public ResponseEntity<?> createArticle(@RequestBody ArticleDtoRequest request) {
-        ArticleDtoResponse response = modelMapper.map(articleService.save(request.toEntity()), ArticleDtoResponse.class);
-        ApiResult<?> result = ApiResult.sussess(response, HttpStatus.CREATED);
 
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(result);
+        ArticleDtoResponse response = modelMapper.map(
+                articleService.save(request.toEntity()),
+                ArticleDtoResponse.class);
+        return ApiResult.success(response, HttpStatus.CREATED).responseBuild();
     }
 
     @PutMapping("/{articleId}")
     public ResponseEntity<?> updateArticle(@PathVariable Long articleId, @RequestBody ArticleDtoRequest request) {
 
-        ArticleDtoResponse response = modelMapper.map(articleService.update(articleId, request.toEntity()), ArticleDtoResponse.class);
-        ApiResult<?> result = ApiResult.sussess(response, HttpStatus.OK);
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(result);
+        ArticleDtoResponse response = modelMapper.map(
+                articleService.update(articleId, request.toEntity()),
+                ArticleDtoResponse.class);
+        return ApiResult.success(response, HttpStatus.OK).responseBuild();
     }
 
     @DeleteMapping("/{articleId}")
     public ResponseEntity<?> deleteArticle(@PathVariable Long articleId) {
 
         articleService.delete(articleId);
-        return ResponseEntity
-                .status(HttpStatus.NO_CONTENT)
-                .build();
+        return ApiResult.success(null, HttpStatus.NO_CONTENT).responseBuild();
     }
 
     @GetMapping("/{articleId}")
     public ResponseEntity<?> getArticle(@PathVariable Long articleId, @RequestParam(required = false, defaultValue = "") String query) {
 
-        SearchType search = SearchTypeAdaptor(query);
-        ArticleDtoResponse response = modelMapper.map(articleService.get(articleId, search), ArticleDtoResponse.class);
-        ApiResult<?> result = ApiResult.sussess(response, HttpStatus.OK);
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(result);
+        ArticleDtoResponse response = modelMapper.map(
+                SearchTypeAdaptor(query).isEmpty() ?
+                        articleService.get(articleId) : articleService.query(articleId, SearchTypeAdaptor(query).get()),
+                ArticleDtoResponse.class);
+        return ApiResult.success(response, HttpStatus.OK).responseBuild();
     }
 
     @GetMapping
     public ResponseEntity<?> getArticlePage(
             @PageableDefault(direction = Sort.Direction.ASC) Pageable pageable) {
 
-        List<Article> articleList = articleService.getPage(pageable);
-        List<ArticleDtoResponse> responseList
-                = articleList.stream()
-                .map(article -> modelMapper.map(article, ArticleDtoResponse.class))
-                .collect(Collectors.toList());
-
-        ArticleListDtoResponse response = new ArticleListDtoResponse(responseList, pageable);
-        return ResponseEntity.ok(response);
+        Page<Article> articleList = articleService.getPage(pageable);
+        Page<ArticleDtoResponse> responseList = ArticleDtoResponse.toResponseList(articleList);
+        return ApiResult.success(responseList, HttpStatus.OK).responseBuild();
     }
 
 
@@ -97,13 +83,8 @@ public class ArticleApiController {
     public ResponseEntity<?> readPageEvery(
             @PageableDefault(direction = Sort.Direction.ASC) Pageable pageable) {
 
-        List<Article> articleList = articleService.getPageEvery(pageable);
-        List<ArticleDtoResponse> responseList
-                = articleList.stream()
-                .map(article -> modelMapper.map(article, ArticleDtoResponse.class))
-                .collect(Collectors.toList());
-
-        ArticleListDtoResponse response = new ArticleListDtoResponse(responseList, pageable);
-        return ResponseEntity.ok(response);
+        Page<Article> articleList = articleService.getPageEvery(pageable);
+        Page<ArticleDtoResponse> responseList = ArticleDtoResponse.toResponseList(articleList);
+        return ApiResult.success(responseList, HttpStatus.OK).responseBuild();
     }
 }

@@ -1,9 +1,11 @@
 package com.carrot.article.util;
 
 import com.carrot.exception.custom.InvalidQueryException;
+import org.springframework.expression.spel.ast.OpInc;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public enum SearchType {
 
@@ -24,13 +26,18 @@ public enum SearchType {
         this.description = description;
     }
 
-    public static SearchType SearchTypeAdaptor(String query) {
+    public static Optional<SearchType> SearchTypeAdaptor(String query) {
+
+        if(query == null) {
+            return Optional.empty();
+        }
+
         String filteredString = query.toUpperCase();
 
         if(typeMapping.get(filteredString) == null) {
             throw new InvalidQueryException(filteredString);
         }
 
-        return typeMapping.get(filteredString);
+        return Optional.of(typeMapping.get(filteredString));
     }
 }

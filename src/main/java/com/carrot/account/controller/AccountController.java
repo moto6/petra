@@ -32,7 +32,7 @@ public class AccountController {
     @PostMapping
     public ResponseEntity<?> creatAccount(@RequestBody AccountRequestDto request) {
         Account account = accountService.create(request.createAccount());
-        ApiResult<?> result = ApiResult.sussess(new AccountResponseDto(account), HttpStatus.CREATED);
+        ApiResult<?> result = ApiResult.success(new AccountResponseDto(account), HttpStatus.CREATED);
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -43,7 +43,7 @@ public class AccountController {
     @GetMapping("/{id}")
     public ResponseEntity<?> readAccount(@PathVariable Long id) {
         Account account = accountService.read(id);
-        ApiResult<?> result = ApiResult.sussess(new AccountResponseDto(account), HttpStatus.OK);
+        ApiResult<?> result = ApiResult.success(new AccountResponseDto(account), HttpStatus.OK);
 
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -53,7 +53,7 @@ public class AccountController {
     @GetMapping()
     public ResponseEntity<?> readAccounts(Pageable pageable, @AuthUser Account account) {
         Page<Account> accounts = accountService.readPage(pageable);
-        ApiResult<?> result = ApiResult.sussess(AccountResponseDto.pages(accounts), HttpStatus.OK);
+        ApiResult<?> result = ApiResult.success(AccountResponseDto.pages(accounts), HttpStatus.OK);
         log.info("Account 정보 : {}", account.toString());
 
         return ResponseEntity

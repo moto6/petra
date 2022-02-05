@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import static com.carrot.comment.dto.CommentResponseDto.commentListResponse;
-import static com.carrot.common.ApiResult.sussess;
+import static com.carrot.common.ApiResult.success;
 
 @RequestMapping("api/v1/comment")
 @RequiredArgsConstructor
@@ -36,7 +36,7 @@ public class CommentController {
     public ResponseEntity<?> create(@RequestBody CommentRequestDto request, @PathVariable Long articleId, @AuthUser Account account) {
 
         Comment comment = commentService.create(articleId, account, request.createComment());
-        ApiResult<?> result = sussess(new CommentResponseDto(comment), HttpStatus.CREATED);
+        ApiResult<?> result = success(new CommentResponseDto(comment), HttpStatus.CREATED);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(result);
@@ -58,7 +58,7 @@ public class CommentController {
     public ResponseEntity<?> read(@PathVariable Long commentId) {
 
         Comment comment = commentService.read(commentId);
-        ApiResult<?> result = sussess(new CommentResponseDto(comment), HttpStatus.OK);
+        ApiResult<?> result = success(new CommentResponseDto(comment), HttpStatus.OK);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(result);
@@ -70,7 +70,7 @@ public class CommentController {
             @PathVariable Long articleId) {
 
         Page<Comment> commentList = commentService.readCommentsList(articleId, pageable);
-        ApiResult<?> results = sussess(commentListResponse(commentList), HttpStatus.OK);
+        ApiResult<?> results = success(commentListResponse(commentList), HttpStatus.OK);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(results);

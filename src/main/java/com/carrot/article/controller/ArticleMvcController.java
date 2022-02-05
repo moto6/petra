@@ -30,7 +30,7 @@ public class ArticleMvcController {
 
     @GetMapping("/{postId}")
     public String read(@PathVariable Long postId, Model model) {
-        Article article = articleService.get(postId, SALE);
+        Article article = articleService.query(postId, SALE);
         ArticleDtoResponse response = modelMapper.map(article, ArticleDtoResponse.class);
         model.addAttribute(response);
         return "postDetail";

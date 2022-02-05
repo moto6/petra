@@ -21,7 +21,7 @@ public class AccountApiController {
     @GetMapping("/api/v1/account/me")
     public ApiResult<?> getAccount(@CurrentUser Account currentUser) {
         AccountDto accountDto = modelMapper.map(currentUser, AccountDto.class);
-        return ApiResult.sussess(accountDto, HttpStatus.OK);
+        return ApiResult.success(accountDto, HttpStatus.OK);
     }
 
 }

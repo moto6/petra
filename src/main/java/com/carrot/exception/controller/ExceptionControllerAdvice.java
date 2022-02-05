@@ -56,7 +56,7 @@ public class ExceptionControllerAdvice {
     public ResponseEntity<?> favoriteDuplicationException(final RuntimeException e) {
 
         log.info("favoriteDuplicationException, 좋아요는 여러번 눌러도 요청성공을 리턴: [{}]", e.getMessage());
-        ApiResult<?> result = ApiResult.sussess(e.getMessage(), HttpStatus.NO_CONTENT);
+        ApiResult<?> result = ApiResult.success(e.getMessage(), HttpStatus.NO_CONTENT);
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
                 .body(result);
@@ -67,7 +67,7 @@ public class ExceptionControllerAdvice {
     public ResponseEntity<?> entityNotFoundException(final RuntimeException e) {
 
         log.info("entityNotFoundException : [{}]", e.getMessage());
-        ApiResult<?> result = ApiResult.sussess(e.getMessage(), HttpStatus.NOT_FOUND);
+        ApiResult<?> result = ApiResult.success(e.getMessage(), HttpStatus.NOT_FOUND);
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .body(result);
