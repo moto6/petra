@@ -20,7 +20,6 @@ import static com.carrot.article.util.SearchType.SALE;
 public class ArticleMvcController {
 
     private final ArticleService articleService;
-    private final ModelMapper modelMapper;
 
     @GetMapping
     public String form(Model model) {
@@ -30,8 +29,7 @@ public class ArticleMvcController {
 
     @GetMapping("/{postId}")
     public String read(@PathVariable Long postId, Model model) {
-        Article article = articleService.query(postId, SALE);
-        ArticleDtoResponse response = modelMapper.map(article, ArticleDtoResponse.class);
+        ArticleDtoResponse response = ArticleDtoResponse.toResponse(articleService.query(postId, SALE));
         model.addAttribute(response);
         return "postDetail";
     }
