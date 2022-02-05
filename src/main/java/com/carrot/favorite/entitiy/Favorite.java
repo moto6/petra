@@ -1,7 +1,6 @@
 package com.carrot.favorite.entitiy;
 
 import com.carrot.account.entity.Account;
-import com.carrot.comment.Article;
 import com.carrot.post.entity.Post;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -50,7 +49,7 @@ public class Favorite {
     @DateTimeFormat(pattern = DATETIME_FORMAT)
     private LocalDateTime createAt;
 
-    public Favorite(Article article, Account account) {
+    public Favorite(Post article, Account account) {
         this.article = article;
         this.account = account;
         this.createAt = LocalDateTime.now();

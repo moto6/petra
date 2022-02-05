@@ -1,11 +1,11 @@
 package com.carrot.comment.service;
 
 import com.carrot.account.entity.Account;
-import com.carrot.comment.Article;
 import com.carrot.comment.entity.Comment;
 import com.carrot.comment.repository.CommentRepository;
 import com.carrot.exception.custom.CommentDeleteUnauthorized;
 import com.carrot.exception.custom.GuestForbiddenException;
+import com.carrot.post.entity.Post;
 import com.carrot.post.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -22,7 +22,7 @@ public class CommentServiceImpl implements CommentService {
 
     private final CommentRepository commentRepository;
 
-    private final PostService  articleService;
+    private final PostService articleService;
 
     @Override
     public Comment create(Long articleId, Account account, Comment comment) {
@@ -37,7 +37,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public void delete(Long articleId, Long commentId, Account account) {
 
-        Article article = articleService.read(articleId);
+        Post article = articleService.read(articleId);
         Comment comment = commentRepository.findByIdAndArticle(commentId, article).orElseThrow(EntityNotFoundException::new);
 
         if (comment.getAccount().getId().equals(account.getId())) {

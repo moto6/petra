@@ -85,6 +85,11 @@ public class PostServiceImpl implements PostService {
         }
     }
 
+    @Override
+    public Post read(Long articleId) {
+        return postRepository.findById(articleId).get();
+    }
+
     @Transactional
     public void incrementViewCount(Long postId, long increment) {
         Post post = postRepository

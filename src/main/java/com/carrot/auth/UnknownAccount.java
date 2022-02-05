@@ -2,11 +2,12 @@ package com.carrot.auth;
 
 
 import com.carrot.account.entity.Account;
+import com.carrot.account.entity.AccountRole;
 
 public final class UnknownAccount {
-    private static final Account GUEST = Account.builder()
+    private static final Account GUEST_ACCOUNT = Account.builder()
             .nickname("비회원")
-            .accountType(AccountType.Guest)
+            .accountType(AccountRole.GUEST)
             .quit(Boolean.TRUE)
             .build();
 
@@ -14,6 +15,6 @@ public final class UnknownAccount {
     }
 
     public static Account guestAuth() {
-        return GUEST;
+        return GUEST_ACCOUNT;
     }
 }

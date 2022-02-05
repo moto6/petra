@@ -22,4 +22,6 @@ public interface PostService {
 
     @Deprecated
     void saveWithAttach(Long postId, List<MultipartFile> attachFiles);
+
+    Post read(Long articleId);
 }
