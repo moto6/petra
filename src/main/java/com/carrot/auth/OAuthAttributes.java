@@ -8,8 +8,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import com.carrot.account.entity.Account;
-import com.carrot.account.entity.AccountRole;
+import com.carrot.account.domain.Account;
+import com.carrot.account.domain.AccountRole;
 
 @Getter
 public class OAuthAttributes {

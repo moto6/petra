@@ -1,12 +1,11 @@
-package com.carrot.config;
+package com.carrot.common.config;
 
-import com.carrot.account.entity.AccountRole;
+import com.carrot.account.domain.AccountRole;
 import com.carrot.auth.CustomOAuth2UserService;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;

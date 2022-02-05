@@ -1,6 +1,6 @@
 package com.carrot.article.dto;
 
-import com.carrot.article.entity.Article;
+import com.carrot.article.domain.Article;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

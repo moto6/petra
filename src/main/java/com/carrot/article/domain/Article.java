@@ -1,6 +1,6 @@
-package com.carrot.article.entity;
+package com.carrot.article.domain;
 
-import com.carrot.common.BaseEntity;
+import com.carrot.common.entityaudit.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

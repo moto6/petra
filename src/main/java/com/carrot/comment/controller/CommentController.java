@@ -1,12 +1,12 @@
 package com.carrot.comment.controller;
 
-import com.carrot.account.entity.Account;
+import com.carrot.account.domain.Account;
 import com.carrot.auth.AuthUser;
 import com.carrot.comment.dto.CommentRequestDto;
 import com.carrot.comment.dto.CommentResponseDto;
-import com.carrot.comment.entity.Comment;
+import com.carrot.comment.domain.Comment;
 import com.carrot.comment.service.CommentService;
-import com.carrot.common.ApiResult;
+import com.carrot.common.apiresult.ApiResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import static com.carrot.comment.dto.CommentResponseDto.commentListResponse;
-import static com.carrot.common.ApiResult.success;
+import static com.carrot.common.apiresult.ApiResult.success;
 
 @RequestMapping("api/v1/comment")
 @RequiredArgsConstructor

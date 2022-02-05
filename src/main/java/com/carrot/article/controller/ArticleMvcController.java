@@ -2,10 +2,8 @@ package com.carrot.article.controller;
 
 import com.carrot.article.dto.ArticleDtoRequest;
 import com.carrot.article.dto.ArticleDtoResponse;
-import com.carrot.article.entity.Article;
 import com.carrot.article.service.ArticleService;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

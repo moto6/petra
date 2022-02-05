@@ -1,4 +1,4 @@
-package com.carrot.account.entity;
+package com.carrot.account.domain;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

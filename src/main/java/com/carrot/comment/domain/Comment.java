@@ -1,8 +1,8 @@
-package com.carrot.comment.entity;
+package com.carrot.comment.domain;
 
-import com.carrot.account.entity.Account;
-import com.carrot.article.entity.Article;
-import com.carrot.common.TimeEntity;
+import com.carrot.account.domain.Account;
+import com.carrot.article.domain.Article;
+import com.carrot.common.entityaudit.TimeEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

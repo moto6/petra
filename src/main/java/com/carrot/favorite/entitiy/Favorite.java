@@ -1,7 +1,7 @@
 package com.carrot.favorite.entitiy;
 
-import com.carrot.account.entity.Account;
-import com.carrot.article.entity.Article;
+import com.carrot.account.domain.Account;
+import com.carrot.article.domain.Article;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
@@ -18,7 +18,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
-import static com.carrot.common.BaseEntity.DATETIME_FORMAT;
+import static com.carrot.common.entityaudit.BaseEntity.DATETIME_FORMAT;
 
 
 @Entity

@@ -1,4 +1,4 @@
-package com.carrot.config;
+package com.carrot.common.config;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;

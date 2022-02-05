@@ -1,6 +1,6 @@
 package com.carrot.auth;
 
-import com.carrot.account.entity.Account;
+import com.carrot.account.domain.Account;
 import com.carrot.account.service.AccountService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

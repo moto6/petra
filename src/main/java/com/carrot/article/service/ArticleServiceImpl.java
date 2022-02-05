@@ -1,6 +1,6 @@
 package com.carrot.article.service;
 
-import com.carrot.article.entity.Article;
+import com.carrot.article.domain.Article;
 import com.carrot.attachfile.service.AttachFileService;
 import com.carrot.exception.custom.OutOfDateException;
 import com.carrot.article.repository.ArticleRepository;

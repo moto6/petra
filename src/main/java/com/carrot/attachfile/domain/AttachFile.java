@@ -1,6 +1,6 @@
-package com.carrot.attachfile.entity;
+package com.carrot.attachfile.domain;
 
-import com.carrot.article.entity.Article;
+import com.carrot.article.domain.Article;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

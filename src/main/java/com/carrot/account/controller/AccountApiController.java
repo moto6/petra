@@ -1,9 +1,9 @@
 package com.carrot.account.controller;
 
 import com.carrot.account.dto.AccountDto;
-import com.carrot.account.entity.Account;
+import com.carrot.account.domain.Account;
 import com.carrot.auth.CurrentUser;
-import com.carrot.common.ApiResult;
+import com.carrot.common.apiresult.ApiResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;

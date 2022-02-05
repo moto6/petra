@@ -1,6 +1,6 @@
 package com.carrot.article.repository;
 
-import com.carrot.article.entity.Article;
+import com.carrot.article.domain.Article;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

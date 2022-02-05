@@ -1,6 +1,6 @@
 package com.carrot.comment.dto;
 
-import com.carrot.comment.entity.Comment;
+import com.carrot.comment.domain.Comment;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

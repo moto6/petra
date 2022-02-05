@@ -1,6 +1,6 @@
 package com.carrot.article.dto;
 
-import com.carrot.article.entity.Article;
+import com.carrot.article.domain.Article;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

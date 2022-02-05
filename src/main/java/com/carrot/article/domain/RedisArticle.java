@@ -1,4 +1,4 @@
-package com.carrot.article.entity;
+package com.carrot.article.domain;
 
 import lombok.Getter;
 import lombok.ToString;

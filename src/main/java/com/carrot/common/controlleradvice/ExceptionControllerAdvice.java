@@ -1,6 +1,6 @@
-package com.carrot.exception.controller;
+package com.carrot.common.controlleradvice;
 
-import com.carrot.common.ApiResult;
+import com.carrot.common.apiresult.ApiResult;
 import com.carrot.exception.custom.FavoriteDuplicationException;
 import com.carrot.exception.custom.GuestForbiddenException;
 import com.carrot.exception.custom.InvalidQueryException;

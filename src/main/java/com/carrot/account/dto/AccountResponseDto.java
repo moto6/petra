@@ -1,6 +1,6 @@
 package com.carrot.account.dto;
 
-import com.carrot.account.entity.Account;
+import com.carrot.account.domain.Account;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

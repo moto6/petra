@@ -1,6 +1,6 @@
 package com.carrot.article.service;
 
-import com.carrot.article.entity.Article;
+import com.carrot.article.domain.Article;
 import com.carrot.article.util.SearchType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

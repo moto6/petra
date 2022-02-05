@@ -1,7 +1,7 @@
 package com.carrot.comment.service;
 
-import com.carrot.account.entity.Account;
-import com.carrot.comment.entity.Comment;
+import com.carrot.account.domain.Account;
+import com.carrot.comment.domain.Comment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

@@ -1,6 +1,6 @@
 package com.carrot.article.service;
 
-import com.carrot.article.entity.Article;
+import com.carrot.article.domain.Article;
 import com.carrot.article.repository.ArticleRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -11,7 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
-import static com.carrot.article.entity.ArticleTest.ARTICLE_1;
+import static com.carrot.article.domain.ArticleTest.ARTICLE_1;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;

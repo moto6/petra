@@ -1,4 +1,4 @@
-package com.carrot.config;
+package com.carrot.common.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

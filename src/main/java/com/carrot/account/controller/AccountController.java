@@ -2,10 +2,10 @@ package com.carrot.account.controller;
 
 import com.carrot.account.dto.AccountRequestDto;
 import com.carrot.account.dto.AccountResponseDto;
-import com.carrot.account.entity.Account;
+import com.carrot.account.domain.Account;
 import com.carrot.account.service.AccountService;
 import com.carrot.auth.AuthUser;
-import com.carrot.common.ApiResult;
+import com.carrot.common.apiresult.ApiResult;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

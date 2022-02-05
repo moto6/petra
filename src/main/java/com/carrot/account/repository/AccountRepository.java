@@ -1,6 +1,6 @@
 package com.carrot.account.repository;
 
-import com.carrot.account.entity.Account;
+import com.carrot.account.domain.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

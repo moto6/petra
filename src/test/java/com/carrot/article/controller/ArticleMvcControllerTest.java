@@ -1,6 +1,6 @@
 package com.carrot.article.controller;
 
-import com.carrot.article.entity.Article;
+import com.carrot.article.domain.Article;
 import com.carrot.article.repository.ArticleRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Disabled;

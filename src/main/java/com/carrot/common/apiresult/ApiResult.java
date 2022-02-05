@@ -1,4 +1,4 @@
-package com.carrot.common;
+package com.carrot.common.apiresult;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

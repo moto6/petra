@@ -1,7 +1,7 @@
 package com.carrot.attachfile.repository;
 
-import com.carrot.attachfile.entity.AttachFile;
-import com.carrot.article.entity.Article;
+import com.carrot.attachfile.domain.AttachFile;
+import com.carrot.article.domain.Article;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

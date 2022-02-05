@@ -2,9 +2,9 @@ package com.carrot.article.controller;
 
 import com.carrot.article.dto.ArticleDtoRequest;
 import com.carrot.article.dto.ArticleDtoResponse;
-import com.carrot.article.entity.Article;
+import com.carrot.article.domain.Article;
 import com.carrot.article.service.ArticleService;
-import com.carrot.common.ApiResult;
+import com.carrot.common.apiresult.ApiResult;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;

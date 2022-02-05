@@ -1,8 +1,8 @@
 package com.carrot.auth;
 
 
-import com.carrot.account.entity.Account;
-import com.carrot.account.entity.AccountRole;
+import com.carrot.account.domain.Account;
+import com.carrot.account.domain.AccountRole;
 
 public final class UnknownAccount {
     private static final Account GUEST_ACCOUNT = Account.builder()

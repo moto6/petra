@@ -1,11 +1,11 @@
 package com.carrot.comment.service;
 
-import com.carrot.account.entity.Account;
-import com.carrot.comment.entity.Comment;
+import com.carrot.account.domain.Account;
+import com.carrot.comment.domain.Comment;
 import com.carrot.comment.repository.CommentRepository;
 import com.carrot.exception.custom.CommentDeleteUnauthorized;
 import com.carrot.exception.custom.GuestForbiddenException;
-import com.carrot.article.entity.Article;
+import com.carrot.article.domain.Article;
 import com.carrot.article.service.ArticleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
