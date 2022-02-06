@@ -55,7 +55,7 @@ public class AccountApiController {
     }
 
     @GetMapping()
-    public ResponseEntity<?> readAccounts(Pageable pageable, @AuthUser Account account) {
+    public ResponseEntity<?> readList(Pageable pageable, @AuthUser Account account) {
 
         log.info("Account 정보 : {}", account.toString());
         Page<Account> accounts = accountService.readPage(pageable);
