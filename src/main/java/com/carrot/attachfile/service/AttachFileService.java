@@ -1,13 +1,15 @@
 package com.carrot.attachfile.service;
 
+import com.carrot.attachfile.component.FileService;
 import com.carrot.attachfile.domain.AttachFile;
 import com.carrot.attachfile.repository.AttachFileRepository;
-import com.carrot.attachfile.component.fileservice.FileService;
 import com.carrot.attachfile.exception.AttachFileStorageException;
 import com.carrot.article.domain.Article;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -24,14 +26,23 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 @Service
-@RequiredArgsConstructor
 public class AttachFileService {
+
+    private static final Logger log = LoggerFactory.getLogger(AttachFileService.class);
+
+    @Autowired
+    public AttachFileService(
+            @Qualifier("fileSystemFileServiceImpl") FileService fileService,
+            AttachFileRepository attachFileRepository
+    ) {
+        this.fileService = fileService;
+        this.attachFileRepository = attachFileRepository;
+    }
 
     private final FileService fileService;
 
     private final AttachFileRepository attachFileRepository;
 
-    Logger log = LoggerFactory.getLogger(getClass());
 
     @Value("${attachFileLocation}")
     private String attachFileLocation;

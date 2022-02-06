@@ -1,8 +1,7 @@
-package com.carrot.attachfile.component.fileservice;
+package com.carrot.attachfile.component;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
 public interface FileService {
 
     String uploadFile(String uploadPath, String originalFileName, byte[] fileData) throws Exception;
