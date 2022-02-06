@@ -6,6 +6,7 @@ import com.carrot.comment.domain.Comment;
 import com.carrot.comment.dto.CommentRequestDto;
 import com.carrot.comment.dto.CommentResponseDto;
 import com.carrot.comment.service.CommentService;
+import com.carrot.common.apiresult.ApiResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,9 +22,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static com.carrot.comment.dto.CommentResponseDto.commentListResponse;
-import static com.carrot.common.apiresult.ApiResult.success;
-
 @RequestMapping("api/v1/comment")
 @RequiredArgsConstructor
 @RestController
@@ -35,7 +33,7 @@ public class CommentController {
     public ResponseEntity<?> create(@RequestBody CommentRequestDto request, @PathVariable Long articleId, @AuthUser Account account) {
 
         Comment comment = commentService.create(articleId, account, request.createComment());
-        return success(new CommentResponseDto(comment), HttpStatus.CREATED).responseBuild();
+        return ApiResult.success(new CommentResponseDto(comment), HttpStatus.CREATED).responseBuild();
     }
 
     @DeleteMapping("{commentId}/article/{articleId}")
@@ -45,14 +43,14 @@ public class CommentController {
             @AuthUser Account account) {
 
         commentService.delete(articleId, commentId, account);
-        return success(null, HttpStatus.NO_CONTENT).responseBuild();
+        return ApiResult.success(null, HttpStatus.NO_CONTENT).responseBuild();
     }
 
     @GetMapping("/{commentId}")
     public ResponseEntity<?> read(@PathVariable Long commentId) {
 
         Comment comment = commentService.read(commentId);
-        return success(new CommentResponseDto(comment), HttpStatus.OK).responseBuild();
+        return ApiResult.success(new CommentResponseDto(comment), HttpStatus.OK).responseBuild();
     }
 
     @GetMapping("article/{articleId}")
@@ -61,7 +59,6 @@ public class CommentController {
             @PathVariable Long articleId) {
 
         Page<Comment> commentList = commentService.readCommentsList(articleId, pageable);
-        return success(commentListResponse(commentList), HttpStatus.OK).responseBuild();
+        return ApiResult.success(CommentResponseDto.commentListResponse(commentList), HttpStatus.OK).responseBuild();
     }
-
 }
