@@ -1,7 +1,7 @@
 package com.carrot.common.config;
 
 import com.carrot.account.domain.AccountRole;
-import com.carrot.auth.CustomOAuth2UserService;
+import com.carrot.auth.service.CustomOAuth2UserService;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

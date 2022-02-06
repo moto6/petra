@@ -1,7 +1,8 @@
-package com.carrot.auth;
+package com.carrot.auth.service;
 
 import com.carrot.account.domain.Account;
 import com.carrot.account.repository.AccountRepository;
+import com.carrot.auth.OAuthAttributes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
