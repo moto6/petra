@@ -64,8 +64,8 @@ public class ArticleApiController {
 
         ArticleDtoResponse response = modelMapper.map(
                 SearchTypeAdaptor(query).isEmpty() ?
-                        articleService.get(articleId) : articleService.query(articleId, SearchTypeAdaptor(query).get()),
-                ArticleDtoResponse.class);
+                        articleService.get(articleId)
+                        : articleService.query(articleId, SearchTypeAdaptor(query).get()), ArticleDtoResponse.class);
         return ApiResult.success(response, HttpStatus.OK).responseBuild();
     }
 
