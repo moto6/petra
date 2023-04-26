@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 
 @Schema(description = "응답 메세지 DTO")
 @Getter
-public class Respons {
+public class MyAppRespons {
     @Schema(description = "메세지", example = "message")
     private final String message;
     @Schema(description = "상태코드", example = "")
@@ -15,38 +15,38 @@ public class Respons {
     private final int statusCode;
 
     @Builder
-    public Respons(String message, String code, int statusCode) {
+    public MyAppRespons(String message, String code, int statusCode) {
         this.message = message;
         this.code = code;
         this.statusCode = statusCode;
     }
 
-    public static Respons of(SuccessCode successCode) {
-        return Respons.builder()
+    public static MyAppRespons of(SuccessCode successCode) {
+        return MyAppRespons.builder()
                 .message(successCode.getMessage())
                 .statusCode(successCode.getHttpStatus().value())
                 .build();
     }
 
-    public static Respons of(ErrorCode errorCode) {
-        return Respons.builder()
+    public static MyAppRespons of(ErrorCode errorCode) {
+        return MyAppRespons.builder()
                 .code(errorCode.getCode().toString())
                 .message(errorCode.getMessage())
                 .statusCode(errorCode.getHttpStatus().value())
                 .build();
     }
 
-    public static ResponseEntity<Respons> toResponseEntity(SuccessCode successCode) {
+    public static ResponseEntity<MyAppRespons> toResponseEntity(SuccessCode successCode) {
         return ResponseEntity.status(successCode.getHttpStatus().value())
-                .body(Respons.builder()
+                .body(MyAppRespons.builder()
                         .message(successCode.getMessage())
                         .statusCode(successCode.getHttpStatus().value())
                         .build());
     }
 
-    public static ResponseEntity<Respons> toResponseEntity(ErrorCode errorCode) {
+    public static ResponseEntity<MyAppRespons> toResponseEntity(ErrorCode errorCode) {
         return ResponseEntity.status(errorCode.getHttpStatus().value())
-                .body(Respons.builder()
+                .body(MyAppRespons.builder()
                         .code(errorCode.getCode().toString())
                         .message(errorCode.getMessage())
                         .statusCode(errorCode.getHttpStatus().value())
