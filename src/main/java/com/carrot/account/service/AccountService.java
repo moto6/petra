@@ -21,16 +21,11 @@ import static com.carrot.auth.UnknownAccount.guestAuth;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class AccountService implements UserDetailsService {
+public class AccountService {
 
     private final AccountRepository accountRepository;
 
     //private final PasswordEncoder passwordEncoder;
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return null;
-    }
 
     @Transactional
     public Account save(Account account) {
