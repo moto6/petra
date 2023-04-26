@@ -31,7 +31,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/users/login/error",
             "/users/logout",
             "/error",
-            "/myLogin"
+            "/myLogin",
+            "/api/users/**",
+            "/stomp/**",
+            "/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**",
+            "/api-docs/json/swagger-config","/api-docs/**",
+            "/"
+
     };
 
 
@@ -48,8 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 //permit
-                .antMatchers(availableUriArray)
-                .permitAll()
+                .antMatchers(availableUriArray).permitAll()
                 //auth need
                 .antMatchers(authOnly)
                 .hasAnyRole(AccountRole.USER.name(), AccountRole.ADMIN.name())

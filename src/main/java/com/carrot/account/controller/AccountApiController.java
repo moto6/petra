@@ -7,7 +7,13 @@ import com.carrot.account.dto.AccountResponseDto;
 import com.carrot.account.service.AccountService;
 import com.carrot.auth.AuthUser;
 import com.carrot.auth.CurrentUser;
+import com.carrot.common.Respons;
 import com.carrot.common.apiresult.ApiResult;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -32,6 +38,11 @@ public class AccountApiController {
 
     private final ModelMapper modelMapper;
 
+    @Operation(summary = "나는누구 여긴어디 API")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "나는누구 성공"),
+            @ApiResponse(responseCode = "400", description = "4001, 4002", content = @Content(schema = @Schema(implementation = Respons.class)))
+    })
     @GetMapping("/me")
     public ResponseEntity<?> getAccount(@CurrentUser Account currentUser) {
 
