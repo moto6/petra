@@ -38,7 +38,7 @@ public class AccountApiController {
 
     private final ModelMapper modelMapper;
 
-    @Operation(summary = "나는누구 여긴어디 API")
+    @Operation(summary = "나는누구 여긴어디 API",description = "아 오늘은 일찍자야하는데.. 코딩너무 맛있고")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "나는누구 성공"),
             @ApiResponse(responseCode = "400", description = "4001, 4002", content = @Content(schema = @Schema(implementation = Respons.class)))
