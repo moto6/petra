@@ -18,7 +18,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
-import static com.carrot.common.entityaudit.BaseEntity.DATETIME_FORMAT;
+import static com.carrot.common.audit.BaseEntity.DATETIME_FORMAT;
 
 
 @Entity

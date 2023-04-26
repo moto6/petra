@@ -2,7 +2,7 @@ package com.carrot.account.domain;
 
 
 import com.carrot.account.dto.AccountDto;
-import com.carrot.common.entityaudit.TimeEntity;
+import com.carrot.common.audit.TimeEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

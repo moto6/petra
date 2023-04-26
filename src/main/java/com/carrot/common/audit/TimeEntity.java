@@ -1,4 +1,4 @@
-package com.carrot.common.entityaudit;
+package com.carrot.common.audit;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -6,7 +6,7 @@ import com.carrot.comment.domain.Comment;
 import com.carrot.comment.dto.CommentRequestDto;
 import com.carrot.comment.dto.CommentResponseDto;
 import com.carrot.comment.service.CommentService;
-import com.carrot.common.apiresult.ApiResult;
+import com.carrot.common.response.ApiResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

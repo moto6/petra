@@ -1,4 +1,4 @@
-package com.carrot.common;
+package com.carrot.common.response;
 
 import org.springframework.http.HttpStatus;
 

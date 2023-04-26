@@ -1,4 +1,4 @@
-package com.carrot.common.entityaudit;
+package com.carrot.common.audit;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;

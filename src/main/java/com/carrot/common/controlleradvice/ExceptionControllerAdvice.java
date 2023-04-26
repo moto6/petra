@@ -1,6 +1,6 @@
 package com.carrot.common.controlleradvice;
 
-import com.carrot.common.apiresult.ApiResult;
+import com.carrot.common.response.ApiResult;
 import com.carrot.favorite.exception.FavoriteDuplicationException;
 import com.carrot.account.exception.GuestForbiddenException;
 import com.carrot.article.exception.InvalidArticleQueryException;
