@@ -38,10 +38,10 @@ public class AccountApiController {
 
     private final ModelMapper modelMapper;
 
-    @Operation(summary = "나는누구 여긴어디 API",description = "아 오늘은 일찍자야하는데.. 코딩너무 맛있고")
+    @Operation(summary = "나는누구 여긴어디 API(여기다가 메뉴 : 회원>>내정보 이런정보 넣어주셈",description = "아 오늘은 일찍자야하는데.. 코딩너무 맛있고 어쩌고 저쩌고에 대한 설명을 쓰셈")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "나는누구 성공"),
-            @ApiResponse(responseCode = "400", description = "4001, 4002", content = @Content(schema = @Schema(implementation = Respons.class)))
+            @ApiResponse(responseCode = "200", description = "조회 성공"),
+            @ApiResponse(responseCode = "400", description = "실패코드 : 4001, 4002", content = @Content(schema = @Schema(implementation = Respons.class)))
     })
     @GetMapping("/me")
     public ResponseEntity<?> getAccount(@CurrentUser Account currentUser) {
