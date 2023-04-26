@@ -4,6 +4,14 @@ plugins {
 	id 'java'
 }
 
+jar {
+	enabled = false
+}
+
+bootJar {
+	archiveName = 'app.jar'
+}
+
 group = 'com'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
@@ -19,22 +27,32 @@ repositories {
 }
 
 dependencies {
-	compileOnly 'org.projectlombok:lombok'
+
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.h2database:h2'
 
+	//롬복
+	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 	annotationProcessor 'org.projectlombok:lombok'
+	testCompileOnly 'org.projectlombok:lombok'
+	testAnnotationProcessor 'org.projectlombok:lombok'
+
 
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
-	implementation 'org.springframework.boot:spring-boot-starter-hateoas'
+	//implementation 'org.springframework.boot:spring-boot-starter-hateoas'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
-
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
+	// google OAuth2.0
+	implementation 'com.google.api-client:google-api-client:1.33.0'
+	// JWT
+	compileOnly group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.2'
+	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.2'
+	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.2'
 
 	//model mapper
 	implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.4.2'
@@ -45,13 +63,22 @@ dependencies {
 	//thymeleaf - for test file
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
-	//테스트에서 롬복 사용
-	testCompileOnly 'org.projectlombok:lombok'
-	testAnnotationProcessor 'org.projectlombok:lombok'
-
 	//API DOCS
 	implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.7.0'
 	implementation group: 'org.springdoc', name: 'springdoc-openapi-security', version: '1.7.0'
+
+	// MySQL
+	implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.32'
+	// Mongo
+	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
+
+	// websocket
+	implementation 'org.springframework.boot:spring-boot-starter-websocket'
+
+	// mail send service
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+
 }
 
 test {
