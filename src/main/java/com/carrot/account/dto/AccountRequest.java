@@ -1,6 +1,7 @@
 package com.carrot.account.dto;
 
 import com.carrot.account.domain.Account;
+import com.carrot.attachfile.AppImage;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,11 +11,13 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class AccountRequestDto {
+public class AccountRequest {
     private String nickname;
     //private AccountType accountType;
+    private AppImage appImage;
+    private String introduceMessage;
 
-    public Account createAccount() {
+    public Account to() {
         return Account.builder()
                 .nickname(nickname)
                 //.accountType(accountType)

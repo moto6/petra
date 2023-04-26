@@ -2,7 +2,7 @@ package com.carrot.account.controller;
 
 import com.carrot.account.domain.Account;
 import com.carrot.account.dto.AccountDto;
-import com.carrot.account.dto.AccountRequestDto;
+import com.carrot.account.dto.AccountRequest;
 import com.carrot.account.dto.AccountResponseDto;
 import com.carrot.account.service.AccountService;
 import com.carrot.auth.AuthUser;
@@ -51,9 +51,9 @@ public class AccountController {
     }
 
     @PostMapping
-    public ResponseEntity<?> creatAccount(@RequestBody AccountRequestDto request) {
+    public ResponseEntity<?> creatAccount(@RequestBody AccountRequest request) {
 
-        Account account = accountService.create(request.createAccount());
+        Account account = accountService.create(request.to());
         return ApiResult.success(new AccountResponseDto(account), HttpStatus.CREATED).responseBuild();
     }
 
