@@ -15,7 +15,7 @@ import static com.carrot.article.util.SearchType.SALE;
 @Controller
 @RequestMapping("/post")
 @RequiredArgsConstructor
-public class ArticleMvcController {
+public class ArticleViewController {
 
     private final ArticleService articleService;
 

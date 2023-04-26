@@ -32,13 +32,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("api/v1/account")
 @RestController
 @RequiredArgsConstructor
-public class AccountApiController {
+public class AccountController {
 
     private final AccountService accountService;
 
     private final ModelMapper modelMapper;
 
-    @Operation(summary = "나는누구 여긴어디 API(여기다가 메뉴 : 회원>>내정보 이런정보 넣어주셈",description = "아 오늘은 일찍자야하는데.. 코딩너무 맛있고 어쩌고 저쩌고에 대한 설명을 쓰셈")
+    @Operation(summary = "나는누구 여긴어디 API(여기다가 메뉴 : 회원>>내정보 이런정보 넣어주셈",description = "아 오늘은 일찍자야하는데.. 코딩너무 맛있고 어쩌고 저쩌고에 대한 설명을 쓰")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "조회 성공"),
             @ApiResponse(responseCode = "400", description = "실패코드 : 4001, 4002", content = @Content(schema = @Schema(implementation = Respons.class)))

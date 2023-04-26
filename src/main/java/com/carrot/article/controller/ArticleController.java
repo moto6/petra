@@ -28,7 +28,7 @@ import static com.carrot.article.util.SearchType.SearchTypeAdaptor;
 @RequestMapping("/api/v1/article")
 @RestController
 @RequiredArgsConstructor
-public class ArticleApiController {
+public class ArticleController {
 
     private final ArticleService articleService;
 
