@@ -1,4 +1,4 @@
-package com.carrot.web.controller;
+package com.carrot.admin;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
