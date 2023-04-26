@@ -2,9 +2,11 @@ package com.carrot.account.service;
 
 import com.carrot.account.domain.Account;
 import com.carrot.attachfile.AppImage;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class MypageService {
     public Object accountInfo(Account account) {
         throw new RuntimeException();

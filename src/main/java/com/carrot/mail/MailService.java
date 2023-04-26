@@ -1,8 +1,12 @@
 package com.carrot.mail;
 
 import com.carrot.common.response.MyAppRespons;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
+@Service
+@RequiredArgsConstructor
 public class MailService {
     public ResponseEntity<MyAppRespons> sendFindPasswordMail(String email) {
         throw new RuntimeException("impl not yet");

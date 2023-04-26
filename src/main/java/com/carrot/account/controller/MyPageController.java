@@ -38,7 +38,7 @@ public class MyPageController {
             @ApiResponse(responseCode = "200", description = " 프사변경~ 성공"),
             @ApiResponse(responseCode = "400", description = "에러코드 : ~", content = @Content(schema = @Schema(implementation = MyAppRespons.class)))
     })
-    @PostMapping
+    @PutMapping("/image")
     public void changeImage(Account account, AppImage image) {
         mypageService.changeImage(account, image);
         throw new RuntimeException();
@@ -49,7 +49,7 @@ public class MyPageController {
             @ApiResponse(responseCode = "200", description = "회원정보 변경 ~ 성공"),
             @ApiResponse(responseCode = "400", description = "에러코드 : ~", content = @Content(schema = @Schema(implementation = MyAppRespons.class)))
     })
-    @PatchMapping
+    @PutMapping
     public String changeProfile(Account account, AccountRequest accountRequest) {
         mypageService.changeProfile(account, accountRequest.to());
         throw new RuntimeException();
@@ -60,7 +60,7 @@ public class MyPageController {
             @ApiResponse(responseCode = "200", description = "탈퇴요청~ 성공"),
             @ApiResponse(responseCode = "400", description = "에러코드 : ~", content = @Content(schema = @Schema(implementation = MyAppRespons.class)))
     })
-    @PostMapping
+    @DeleteMapping
     public String quitAccount(Account account) {
         mypageService.quit(account);
         throw new RuntimeException();
