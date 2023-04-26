@@ -49,8 +49,9 @@ dependencies {
 	testCompileOnly 'org.projectlombok:lombok'
 	testAnnotationProcessor 'org.projectlombok:lombok'
 
-	//api 문서화 스웨거
-	implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
+	//API DOCS
+	implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.7.0'
+	implementation group: 'org.springdoc', name: 'springdoc-openapi-security', version: '1.7.0'
 }
 
 test {
