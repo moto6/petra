@@ -25,4 +25,10 @@ public class WebController {
     }
 
 
+    @GetMapping("/docs")
+    public String docs() {
+        return "redirect:/swagger-ui/index.html";
+    }
+
+
 }
